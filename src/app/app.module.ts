@@ -5,7 +5,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
+import { Network } from '@ionic-native/network/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 /** Services */
 import { ApiCallService } from './Services/api-call/api-call.service';
 import { AuthService } from './Services/auth/auth.service';
+import { NetworkService } from './Services/network/network.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,8 @@ import { AuthService } from './Services/auth/auth.service';
     SplashScreen,
     ApiCallService,
     AuthService,
+    NetworkService,
+    Network,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

@@ -1,2 +1,10 @@
-.login {
+.loginPage {
+  .setBorder {
+    border: 1px solid #1d5b8f;
+    border-radius: 10px;
+    --padding-start: 10px;
+  }
+  .removeSpaces {
+    --inner-padding-end: 0px;
+  }
 }

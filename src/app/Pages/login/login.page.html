@@ -1,10 +1,13 @@
 <ion-content class="loginPage">
-    <ion-card>
+    <ion-card color="light" class="loginCard">
       <ion-row class="ion-padding">
+        <ion-col size="12" class="ion-text-center">
+          <h4><strong>Sing In</strong></h4>
+        </ion-col>
         <ion-col size="12">
           <form [formGroup]="loginForm">
-            <ion-list>
-              <ion-item lines="none" class="ion-no-padding removeSpaces">
+            <ion-list color="light">
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces">
                 <ion-label position="stacked" mode="ios">Your E-mail</ion-label>
                 <ion-input type="email" name="email" mode="ios" class="setBorder" formControlName="email">
                 </ion-input>
@@ -15,7 +18,7 @@
                   <ion-text color="danger">Enter valid email</ion-text>
                 </div>
               </div>
-              <ion-item lines="none" class="ion-no-padding removeSpaces">
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces">
                 <ion-label position="stacked" mode="ios">Password</ion-label>
                 <ion-input type="password" name="password" mode="ios" class="setBorder" formControlName="password">
                 </ion-input>

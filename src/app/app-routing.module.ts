@@ -20,6 +20,10 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./Pages/home/home.module').then( m => m.HomePageModule),
     canActivate: [AuthService]
+  },
+  {
+    path: 'create-profile-intro',
+    loadChildren: () => import('./Pages/create-profile-intro/create-profile-intro.module').then( m => m.CreateProfileIntroPageModule)
   }
 ];
 @NgModule({

@@ -6,7 +6,6 @@
         </ion-col>
         <ion-col size="12">
           <form [formGroup]="loginForm">
-            <!-- <ion-list color="light"> -->
               <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
                 <ion-label position="stacked" mode="ios">Your E-mail</ion-label>
                 <ion-input type="email" name="email" mode="ios" class="setBorder" formControlName="email">
@@ -32,7 +31,6 @@
                   <ion-text color="danger">Enter password at least 6 character</ion-text>
                 </div>
               </div>
-            <!-- </ion-list> -->
           </form>
         </ion-col>
         <ion-col size="6" class="ion-text-left">
@@ -52,7 +50,7 @@
           OR
         </ion-col>
         <ion-col size="8" offset="2">
-          <ion-button color="medium" shape="round" expand="block" mode="ios"> Sign Up </ion-button>
+          <ion-button color="medium" shape="round" expand="block" mode="ios" routerLink="/create-profile-intro"> Sign Up </ion-button>
         </ion-col>
       </ion-row>
     </ion-card>

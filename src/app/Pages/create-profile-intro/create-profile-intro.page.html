@@ -1,0 +1,43 @@
+<ion-content class="createProfileIntro">
+  <ion-card color="light" class="loginCard">
+    <ion-row class="ion-padding">
+      <ion-col size="12" class="ion-text-center">
+        <h4 class="ion-no-margin"><strong>Your event Profile</strong></h4>
+      </ion-col>
+      <ion-col size="12" class="ion-text-center">
+        <span>
+          This how you appear in your app. Make sure your details are correct, so othet attendees can connect with you.
+        </span>
+      </ion-col>
+      <ion-col size="12" class="ion-text-center ion-margin-top">
+        <img class="userProfile" src="assets/images/profile_photo_icon.png" />
+      </ion-col>
+      <ion-col size="12" class="ion-text-center">
+        <h4 class="ion-no-margin"><strong>Johon Doe</strong></h4>
+      </ion-col>
+      <ion-col size="12" class="ion-text-center">
+        <p class="ion-no-margin">
+          <ion-icon class="setFontSize" src="assets/icon/location-outline.svg"></ion-icon>San Fransisco, CA
+        </p>
+      </ion-col>
+      <ion-col size="12">
+        <ion-button type="submit" color="primary" shape="round" expand="block" >
+          Create Profile
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button fill="clear" color="light" routerLink="/login" routerDirection="back">
+          <ion-icon slot="icon-only" color="light" src="assets/icon/arrow-back-outline.svg"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="6" class="ion-text-right">
+        <ion-button color="light">
+          Skip
+          <ion-icon slot="end" src="assets/icon/chevron-forward-outline.svg"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>

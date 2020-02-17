@@ -1,4 +1,14 @@
-
-.tab-selected{
+.tab-selected {
     border-top: 3px solid var(--ion-color-danger);
+}
+
+.customTabs {
+    .setImagesSize {
+        width: 20px;
+        height: auto;
+    }
+    .setFontSize{
+        font-size: 10px;
+        margin-top: 5px;
+    }
 }

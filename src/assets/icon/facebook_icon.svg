@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="42.42" height="42.42" viewBox="0 0 42.42 42.42">
+  <g id="facebook" transform="translate(-206.5 -145.58)">
+    <g id="Symbol_3_1" data-name="Symbol 3 1">
+      <rect id="Rectangle_1458" data-name="Rectangle 1458" width="12.12" height="12.12" transform="translate(221.65 160.73)" fill="none"/>
+      <path id="Path_1" data-name="Path 1" d="M228.787,172.85v-5.521h1.886l.269-2.155h-2.155v-1.347c0-.606.2-1.077,1.077-1.077h1.145V160.8c-.269,0-.942-.067-1.683-.067a2.6,2.6,0,0,0-2.765,2.421,2.631,2.631,0,0,0,0,.407v1.616H224.68v2.155h1.885v5.521Z" fill="#90a4ae" fill-rule="evenodd"/>
+    </g>
+    <g id="Ellipse_43" data-name="Ellipse 43">
+      <circle id="Ellipse_31" data-name="Ellipse 31" cx="21.21" cy="21.21" r="21.21" transform="translate(206.5 145.58)" fill="none"/>
+      <circle id="Ellipse_32" data-name="Ellipse 32" cx="20.831" cy="20.831" r="20.831" transform="translate(206.879 145.959)" fill="none" stroke="#90a4ae" stroke-width="0.757"/>
+    </g>
+  </g>
+</svg>

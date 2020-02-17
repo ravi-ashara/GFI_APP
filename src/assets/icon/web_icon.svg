@@ -1,0 +1,14 @@
+<svg height="42.42" viewBox="0 0 42.42 42.42" width="42.42" xmlns="http://www.w3.org/2000/svg">
+    <g data-name="g " id="g_" transform="translate(-315.58 -145.58)">
+        <g data-name="Ellipse 41" id="Ellipse_41">
+            <circle cx="21.21" cy="21.21" data-name="Ellipse 27" fill="none" id="Ellipse_27"
+                r="21.21" transform="translate(315.58 145.58)" />
+            <circle cx="20.831" cy="20.831" data-name="Ellipse 28" fill="none" id="Ellipse_28"
+                r="20.831" stroke="#90a4ae" stroke-width="0.757"
+                transform="translate(315.959 145.959)" />
+        </g>
+        <path d="M337,160a7,7,0,1,0,7,7A7,7,0,0,0,337,160Zm-.7,12.551A5.591,5.591,0,0,1,331.4,167a5.684,5.684,0,0,1,.147-1.253L334.9,169.1v.7a1.4,1.4,0,0,0,1.4,1.4Zm4.83-1.778a1.388,1.388,0,0,0-1.33-.973h-.7v-2.1a.7.7,0,0,0-.7-.7h-4.2v-1.4h1.4a.7.7,0,0,0,.7-.7v-1.4h1.4a1.4,1.4,0,0,0,1.4-1.4v-.287a5.587,5.587,0,0,1,2.03,8.96Z" data-name="ic public 24px"
+            fill="#90a4ae"
+            id="ic_public_24px" />
+    </g>
+</svg>

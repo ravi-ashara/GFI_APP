@@ -24,6 +24,14 @@ const routes: Routes = [
   {
     path: 'create-profile-intro',
     loadChildren: () => import('./Pages/create-profile-intro/create-profile-intro.module').then( m => m.CreateProfileIntroPageModule)
+  },
+  {
+    path: 'settings',
+    loadChildren: () => import('./Pages/settings/settings.module').then( m => m.SettingsPageModule)
+  },
+  {
+    path: 'notification',
+    loadChildren: () => import('./Pages/notification/notification.module').then( m => m.NotificationPageModule)
   }
 ];
 @NgModule({

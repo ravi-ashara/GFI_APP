@@ -1,0 +1,38 @@
+<ion-header mode="ios">
+  <ion-toolbar color="primary ion-padding-vertical" mode="ios">
+    <ion-buttons slot="start">
+      <ion-avatar class="ion-margin-start SetImagesSize">
+        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+      </ion-avatar>
+    </ion-buttons>
+    <ion-title>Notification</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="notificationPage">
+  <ion-card class="notificationList">
+    <ion-item-sliding>
+      <ion-item-options side="end">
+        <ion-item-option>
+          <ion-icon name="close" slot="top" size="large"></ion-icon>
+          Delete
+        </ion-item-option>
+        <ion-item-option>
+          <ion-icon slot="top" name="arrow-undo" mode="md" size="large"></ion-icon>
+          Reply
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item lines="none">
+        <ion-avatar slot="start">
+          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+        </ion-avatar>
+        <ion-label>David Lee<span class="setSmallSizeFont"> Sent you a message</span>
+          <p>4 min ago</p>
+        </ion-label>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-card>
+  
+</ion-content>

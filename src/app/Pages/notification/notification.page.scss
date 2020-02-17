@@ -1,0 +1,15 @@
+.notificationPage {
+    --background: url(../../../assets/images/background_login.png) 0 0/100% 100% no-repeat;
+    
+    .notificationList{
+        .setSmallSizeFont{
+            font-size: 12px;
+        }
+    }
+}
+
+.SetImagesSize {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--ion-color-light);
+}

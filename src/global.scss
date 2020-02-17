@@ -36,3 +36,11 @@
         --border-width: 0 !important;
     }
 }
+
+.customBackground {
+    --background: url(assets/images/background_color_navigator.png) 0 0/100% 100% no-repeat;
+}
+
+.headerCustomColor {
+    background: #3ee4f3;
+}

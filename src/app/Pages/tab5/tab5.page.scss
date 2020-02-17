@@ -1,0 +1,13 @@
+.morePage{
+    .moreList{
+        border-top: 5px solid var(--ion-color-primary);
+        .smallPadding{
+            padding-top: 8px;
+            padding-bottom: 8px;
+            .setFontSize{
+                font-size: 18px;
+                font-weight: 500;
+            }
+        }
+    }
+}

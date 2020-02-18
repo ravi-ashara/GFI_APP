@@ -32,6 +32,10 @@ const routes: Routes = [
   {
     path: 'notification',
     loadChildren: () => import('./Pages/notification/notification.module').then( m => m.NotificationPageModule)
+  },
+  {
+    path: 'create-profile',
+    loadChildren: () => import('./Pages/create-profile/create-profile.module').then( m => m.CreateProfilePageModule)
   }
 ];
 @NgModule({

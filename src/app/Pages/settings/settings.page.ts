@@ -1,3 +1,4 @@
+import { ApiCallService } from './../../Services/api-call/api-call.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,5 +8,11 @@ import { Component } from '@angular/core';
 })
 export class SettingsPage{
 
-  constructor() { }
+  constructor(public apicall: ApiCallService) { }
+
+  presentPopover(){
+    this.apicall.showPopover().then((val: any) => {
+      console.log(val);
+    });
+  }
 }

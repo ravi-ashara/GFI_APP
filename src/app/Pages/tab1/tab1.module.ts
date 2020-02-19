@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
-import { ComponentsModule } from './../../Components/components.module';
 
 @NgModule({
   imports: [
@@ -12,7 +11,6 @@ import { ComponentsModule } from './../../Components/components.module';
     CommonModule,
     FormsModule,
     RouterModule.forChild([{ path: '', component: Tab1Page }]),
-    ComponentsModule
   ],
   declarations: [Tab1Page]
 })

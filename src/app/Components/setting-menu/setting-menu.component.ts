@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-setting-menu',
@@ -8,9 +8,13 @@ import { PopoverController } from '@ionic/angular';
 })
 export class SettingMenuComponent {
 
-  constructor(public popoverController: PopoverController) { }
+  constructor(public popoverController: PopoverController,
+    public navCtrl: NavController) { }
 
-  closePopover(val: any){
+  closePopover(val: any) {
     this.popoverController.dismiss(val);
+    if (val === 'Setting') {
+      this.navCtrl.navigateForward(['/settings']);
+    }
   }
 }

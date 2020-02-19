@@ -1,7 +1,5 @@
 import { ApiCallService } from './../../Services/api-call/api-call.service';
 import { Component } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
-import { SettingMenuComponent } from './../../Components/setting-menu/setting-menu.component';
 
 @Component({
   selector: 'app-tab1',

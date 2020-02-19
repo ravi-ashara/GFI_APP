@@ -16,17 +16,23 @@ import { ApiCallService } from './Services/api-call/api-call.service';
 import { AuthService } from './Services/auth/auth.service';
 import { NetworkService } from './Services/network/network.service';
 
+/** Components */
+import { ComponentsModule } from './Components/components.module';
+import { SettingMenuComponent } from './Components/setting-menu/setting-menu.component';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
-  entryComponents: [],
+  entryComponents: [
+    SettingMenuComponent
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ComponentsModule
   ],
   providers: [
     StatusBar,

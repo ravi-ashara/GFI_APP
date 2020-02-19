@@ -1,6 +1,7 @@
+import { SettingMenuComponent } from './../../Components/setting-menu/setting-menu.component';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Platform, AlertController, ToastController, LoadingController } from '@ionic/angular';
+import { Platform, AlertController, ToastController, LoadingController, PopoverController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -13,7 +14,8 @@ export class ApiCallService {
     public platform: Platform,
     public alertController: AlertController,
     public toastController: ToastController,
-    public loadingController: LoadingController) { }
+    public loadingController: LoadingController,
+    public popoverController: PopoverController) { }
 
   showLoader() {
     this.loading = this.loadingController.create({
@@ -142,5 +144,21 @@ export class ApiCallService {
     }).then((toast: any) => {
       toast.present();
     });
+  }
+
+  showPopover() {
+    return new Promise((resolve, reject) => {
+      this.popoverController.create({
+        component: SettingMenuComponent,
+        translucent: true,
+        cssClass: 'customPopover',
+        mode: 'md'
+      }).then((popover: any) => {
+        popover.present();
+        popover.onDidDismiss().then((val: any) => {
+          resolve(val);
+        })
+      });
+    })
   }
 }

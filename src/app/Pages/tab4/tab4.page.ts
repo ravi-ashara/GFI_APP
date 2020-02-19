@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApiCallService } from '../../Services/api-call/api-call.service';
 
 @Component({
   selector: 'app-tab4',
@@ -7,6 +8,12 @@ import { Component } from '@angular/core';
 })
 export class Tab4Page {
 
-  constructor() { }
+  constructor(public apicall: ApiCallService) { }
+
+  presentPopover() {
+    this.apicall.showPopover().then((val: any) => {
+      console.log(val);
+    });
+  }
 
 }

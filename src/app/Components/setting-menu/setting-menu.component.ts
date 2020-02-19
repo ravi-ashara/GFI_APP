@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-setting-menu',
   templateUrl: './setting-menu.component.html',
   styleUrls: ['./setting-menu.component.scss'],
 })
-export class SettingMenuComponent implements OnInit {
+export class SettingMenuComponent {
 
-  constructor() { }
+  constructor(public popoverController: PopoverController) { }
 
-  ngOnInit() {}
-
+  closePopover(val: any){
+    this.popoverController.dismiss(val);
+  }
 }

@@ -45,6 +45,25 @@
     background: #3ee4f3;
 }
 
-ion-item{
-    --background-activated:transparent;
+ion-item {
+    --background-activated: transparent;
+}
+
+.customHeader {
+    .smallPadding{
+        padding-top: 16px;
+        padding-bottom: 8px;
+    }
+    .SetImagesSize {
+        width: 40px;
+        height: 40px;
+        border: 2px solid var(--ion-color-light);
+    }
+}
+
+.customPopover {
+    .popover-content {
+        top: 60px !important;
+        left: 25px !important;
+    }
 }

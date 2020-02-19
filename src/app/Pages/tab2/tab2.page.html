@@ -1,6 +1,14 @@
-<ion-header mode="ios">
-  <ion-toolbar color="secondary" mode="ios">
+<ion-header mode="ios" class="customHeader">
+  <ion-toolbar color="secondary" class="smallPadding" mode="ios">
+    <ion-buttons slot="start">
+      <ion-avatar class="ion-margin-start SetImagesSize" (click)="presentPopover()">
+        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+      </ion-avatar>
+    </ion-buttons>
     <ion-title>Conference Book</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

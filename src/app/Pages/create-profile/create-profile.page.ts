@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-profile',
@@ -8,10 +9,14 @@ import { Component } from '@angular/core';
 export class CreateProfilePage {
 
   setStep: string = "step1";
-  constructor() { }
+  constructor(private navCtrl: NavController) { }
 
   changeStap(val: any) {
     this.setStep = val;
   }
 
+  registerProfile() {
+    localStorage.isLogin = true;
+    this.navCtrl.navigateRoot(['/tabs/tab1']);
+  }
 }

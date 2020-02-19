@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -8,7 +9,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class LoginPage {
   @ViewChild('checkstaySingIng', { static: false }) checkstaySingIng;
   public loginForm: FormGroup;
-  constructor(public formBuilder: FormBuilder) {
+  constructor(public formBuilder: FormBuilder,
+    private navCtrl: NavController) {
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.email],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -30,5 +32,7 @@ export class LoginPage {
       localStorage.isRemember = 'false';
     }
     localStorage.loginDetails = JSON.stringify(val.value);
+    localStorage.isLogin = true;
+    this.navCtrl.navigateRoot(['/tabs/tab1']);
   }
 }

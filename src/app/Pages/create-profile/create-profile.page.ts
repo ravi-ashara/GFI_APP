@@ -9,10 +9,12 @@ import { NavController } from '@ionic/angular';
 export class CreateProfilePage {
 
   setStep: string = "step1";
+  buttonName: string = '';
   constructor(private navCtrl: NavController) { }
 
-  changeStap(val: any) {
+  changeStap(val: any, val_buttonName: any) {
     this.setStep = val;
+    this.buttonName = val_buttonName;
   }
 
   registerProfile() {

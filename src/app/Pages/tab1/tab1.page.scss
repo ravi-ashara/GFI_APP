@@ -1,0 +1,13 @@
+.companyCard {
+    .setBorderbottom {
+        border-bottom: 1px solid var(--ion-color-medium);
+    }
+
+    .setBordertop {
+        border-top: 1px solid var(--ion-color-medium);
+    }
+
+    .setcardContent {
+        padding: 10px;
+    }
+}

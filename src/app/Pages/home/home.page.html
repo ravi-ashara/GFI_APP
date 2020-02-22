@@ -1,9 +1,96 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Home</ion-title>
+<ion-header mode="ios" class="customHeader">
+  <ion-toolbar color="secondary" class="smallPadding" mode="ios">
+    <ion-buttons slot="start">
+      <ion-avatar class="ion-margin-start SetImagesSize" (click)="presentPopover()">
+        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+      </ion-avatar>
+    </ion-buttons>
+    <ion-title>
+      <img src="assets/images/agenda_logo.png" />
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" src="assets/icon/create-outline.svg"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="customBackground homePage">
+  <ion-card color="light" class="companyCard">
+    <ion-item color="light" lines="none" class="setBorderbottom">
+      <ion-avatar slot="start">
+        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+      </ion-avatar>
+      <ion-label>My Profile
+        <p>@johndoe 49</p>
+      </ion-label>
+    </ion-item>
 
+    <ion-card-content class="setcardContent ion-no-padding">
+      This is content, without any paragraph or header tags,
+      within an ion-card-content element.
+    </ion-card-content>
+    <ion-item color="light" lines="none" class="setBordertop">
+      <ion-button size="small" slot="start">
+        Entrepreneur
+      </ion-button>
+      <ion-icon slot="end" name="add-circle-outline" color="medium"></ion-icon>
+      <ion-icon slot="end" src="assets/icon/chatbox-outline.svg" color="medium"></ion-icon>
+    </ion-item>
+  </ion-card>
+
+  <ion-card color="light" class="companyCard">
+    <ion-item color="light" lines="none" class="setBorderbottom">
+      <ion-avatar slot="start">
+        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+      </ion-avatar>
+      <ion-label>My Profile
+        <p>@johndoe 49</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-card-content class="setcardContent ion-no-padding">
+      This is content, without any paragraph or header tags,
+      within an ion-card-content element.
+    </ion-card-content>
+    <ion-item color="light" lines="none" class="setBordertop">
+      <ion-button size="small" slot="start" color="danger">
+        Investor
+      </ion-button>
+      <ion-icon slot="end" name="add-circle-outline" color="medium"></ion-icon>
+      <ion-icon slot="end" src="assets/icon/chatbox-outline.svg" color="medium"></ion-icon>
+    </ion-item>
+  </ion-card>
 </ion-content>
+<ion-footer>
+  <ion-tab-bar slot="bottom" color="primary" class="customTabs">
+    <ion-tab-button tab="tab1" (click)="navigationTab('/tabs/tab1')">
+      <ion-img src="assets/images/agenda_icon.png" class="setImagesSize"></ion-img>
+      <ion-label class="setFontSize">Agenda</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab2" (click)="navigationTab('/tabs/tab2')">
+      <ion-img src="assets/images/conference_book_icon.png" class="setImagesSize"></ion-img>
+      <ion-label class="setFontSize">Conference Book</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab3" (click)="navigationTab('/tabs/tab3')">
+      <ion-img src="assets/images/shedule_icon.png" class="setImagesSize"></ion-img>
+      <ion-label class="setFontSize">My Schedule</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab4" (click)="navigationTab('/tabs/tab4')">
+      <ion-img src="assets/images/companies_icon.png" class="setImagesSize"></ion-img>
+      <ion-label class="setFontSize">Companies</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab5" (click)="navigationTab('/tabs/tab5')">
+      <ion-img src="assets/images/more_icon.png" class="setImagesSize"></ion-img>
+      <ion-label class="setFontSize">More</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-footer>

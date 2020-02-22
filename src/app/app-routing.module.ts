@@ -5,12 +5,16 @@ import { AuthService } from './Services/auth/auth.service';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'tabs',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
     path: '',
     loadChildren: () => import('./Pages/tabs/tabs.module').then(m => m.TabsPageModule),
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./Pages/home/home.module').then(m => m.HomePageModule),
     canActivate: [AuthService]
   },
   {

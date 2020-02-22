@@ -1,7 +1,7 @@
 import { SettingMenuComponent } from './../../Components/setting-menu/setting-menu.component';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Platform, AlertController, ToastController, LoadingController, PopoverController } from '@ionic/angular';
+import { Platform, AlertController, ToastController, LoadingController, PopoverController, NavController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -15,7 +15,8 @@ export class ApiCallService {
     public alertController: AlertController,
     public toastController: ToastController,
     public loadingController: LoadingController,
-    public popoverController: PopoverController) { }
+    public popoverController: PopoverController,
+    public navCtrl: NavController) { }
 
   showLoader() {
     this.loading = this.loadingController.create({
@@ -160,5 +161,10 @@ export class ApiCallService {
         })
       });
     })
+  }
+
+  callLogout(){
+    localStorage.isLogin = false;
+    this.navCtrl.navigateRoot(['/login'])
   }
 }

@@ -1,3 +1,4 @@
+import { ApiCallService } from './../../Services/api-call/api-call.service';
 import { Component } from '@angular/core';
 import { PopoverController, NavController } from '@ionic/angular';
 
@@ -13,8 +14,16 @@ export class SettingMenuComponent {
 
   closePopover(val: any) {
     this.popoverController.dismiss(val);
-    if (val === 'Setting') {
-      this.navCtrl.navigateForward(['/settings']);
+    switch (val) {
+      case 'Setting':
+        this.navCtrl.navigateForward(['/settings']);
+        break;
+      case 'Logout':
+        this.navCtrl.navigateRoot(['/login']);
+        localStorage.isLogin = false;
+        break;
+      default:
+        break;
     }
   }
 }

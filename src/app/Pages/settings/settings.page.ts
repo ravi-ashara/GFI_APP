@@ -6,13 +6,17 @@ import { Component } from '@angular/core';
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
 })
-export class SettingsPage{
+export class SettingsPage {
 
   constructor(public apicall: ApiCallService) { }
 
-  presentPopover(){
+  presentPopover() {
     this.apicall.showPopover().then((val: any) => {
       console.log(val);
     });
+  }
+
+  logout() {
+    this.apicall.callLogout();
   }
 }

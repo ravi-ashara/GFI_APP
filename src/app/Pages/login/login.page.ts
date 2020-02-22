@@ -33,6 +33,6 @@ export class LoginPage {
     }
     localStorage.loginDetails = JSON.stringify(val.value);
     localStorage.isLogin = true;
-    this.navCtrl.navigateRoot(['/tabs/tab1']);
+    this.navCtrl.navigateRoot(['/home']);
   }
 }

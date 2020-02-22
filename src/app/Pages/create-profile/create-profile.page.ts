@@ -19,6 +19,6 @@ export class CreateProfilePage {
 
   registerProfile() {
     localStorage.isLogin = true;
-    this.navCtrl.navigateRoot(['/tabs/tab1']);
+    this.navCtrl.navigateRoot(['/home']);
   }
 }

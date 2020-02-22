@@ -1,0 +1,37 @@
+.companiesPage {
+    .companyCard {
+        .companycardHeader {
+            border-top: 5px solid var(--ion-color-primary);
+            .setLogo {
+                width: 44px;
+                height: auto;
+                display: inline-block;
+            }
+        }
+
+        .companycardContent {
+            .companyTitle {
+                font-size: 16px;
+                font-weight: 600;
+            }
+        }
+
+        .companycardFooter {
+            .compnayDesc {
+                font-size: 12px;
+            }
+
+            .nameDesc {
+                font-size: 16px;
+                font-weight: 600;
+            }
+        }
+
+        .setBordertop {
+            border-top: 1px solid var(--ion-color-medium);
+        }
+    }
+    hr{
+        border-width: 1px;
+    }
+}

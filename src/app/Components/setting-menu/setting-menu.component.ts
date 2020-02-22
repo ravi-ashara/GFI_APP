@@ -22,6 +22,9 @@ export class SettingMenuComponent {
         this.navCtrl.navigateRoot(['/login']);
         localStorage.isLogin = false;
         break;
+      case 'Notification':
+        this.navCtrl.navigateForward(['/notification']);
+        break;
       default:
         break;
     }

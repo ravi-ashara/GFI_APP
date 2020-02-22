@@ -1,5 +1,5 @@
-<ion-header mode="ios">
-  <ion-toolbar color="primary ion-padding-vertical" mode="ios">
+<ion-header mode="ios" class="customHeader">
+  <ion-toolbar color="secondary smallPadding" mode="ios">
     <ion-buttons slot="start">
       <ion-avatar class="ion-margin-start SetImagesSize" (click)="presentPopover()">
         <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
@@ -7,12 +7,14 @@
     </ion-buttons>
     <ion-title>Setting</ion-title>
     <ion-buttons slot="end">
-      <ion-back-button></ion-back-button>
+      <ion-button routerLink="/home" routerDirection="root" fill="clear">
+        <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="settingPage">
+<ion-content class="settingPage customBackground">
   <ion-card color="light" class="loginCard">
     <ion-item class="ion-no-padding ion-text-center">
       <ion-label class="setTitle">PUSH NOTIFICATION</ion-label>

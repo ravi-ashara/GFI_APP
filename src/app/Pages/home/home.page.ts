@@ -8,16 +8,19 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
+  showSearch: boolean = false;
+  constructor(public apicall: ApiCallService, public navCtrl: NavController) { }
 
-  constructor(public apicall: ApiCallService,public navCtrl: NavController) { }
-
+  searchCompany() {
+    this.showSearch = !this.showSearch;
+  }
   presentPopover() {
     this.apicall.showPopover().then((val: any) => {
       console.log(val);
     });
   }
 
-  navigationTab(val: string){
+  navigationTab(val: string) {
     this.navCtrl.navigateForward([val]);
   }
 }

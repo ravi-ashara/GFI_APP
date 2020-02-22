@@ -1,5 +1,5 @@
 <ion-header mode="ios" class="customHeader">
-  <ion-toolbar color="secondary" class="smallPadding" mode="ios">
+  <ion-toolbar color="secondary" class="smallPadding" mode="ios" *ngIf="!showSearch">
     <ion-buttons slot="start">
       <ion-avatar class="ion-margin-start SetImagesSize" (click)="presentPopover()">
         <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
@@ -9,7 +9,7 @@
       <img src="assets/images/agenda_logo.png" />
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button fill="clear">
+      <ion-button fill="clear" (click)="searchCompany()">
         <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
       <ion-button fill="clear">
@@ -17,6 +17,7 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+  <ion-searchbar showCancelButton="focus" animated placeholder="Search companies" *ngIf="showSearch" (ionCancel)="searchCompany()" mode="ios"></ion-searchbar>
 </ion-header>
 
 <ion-content class="customBackground homePage">

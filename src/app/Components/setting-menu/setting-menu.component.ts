@@ -1,4 +1,3 @@
-import { ApiCallService } from './../../Services/api-call/api-call.service';
 import { Component } from '@angular/core';
 import { PopoverController, NavController } from '@ionic/angular';
 

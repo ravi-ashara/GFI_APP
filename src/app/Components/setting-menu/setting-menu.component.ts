@@ -24,6 +24,9 @@ export class SettingMenuComponent {
       case 'Notification':
         this.navCtrl.navigateForward(['/notification']);
         break;
+      case 'Messages':
+        this.navCtrl.navigateForward(['/message-list']);
+        break;
       default:
         break;
     }

@@ -1,0 +1,28 @@
+<ion-header mode="ios" class="customHeader">
+  <ion-toolbar color="secondary" class="smallPadding" mode="ios">
+    <ion-buttons slot="start">
+      <ion-avatar class="ion-margin-start SetImagesSize" (click)="presentPopover()">
+        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+      </ion-avatar>
+    </ion-buttons>
+    <ion-title>Message List</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/home" routerDirection="root" fill="clear">
+        <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="customBackground messageListPage">
+  <ion-card color="light">
+    <ion-item class="ion-no-padding itemList" lines="none" color="light" routerLink="/chat/1">
+      <ion-avatar slot="start">
+        <img src="../../../assets/images/sg1.jpg">
+      </ion-avatar>
+      <ion-label>Shawn
+        <p>Check out their other designs </p>
+      </ion-label>
+      <span slot="end" class="setTimeFont">09:15 AM</span>
+    </ion-item>
+  </ion-card>
+</ion-content>

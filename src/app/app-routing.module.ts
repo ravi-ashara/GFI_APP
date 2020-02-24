@@ -44,6 +44,10 @@ const routes: Routes = [
   {
     path: 'chat/:id',
     loadChildren: () => import('./Pages/chats/chats.module').then( m => m.ChatsPageModule)
+  },
+  {
+    path: 'create-meeting',
+    loadChildren: () => import('./Pages/create-meeting/create-meeting.module').then( m => m.CreateMeetingPageModule)
   }
 ];
 @NgModule({

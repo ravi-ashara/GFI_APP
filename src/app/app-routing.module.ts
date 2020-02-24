@@ -36,6 +36,14 @@ const routes: Routes = [
   {
     path: 'create-profile',
     loadChildren: () => import('./Pages/create-profile/create-profile.module').then( m => m.CreateProfilePageModule)
+  },
+  {
+    path: 'message-list',
+    loadChildren: () => import('./Pages/message-list/message-list.module').then( m => m.MessageListPageModule)
+  },
+  {
+    path: 'chat/:id',
+    loadChildren: () => import('./Pages/chats/chats.module').then( m => m.ChatsPageModule)
   }
 ];
 @NgModule({

@@ -50,10 +50,11 @@ ion-item {
 }
 
 .customHeader {
-    .smallPadding{
+    .smallPadding {
         padding-top: 16px;
         padding-bottom: 8px;
     }
+
     .SetImagesSize {
         width: 40px;
         height: 40px;
@@ -65,5 +66,18 @@ ion-item {
     .popover-content {
         top: 60px !important;
         left: 25px !important;
+    }
+}
+
+.deleteMeetingConfirm {
+    .alert-button-group {
+        .alert-button:nth-child(1) {
+            background-color: var(--ion-color-primary) !important;
+            color: white;
+        }
+        .alert-button:nth-child(2) {
+            background-color: var(--ion-color-danger) !important;
+            color: white;
+        }
     }
 }

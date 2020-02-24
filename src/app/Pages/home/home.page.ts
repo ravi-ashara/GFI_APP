@@ -14,6 +14,7 @@ export class HomePage {
   searchCompany() {
     this.showSearch = !this.showSearch;
   }
+
   presentPopover() {
     this.apicall.showPopover().then((val: any) => {
       console.log(val);
@@ -22,5 +23,11 @@ export class HomePage {
 
   navigationTab(val: string) {
     this.navCtrl.navigateForward([val]);
+  }
+
+  deleteMeetingFunc() {
+    this.apicall.deleteMeeting('', (callBack: any) => {
+      console.log(callBack);
+    })
   }
 }

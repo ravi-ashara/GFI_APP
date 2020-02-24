@@ -163,8 +163,33 @@ export class ApiCallService {
     })
   }
 
-  callLogout(){
+  callLogout() {
     localStorage.isLogin = false;
     this.navCtrl.navigateRoot(['/login'])
+  }
+
+  deleteMeeting(message: any, callBack: any) {
+    this.alertController.create({
+      header: 'Delete Meeting',
+      message: message ? message : 'Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs.',
+      mode: 'ios',
+      cssClass:'deleteMeetingConfirm',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            callBack('Cancel');
+          }
+        }, {
+          text: 'Delete',
+          handler: () => {
+            callBack('Delete');
+          }
+        }
+      ]
+    }).then((alert: any) => {
+      alert.present();
+    });
   }
 }

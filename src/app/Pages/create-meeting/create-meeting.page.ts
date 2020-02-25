@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-create-meeting',
   templateUrl: './create-meeting.page.html',
   styleUrls: ['./create-meeting.page.scss'],
 })
-export class CreateMeetingPage implements OnInit {
-
+export class CreateMeetingPage {
+  createMeeting: boolean = false;
   constructor() { }
 
-  ngOnInit() {
+  setMeetingData(){
+    this.createMeeting = !this.createMeeting;
   }
-
 }

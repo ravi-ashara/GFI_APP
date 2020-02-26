@@ -52,6 +52,14 @@ const routes: Routes = [
   {
     path: 'sponsor',
     loadChildren: () => import('./Pages/sponsor/sponsor.module').then( m => m.SponsorPageModule)
+  },
+  {
+    path: 'contact-organizer',
+    loadChildren: () => import('./Pages/contact-organizer/contact-organizer.module').then( m => m.ContactOrganizerPageModule)
+  },
+  {
+    path: 'conference-book',
+    loadChildren: () => import('./Pages/conference-book/conference-book.module').then( m => m.ConferenceBookPageModule)
   }
 ];
 @NgModule({

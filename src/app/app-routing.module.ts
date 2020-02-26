@@ -60,6 +60,10 @@ const routes: Routes = [
   {
     path: 'conference-book',
     loadChildren: () => import('./Pages/conference-book/conference-book.module').then( m => m.ConferenceBookPageModule)
+  },
+  {
+    path: 'my-profile',
+    loadChildren: () => import('./Pages/my-profile/my-profile.module').then( m => m.MyProfilePageModule)
   }
 ];
 @NgModule({

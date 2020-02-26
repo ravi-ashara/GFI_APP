@@ -27,6 +27,9 @@ export class SettingMenuComponent {
       case 'Messages':
         this.navCtrl.navigateForward(['/message-list']);
         break;
+      case 'My Profile':
+        this.navCtrl.navigateForward(['/my-profile']);
+        break;
       default:
         break;
     }

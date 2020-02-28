@@ -25,7 +25,7 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+      this.statusBar.styleLightContent();
       this.splashScreen.hide();
       this.handleHardwareBackButton();
     });
@@ -38,7 +38,7 @@ export class AppComponent {
       } else if (this.router.url === '/login') {
         navigator['app'].exitApp();
       } else {
-        if (this.router.url.includes('/tabs')) {
+        if (this.router.url === '/home') {
           this.alertModule.showConfirm('Goisrael App ','Are you sure you want to exit ?', ['Cancel', 'Exit'], (res: any) => {
             if (res === "Yes") {
               navigator['app'].exitApp();

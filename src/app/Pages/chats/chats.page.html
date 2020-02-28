@@ -7,8 +7,16 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="customBackground chatPage">
-  <ion-card color="light" id="chat-parent" class="bg-image">
+<ion-content class="customBackground chatPage main">
+  <div class="chat-box" id="chat-parent">
+    <div class="message-area" id="chat-container">
+      <div class="message" *ngFor="let message of conversation" [ngClass]="getClasses(message?.type)">
+        <p>{{message?.text}} <br /><span class="setFontRight">28-02-2020 22:00</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- <ion-card color="light" id="chat-parent" class="bg-image">
     <div id="chat-container">
       <ion-row *ngFor="let conv of conversation; let i = index;" class="full ion-no-padding">
         <ion-col class="no-padding chat-row" [ngClass]="{ 'reverse': conv?.sender}">
@@ -33,7 +41,7 @@
         </ion-col>
       </ion-row>
     </div>
-  </ion-card>
+  </ion-card> -->
 </ion-content>
 <ion-footer translucent>
   <ion-row class="input-position">
@@ -42,7 +50,7 @@
       </ion-input>
     </ion-col>
     <ion-col size="3">
-      <ion-button shape="round" class="send-button" color="d3blue" (click)="send()">
+      <ion-button size="small" class="send-button" (click)="send()">
         <ion-text color="light">SEND</ion-text>
       </ion-button>
     </ion-col>

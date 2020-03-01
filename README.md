@@ -1,2 +1,0 @@
-# goformeetapp
-Application Deployment

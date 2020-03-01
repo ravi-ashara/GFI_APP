@@ -1,0 +1,26 @@
+<ion-row>
+  <ion-col size="12">
+    <ion-item lines="none" (click)="closePopover('My Profile')">
+      <ion-icon slot="start" name="person" color="primary"></ion-icon>
+      <ion-label>My Profile</ion-label>
+    </ion-item>
+    <ion-item lines="none" (click)="closePopover('Setting')">
+      <ion-icon slot="start" name="settings" color="primary"></ion-icon>
+      <ion-label>Setting</ion-label>
+    </ion-item>
+    <ion-item lines="none" (click)="closePopover('Notification')">
+      <ion-icon slot="start" name="notifications" color="primary"></ion-icon>
+      <ion-label>Notification <ion-badge color="danger" class="setMiddle">11</ion-badge>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none" (click)="closePopover('Messages')">
+      <ion-icon slot="start" name="chatbubbles" color="primary"></ion-icon>
+      <ion-label>Messages <ion-badge color="danger">20</ion-badge>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none" (click)="closePopover('Logout')">
+      <ion-icon slot="start" name="power" color="primary"></ion-icon>
+      <ion-label>Logout</ion-label>
+    </ion-item>
+  </ion-col>
+</ion-row>

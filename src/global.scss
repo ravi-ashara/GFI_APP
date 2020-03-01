@@ -1,0 +1,83 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+@import "./theme/animate.css";
+
+.item-inner {
+    padding: 0 !important;
+    --padding: 0 !important;
+}
+
+.header-ios {
+    ion-toolbar:last-child {
+        --border-width: 0 !important;
+    }
+}
+
+.customBackground {
+    --background: url(assets/images/background_color_navigator.png) 0 0/100% 100% no-repeat;
+}
+
+.headerCustomColor {
+    background: #3ee4f3;
+}
+
+ion-item {
+    --background-activated: transparent;
+}
+
+.customHeader {
+    .smallPadding {
+        padding-top: 16px;
+        padding-bottom: 8px;
+    }
+
+    .SetImagesSize {
+        width: 40px;
+        height: 40px;
+        border: 2px solid var(--ion-color-light);
+    }
+}
+
+.customPopover {
+    .popover-content {
+        top: 60px !important;
+        left: 25px !important;
+    }
+}
+
+.deleteMeetingConfirm {
+    .alert-button-group {
+        .alert-button:nth-child(1) {
+            background-color: var(--ion-color-primary) !important;
+            color: white;
+        }
+        .alert-button:nth-child(2) {
+            background-color: var(--ion-color-danger) !important;
+            color: white;
+        }
+    }
+}

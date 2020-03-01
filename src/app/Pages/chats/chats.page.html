@@ -1,0 +1,58 @@
+<ion-header mode="ios" class="customHeader">
+  <ion-toolbar color="secondary" class="smallPadding" mode="ios">
+    <ion-title>Chats</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button mode="md"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="customBackground chatPage main">
+  <div class="chat-box" id="chat-parent">
+    <div class="message-area" id="chat-container">
+      <div class="message" *ngFor="let message of conversation" [ngClass]="getClasses(message?.type)">
+        <p>{{message?.text}} <br /><span class="setFontRight">28-02-2020 22:00</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- <ion-card color="light" id="chat-parent" class="bg-image">
+    <div id="chat-container">
+      <ion-row *ngFor="let conv of conversation; let i = index;" class="full ion-no-padding">
+        <ion-col class="no-padding chat-row" [ngClass]="{ 'reverse': conv?.sender}">
+          <div class="avatar-parent">
+            <div class="avatar-border"></div>
+            <img [src]="conv?.image" class="avatar">
+          </div>
+          <div [ngClass]="{ 'name-row-parent-right': conv?.sender,'name-row-parent-left': !conv?.sender}">
+            <div class="no-padding" [ngClass]="{ 'name-row-right': conv?.sender,'name-row-left': !conv?.sender}">
+              {{conv.sender ? 'Martha': 'Shawn'}}
+              <div [ngClass]="{ 'timer-right': conv?.sender,'timer-left': !conv?.sender}">{{i+5}} mins ago
+              </div>
+              <div [ngClass]="{ 'reverse-arc-right': conv?.sender,'reverse-arc-left': !conv?.sender}">
+                <div [ngClass]="{ 'reverse-arc-color-right': conv?.sender,'reverse-arc-color-left': !conv?.sender}">
+                </div>
+              </div>
+            </div>
+            <div classs="no-padding" [ngClass]="{ 'message-row-right': conv?.sender,'message-row-left': !conv?.sender}">
+              <span class="text ion-no-margin">{{conv?.text}}</span>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-card> -->
+</ion-content>
+<ion-footer translucent>
+  <ion-row class="input-position">
+    <ion-col size="9">
+      <ion-input class="input restrict ion-padding-start" type="text" placeholder="Type a message" [(ngModel)]="input">
+      </ion-input>
+    </ion-col>
+    <ion-col size="3">
+      <ion-button size="small" class="send-button" (click)="send()">
+        <ion-text color="light">SEND</ion-text>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

@@ -1,0 +1,36 @@
+<ion-header mode="ios" class="customHeader">
+  <ion-toolbar color="secondary" class="smallPadding" mode="ios">
+    <ion-buttons slot="start">
+      <ion-avatar class="ion-margin-start SetImagesSize" (click)="presentPopover()">
+        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+      </ion-avatar>
+    </ion-buttons>
+    <ion-title>More</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/home" routerDirection="root" fill="clear">
+        <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="customBackground morePage">
+  <ion-list class="ion-margin moreList">
+    <ion-item lines="none" class="smallPadding" routerLink="/sponsor" detail="false">
+      <ion-img src="assets/icon/ic_sponsors.svg"></ion-img>
+      <ion-label class="ion-padding-start setFontSize">Sponsors</ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-list class="ion-margin moreList">
+    <ion-item lines="none" class="smallPadding" routerLink="/contact-organizer" detail="false">
+      <ion-img src="assets/icon/ic_contact_organizer.svg"></ion-img>
+      <ion-label class="ion-padding-start setFontSize">Contact Organizer</ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-list class="ion-margin moreList">
+    <ion-item lines="none" class="smallPadding" routerLink="/conference-book" detail="false">
+      <ion-img src="assets/icon/ic_conference_guide.svg"></ion-img>
+      <ion-label class="ion-padding-start setFontSize">Conference Guide</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

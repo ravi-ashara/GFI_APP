@@ -1,0 +1,7 @@
+{
+  "name": "goforis",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,62 @@
+<ion-content>
+  <ion-row class="ion-padding-start ion-padding-top" *ngIf="!createMeeting">
+    <ion-col size="12">
+      <ion-item class="ion-no-padding">
+        <ion-label position="stacked">Select Participants</ion-label>
+        <ion-select okText="Okay" cancelText="Dismiss" mode="ios">
+          <ion-select-option value="Employee - Annie Salem">Employee - Annie Salem</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6" class="ion-text-right">
+      <ion-button fill="outline" shape="round">
+        Cancel
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button fill="outline" shape="round" (click)="setMeetingData()">
+        Next
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-padding-start ion-padding-top" *ngIf="createMeeting">
+    <ion-col size="12">
+      <ion-item class="ion-no-padding ion-padding-bottom">
+        <ion-icon slot="start" name="calendar" color="dark"></ion-icon>
+        <ion-label position="stacked">Picker in menu</ion-label>
+        <ion-datetime displayFormat="YYYY-MM-DD">
+        </ion-datetime>
+      </ion-item>
+
+      <ion-item class="ion-no-padding ion-padding-bottom">
+        <ion-icon slot="start" name="time" color="dark"></ion-icon>
+        <ion-label position="stacked">Interval</ion-label>
+        <ion-select okText="Okay" cancelText="Dismiss" mode="ios">
+          <ion-select-option value="06:30:00 - 07:00:00">06:30:00 - 07:00:00</ion-select-option>
+          <ion-select-option value="07:00:00 - 07:30:00">07:00:00 - 07:30:00</ion-select-option>
+          <ion-select-option value="07:30:00 - 08:00:00">07:30:00 - 08:00:00</ion-select-option>
+          <ion-select-option value="08:00:00 - 08:30:00">08:00:00 - 08:30:00</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="ion-no-padding ion-padding-bottom">
+        <ion-icon slot="start" src="../../../assets/icon/location-outline.svg"></ion-icon>
+        <ion-label position="stacked">Table</ion-label>
+        <ion-select okText="Okay" cancelText="Dismiss" mode="ios">
+          <ion-select-option value="">No data available</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6" class="ion-text-right">
+      <ion-button fill="outline" shape="round" routerLink="/home" routerDirection="root">
+        <ion-icon name="close" slot="icon-only" size="large"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button fill="outline" shape="round">
+        <ion-icon name="checkmark" slot="icon-only" size="large"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>

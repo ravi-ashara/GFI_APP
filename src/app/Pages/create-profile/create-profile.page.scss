@@ -1,0 +1,105 @@
+.createProfilePage {
+    --background: url(../../../assets/images/background_login.png) 0 0/100% 100% no-repeat;
+    $color-default: #bdc3c7;
+    $step-size: 30px;
+    $steps: 20;
+
+    .wizard {
+        $wizard: &;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        width: 100%;
+        display: table;
+        position: relative;
+
+        >* {
+            display: table-cell;
+            text-align: center;
+
+            .step {
+                width: $step-size;
+                height: $step-size;
+                border-radius: $step-size;
+                border: 1px solid $color-default;
+                color: $color-default;
+                font-weight: 300;
+                background: #fff;
+                text-align: center;
+                display: inline-block;
+                position: relative;
+                box-sizing: content-box;
+                z-index: 2;
+
+                >* {
+                    line-height: $step-size;
+                }
+            }
+        }
+
+        &:after {
+            content: " ";
+            border-bottom: 1px solid #ced1d9;
+            position: absolute;
+            z-index: 1;
+            top: 30%;
+        }
+
+        .setText {
+            font-size: 12px;
+            padding-top: 5px;
+        }
+
+        @for $i from 1 through $steps {
+            &-steps-#{$i} {
+                >* {
+                    width: 100% /$i;
+                }
+
+                &:after {
+                    left: (100%/$i/2);
+                    right: (100%/$i/2);
+                }
+            }
+        }
+    }
+
+    .userProfile {
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+    }
+
+    .radioCol {
+        .list-md,
+        .list-ios {
+            background: transparent;
+        }
+
+        .inlineRadiogroup {
+            width: 50%;
+            display: inline-block;
+
+            .setFontsize {
+                font-size: 12px;
+            }
+
+            ion-radio {
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .setBorder {
+        border: 1px solid #1d5b8f;
+        border-radius: 10px;
+        --padding-start: 10px;
+    }
+    
+    .setp2{
+        .setImageSize{
+            width: 50%;
+    display: inline-block;
+        }
+    }
+}

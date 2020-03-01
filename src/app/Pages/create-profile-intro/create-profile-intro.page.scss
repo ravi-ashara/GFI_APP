@@ -1,6 +1,4 @@
 .createProfileIntro {
-    --background: url(../../../assets/images/background_login.png) 0 0/100% 100% no-repeat;
-
     .loginCard {
         top: 15%;
 
@@ -9,7 +7,8 @@
             height: 100px;
             display: inline-block;
         }
-        .setFontSize{
+
+        .setFontSize {
             font-size: 14px;
             vertical-align: text-top;
         }

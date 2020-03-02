@@ -1,8 +1,13 @@
 <ion-header mode="ios" class="customHeader">
   <ion-toolbar color="secondary" class="smallPadding" mode="ios">
-    <ion-title>Chats</ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="start">
       <ion-back-button mode="md"></ion-back-button>
+    </ion-buttons>
+    <ion-title mode="md">{{getuserData?.userName}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-avatar class="ion-margin-start SetImagesSize">
+        <img [src]="getuserData?.img">
+      </ion-avatar>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

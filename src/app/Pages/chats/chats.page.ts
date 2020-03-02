@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chats',
@@ -7,14 +8,18 @@ import { ApiCallService } from '../../Services/api-call/api-call.service';
   styleUrls: ['./chats.page.scss'],
 })
 export class ChatsPage {
-
-  constructor(public apicall: ApiCallService) {
+  getuserData: any;
+  input: any = "";
+  constructor(public apicall: ApiCallService, public router: Router) {
+    if (this.router.getCurrentNavigation().extras.state) {
+      this.getuserData = this.router.getCurrentNavigation().extras.state.itemData;
+    }
   }
 
   ionViewWillEnter() {
     setTimeout(() => {
       this.scrollToBottom();
-    }, 500);
+    }, 200);
   }
 
   presentPopover() {
@@ -119,7 +124,7 @@ export class ChatsPage {
       type: 'incoming'
     }
   ];
-  input = "";
+
 
   send() {
     if (this.input != "") {
@@ -132,12 +137,11 @@ export class ChatsPage {
       this.input = "";
       setTimeout(() => {
         this.scrollToBottom();
-      }, 100);
+      }, 300);
     }
   }
 
   scrollToBottom() {
-    console.log('sd');
     let content = document.getElementById("chat-container");
     let parent = document.getElementById("chat-parent");
     let scrollOptions = {

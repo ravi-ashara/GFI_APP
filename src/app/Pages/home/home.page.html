@@ -40,7 +40,7 @@
         Entrepreneur
       </ion-button>
       <ion-icon slot="end" name="add-circle-outline" color="medium" (click)="deleteMeetingFunc()"></ion-icon>
-      <ion-icon slot="end" src="assets/icon/chatbox-outline.svg" color="medium" routerLink="/chat/1"></ion-icon>
+      <ion-icon slot="end" src="assets/icon/chatbox-outline.svg" color="medium" (click)="gotoChatList()"></ion-icon>
     </ion-item>
   </ion-card>
 
@@ -63,7 +63,7 @@
         Investor
       </ion-button>
       <ion-icon slot="end" name="add-circle-outline" color="medium" (click)="deleteMeetingFunc()"></ion-icon>
-      <ion-icon slot="end" src="assets/icon/chatbox-outline.svg" color="medium" routerLink="/chat/2"></ion-icon>
+      <ion-icon slot="end" src="assets/icon/chatbox-outline.svg" color="medium" (click)="gotoChatList()"></ion-icon>
     </ion-item>
   </ion-card>
 </ion-content>

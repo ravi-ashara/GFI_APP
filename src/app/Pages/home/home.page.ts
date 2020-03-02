@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { NavController } from '@ionic/angular';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ import { NavController } from '@ionic/angular';
 })
 export class HomePage {
   showSearch: boolean = false;
-  constructor(public apicall: ApiCallService, public navCtrl: NavController) { }
+  constructor(public apicall: ApiCallService, public navCtrl: NavController, public router: Router) { }
 
   searchCompany() {
     this.showSearch = !this.showSearch;
@@ -29,5 +30,18 @@ export class HomePage {
     this.apicall.deleteMeeting('', (callBack: any) => {
       console.log(callBack);
     })
+  }
+
+  gotoChatList() {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        itemData: {
+          img: '../../../assets/images/sg1.jpg',
+          userName: 'Jeff',
+          userId: '1'
+        },
+      }
+    };
+    this.router.navigate(['chat'], navigationExtras);
   }
 }

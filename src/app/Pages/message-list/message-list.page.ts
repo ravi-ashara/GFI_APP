@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-message-list',
@@ -8,11 +9,24 @@ import { ApiCallService } from '../../Services/api-call/api-call.service';
 })
 export class MessageListPage {
 
-  constructor(public apicall: ApiCallService) { }
+  constructor(public apicall: ApiCallService, public router: Router) { }
 
   presentPopover() {
     this.apicall.showPopover().then((val: any) => {
       console.log(val);
     });
+  }
+
+  gotoChatList(img: any, userName: any, userId: any) {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        itemData: {
+          img: img,
+          userName: userName,
+          userId: userId ? userId : '1'
+        },
+      }
+    };
+    this.router.navigate(['chat'], navigationExtras);
   }
 }

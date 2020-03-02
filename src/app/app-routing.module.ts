@@ -42,7 +42,7 @@ const routes: Routes = [
     loadChildren: () => import('./Pages/message-list/message-list.module').then( m => m.MessageListPageModule)
   },
   {
-    path: 'chat/:id',
+    path: 'chat',
     loadChildren: () => import('./Pages/chats/chats.module').then( m => m.ChatsPageModule)
   },
   {

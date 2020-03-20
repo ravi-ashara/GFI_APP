@@ -15,44 +15,51 @@
 </ion-header>
 
 <ion-content class="customBackground mySchedulePage">
+  <ion-segment (ionChange)="segmentChanged($event)" scrollable [value]="currentDate" mode="md" color="light">
+    <ion-segment-button [value]="date | date : 'dd-MMM'" *ngFor="let date of totalDays" mode="md" color="light">
+      <ion-label>{{date | date : 'dd/M'}}<p class="ion-no-margin scheduleDatesFont">{{date | date: 'EEE'}}</p>
+      </ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
   <ion-row class="ion-no-padding">
     <ion-col size="12" class="ion-no-padding">
       <ion-item mode="md" color="light">
-        <p class="ion-padding-end">09:30</p>
+        <p class="ion-padding-end ion-no-margin">09:30 <span class="scheduleStatusFont"><br /> Pending</span></p>
         <ion-label>Meeting 01
           <p>Lorem ipsum dolor sit amet</p>
         </ion-label>
-        <ion-icon color="medium" name="create" size="large"  mode="ios" class="smallPaddingRight"></ion-icon>
+        <ion-icon color="medium" name="create" size="large" mode="ios" class="smallPaddingRight"></ion-icon>
         <ion-icon color="danger" name="close" size="large"></ion-icon>
       </ion-item>
     </ion-col>
     <ion-col size="12" class="ion-no-padding">
       <ion-item mode="md">
-        <p class="ion-padding-end">10:30</p>
+        <p class="ion-padding-end ion-no-margin">09:30 <span class="scheduleStatusFont"><br /> Pending</span></p>
         <ion-label>Meeting 01
           <p>Lorem ipsum dolor sit amet</p>
         </ion-label>
-        <ion-icon color="medium" name="create" size="large"  mode="ios" class="smallPaddingRight"></ion-icon>
+        <ion-icon color="medium" name="create" size="large" mode="ios" class="smallPaddingRight"></ion-icon>
         <ion-icon color="danger" name="close" size="large"></ion-icon>
       </ion-item>
     </ion-col>
     <ion-col size="12" class="ion-no-padding">
       <ion-item mode="md" color="light">
-        <p class="ion-padding-end">10:30</p>
+        <p class="ion-padding-end ion-no-margin">10:30 <span class="scheduleStatusFont"><br /> Pending</span></p>
         <ion-label>Meeting 01
           <p>Lorem ipsum dolor sit amet</p>
         </ion-label>
-        <ion-icon color="medium" name="create" size="large"  mode="ios" class="smallPaddingRight"></ion-icon>
+        <ion-icon color="medium" name="create" size="large" mode="ios" class="smallPaddingRight"></ion-icon>
         <ion-icon color="danger" name="close" size="large"></ion-icon>
       </ion-item>
     </ion-col>
     <ion-col size="12" class="ion-no-padding">
       <ion-item mode="md">
-        <p class="ion-padding-end">10:30</p>
+        <p class="ion-padding-end ion-no-margin">10:30 <span class="scheduleStatusFont"><br /> Pending</span></p>
         <ion-label>Meeting 01
           <p>Lorem ipsum dolor sit amet</p>
         </ion-label>
-        <ion-icon color="medium" name="create" size="large"  mode="ios" class="smallPaddingRight"></ion-icon>
+        <ion-icon color="medium" name="create" size="large" mode="ios" class="smallPaddingRight"></ion-icon>
         <ion-icon color="danger" name="close" size="large"></ion-icon>
       </ion-item>
     </ion-col>

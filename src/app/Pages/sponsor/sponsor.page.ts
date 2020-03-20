@@ -7,7 +7,8 @@ import { ApiCallService } from '../../Services/api-call/api-call.service';
   styleUrls: ['./sponsor.page.scss'],
 })
 export class SponsorPage {
-
+  currentSponsor: string = "Gold Sponsors";
+  totalSponsor = ['Gold Sponsors', 'Silver Sponsors', 'Bronze Sponsors', 'Financial Supporters', 'Governmental Supporters', 'Cooperations', 'Media Coverage']
   constructor(public apicall: ApiCallService) { }
 
   presentPopover() {
@@ -16,4 +17,7 @@ export class SponsorPage {
     });
   }
 
+  segmentChanged(val: any) {
+    console.log(val.detail.value);
+  }
 }

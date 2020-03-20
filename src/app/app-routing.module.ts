@@ -46,10 +46,6 @@ const routes: Routes = [
     loadChildren: () => import('./Pages/chats/chats.module').then( m => m.ChatsPageModule)
   },
   {
-    path: 'create-meeting',
-    loadChildren: () => import('./Pages/create-meeting/create-meeting.module').then( m => m.CreateMeetingPageModule)
-  },
-  {
     path: 'sponsor',
     loadChildren: () => import('./Pages/sponsor/sponsor.module').then( m => m.SponsorPageModule)
   },

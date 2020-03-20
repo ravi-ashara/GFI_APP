@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-meeting',
@@ -7,9 +8,13 @@ import { Component } from '@angular/core';
 })
 export class CreateMeetingPage {
   createMeeting: boolean = false;
-  constructor() { }
+  constructor(private modalCtrl: ModalController) { }
 
-  setMeetingData(){
+  setMeetingData() {
     this.createMeeting = !this.createMeeting;
+  }
+
+  closeModal() {
+    this.modalCtrl.dismiss();
   }
 }

@@ -7,28 +7,23 @@
     </ion-buttons>
     <ion-title>Sponsor</ion-title>
     <ion-buttons slot="end">
-      <ion-back-button text="" mode="md"></ion-back-button>
+      <ion-button routerLink="/tabs/tab5" routerDirection="back" fill="clear">
+        <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="customBackground">
+  <ion-segment (ionChange)="segmentChanged($event)" scrollable [value]="currentSponsor" mode="md" color="light">
+    <ion-segment-button [value]="sponsor" *ngFor="let sponsor of totalSponsor" mode="md" color="light">
+      <ion-label>{{sponsor}}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
   <ion-card color="light" mode="md">
-    <div class="ion-text-center">
-      Gold Sponsors
-    </div>
-  </ion-card>
-  <ion-card color="light" mode="md">
-    <div class="ion-text-center">
-      Silver Sponsors
-    </div>
-  </ion-card>
-  <ion-card color="light" mode="md">
-    <div class="ion-text-center">
-      Bronze Sponsors
-    </div>
     <ion-row>
-      <ion-col size="6" class="ion-align-self-center">
+      <ion-col size="6" class="ion-align-self-center ion-text-center">
         <img src="http://148.66.142.108:8081/media/images/2019/09/09/Supplyme_without_background.png" />
       </ion-col>
       <ion-col size="6" class="ion-align-self-center">
@@ -36,29 +31,5 @@
       </ion-col>
     </ion-row>
   </ion-card>
-  <ion-card color="light" mode="md">
-    <div class="ion-text-center">
-      Bronze Sponsors
-    </div>
-  </ion-card>
-  <ion-card color="light" mode="md">
-    <div class="ion-text-center">
-      Financial Supporters
-    </div>
-  </ion-card>
-  <ion-card color="light" mode="md">
-    <div class="ion-text-center">
-      Governmental Supporters
-    </div>
-  </ion-card>
-  <ion-card color="light" mode="md">
-    <div class="ion-text-center">
-      Cooperations
-    </div>
-  </ion-card>
-  <ion-card color="light" mode="md">
-    <div class="ion-text-center">
-      Media Coverage
-    </div>
-  </ion-card>
+
 </ion-content>

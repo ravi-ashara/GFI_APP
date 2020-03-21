@@ -78,14 +78,15 @@ export class ApiCallService {
 
   /**
    * 
-   * @param val_header //Show header
+   * @param val_header //Show header pass '' to show custom header
    * @param val_message // Show Message
    * @param val_button // button name ['No','Yes']
    * @param callBack_func // Return value No/Yes
    */
   showConfirm(val_header: string, val_message: string, val_button: any, callBack_func: any) {
+    this.isconfirmBox = true;
     this.alertController.create({
-      header: val_header,
+      header: val_header ? val_header : 'Goisrael App',
       message: val_message,
       mode: 'ios',
       buttons: [
@@ -93,12 +94,14 @@ export class ApiCallService {
           text: val_button[0],
           role: 'cancel',
           handler: (blah) => {
+            this.isconfirmBox = false;
             callBack_func('No');
           }
         },
         {
           text: val_button[1],
           handler: () => {
+            this.isconfirmBox = false;
             callBack_func('Yes');
           }
         }
@@ -165,17 +168,12 @@ export class ApiCallService {
     })
   }
 
-  callLogout() {
-    localStorage.isLogin = false;
-    this.navCtrl.navigateRoot(['/login'])
-  }
-
   deleteMeeting(message: any, callBack: any) {
     this.alertController.create({
       header: 'Delete Meeting',
       message: message ? message : 'Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs.',
       mode: 'ios',
-      cssClass:'deleteMeetingConfirm',
+      cssClass: 'deleteMeetingConfirm',
       buttons: [
         {
           text: 'Cancel',

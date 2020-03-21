@@ -17,6 +17,6 @@ export class SettingsPage {
   }
 
   logout() {
-    this.apicall.callLogout();
+    this.apicall.afterLogout();
   }
 }

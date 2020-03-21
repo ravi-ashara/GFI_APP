@@ -7,11 +7,16 @@ import { ApiCallService } from '../../Services/api-call/api-call.service';
   styleUrls: ['./my-profile.page.scss'],
 })
 export class MyProfilePage {
-  constructor(public apicall: ApiCallService) { }
+  userData: any = {};
+  constructor(public commonService: ApiCallService) { }
 
   presentPopover() {
-    this.apicall.showPopover().then((val: any) => {
+    this.commonService.showPopover().then((val: any) => {
       console.log(val);
     });
+  }
+
+  ionViewWillEnter() {
+    this.userData = this.commonService.getUserLoginData();
   }
 }

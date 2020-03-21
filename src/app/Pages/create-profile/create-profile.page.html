@@ -4,7 +4,8 @@
         <ion-text color="light">Create Profile</ion-text>
       </strong></h4>
   </ion-col>
-  <ion-card *ngIf="setStep === 'step1'" color="light" class="animated" [ngClass]="buttonName=='next' ? 'slideInRight':'slideInLeft'">
+  <ion-card *ngIf="setStep === 'step1'" color="light" class="animated"
+    [ngClass]="buttonName=='next' ? 'slideInRight':'slideInLeft'">
     <ion-row class="ion-padding-top">
       <ul class="wizard wizard-steps-3">
         <li>
@@ -33,14 +34,16 @@
       </ion-col>
       <ion-col size="10" offset="1" class="ion-no-padding radioCol">
         <ion-list class="ion-no-padding">
-          <ion-radio-group>
-            <ion-item color="light" lines="none" class="inlineRadiogroup">
+          <ion-radio-group [(ngModel)]="setp1Data.user_type">
+            <ion-item color="light" lines="none" class="inlineRadiogroup company_Investor">
               <ion-label class="setFontsize ion-no-margin">Investor</ion-label>
-              <ion-radio slot="start" value="Investor" mode="md" class="ion-no-margin"></ion-radio>
+              <ion-radio slot="start" name="user_type" value="investor" mode="md" class="ion-no-margin">
+              </ion-radio>
             </ion-item>
-            <ion-item color="light" lines="none" class="inlineRadiogroup">
+            <ion-item color="light" lines="none" class="inlineRadiogroup company_Israeli">
               <ion-label class="setFontsize ion-no-margin">Israeli Company</ion-label>
-              <ion-radio slot="start" value="Israeli Company" mode="md" class="ion-no-margin"></ion-radio>
+              <ion-radio slot="start" name="user_type" value="company" mode="md" class="ion-no-margin">
+              </ion-radio>
             </ion-item>
           </ion-radio-group>
         </ion-list>
@@ -51,13 +54,15 @@
         <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
           <ion-label position="stacked" mode="ios">Company Name <ion-text color="medium">*</ion-text>
           </ion-label>
-          <ion-input type="text" name="companyName" mode="ios" class="setBorder"></ion-input>
+          <ion-input type="text" name="company_name" mode="ios" class="setBorder" [(ngModel)]="setp1Data.company_name">
+          </ion-input>
         </ion-item>
 
         <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
           <ion-label position="stacked" mode="ios">Field <ion-text color="medium">*</ion-text>
           </ion-label>
-          <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios">
+          <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios" name="field"
+            [(ngModel)]="setp1Data.field">
             <ion-select-option value="Technology">Technology</ion-select-option>
             <ion-select-option value="Life Sciences">Life Sciences</ion-select-option>
             <ion-select-option value="Pharmaceuticals">Pharmaceuticals</ion-select-option>
@@ -78,29 +83,33 @@
         <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
           <ion-label position="stacked" mode="ios">Country <ion-text color="medium">*</ion-text>
           </ion-label>
-          <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios">
-            <ion-select-option value="India">India</ion-select-option>
-            <ion-select-option value="US">US</ion-select-option>
-            <ion-select-option value="UK">UK</ion-select-option>
+          <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios" name="country"
+            [(ngModel)]="setp1Data.country">
+            <ion-select-option value="Israel">Israel</ion-select-option>
+            <ion-select-option value="Russia">Russia</ion-select-option>
+            <ion-select-option value="USA">USA</ion-select-option>
+            <ion-select-option value="Germany">Germany</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col size="6" class="ion-text-right">
-        <ion-button fill="clear">
+        <ion-button fill="clear" routerLink="/login" routerDirection="root">
           <ion-icon slot="icon-only" color="medium" name="arrow-back" mode="md"></ion-icon>
         </ion-button>
       </ion-col>
       <ion-col size="6">
-        <ion-button fill="clear" (click)="changeStap('step2','next')">
+        <ion-button fill="clear" (click)="changeStap('step2','next')"
+          [disabled]="setp1Data.user_type == '' || setp1Data.company_name == '' ||setp1Data.field == '' ||setp1Data.country == ''">
           <ion-icon slot="icon-only" name="arrow-forward" mode="md"></ion-icon>
         </ion-button>
       </ion-col>
     </ion-row>
   </ion-card>
 
-  <ion-card *ngIf="setStep === 'step2'" color="light" class="setp2 animated" [ngClass]="buttonName=='next' ? 'slideInRight':'slideInLeft'">
+  <ion-card *ngIf="setStep === 'step2'" color="light" class="setp2 animated"
+    [ngClass]="buttonName=='next' ? 'slideInRight':'slideInLeft'">
     <ion-row class="ion-padding-top">
       <ul class="wizard wizard-steps-3">
         <li>
@@ -128,14 +137,15 @@
         <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
           <ion-label position="stacked" mode="ios">Company Representative <ion-text color="medium">*</ion-text>
           </ion-label>
-          <ion-input type="text" name="companyName" mode="ios" class="setBorder"></ion-input>
+          <ion-input type="text" name="company_representative" mode="ios" class="setBorder"
+            [(ngModel)]="setp2Data.company_representative"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col size="12">
         <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
           <ion-label position="stacked" mode="ios">Title <ion-text color="medium">*</ion-text>
           </ion-label>
-          <ion-input type="text" name="companyName" mode="ios" class="setBorder"></ion-input>
+          <ion-input type="text" name="title" mode="ios" class="setBorder" [(ngModel)]="setp2Data.title"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -158,24 +168,28 @@
         <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
           <ion-label position="stacked" mode="ios">Company Description <ion-text color="medium">*</ion-text>
           </ion-label>
-          <ion-input type="text" name="companyName" mode="ios" class="setBorder"></ion-input>
+          <ion-input type="text" name="company_description" mode="ios" class="setBorder"
+            [(ngModel)]="setp2Data.company_description"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col size="12">
         <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
           <ion-label position="stacked" mode="ios">Website <ion-text color="medium">*</ion-text>
           </ion-label>
-          <ion-input type="url" name="companyName" mode="ios" class="setBorder"></ion-input>
+          <ion-input type="url" name="website" mode="ios" class="setBorder" [(ngModel)]="setp2Data.website"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col size="12">
         <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
           <ion-label position="stacked" mode="ios">Number of employees <ion-text color="medium">*</ion-text>
           </ion-label>
-          <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios">
+          <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios" name="no_of_emp"
+            [(ngModel)]="setp2Data.no_of_emp">
+            <ion-select-option value="2">2</ion-select-option>
+            <ion-select-option value="5">5</ion-select-option>
+            <ion-select-option value="8">8</ion-select-option>
             <ion-select-option value="10">10</ion-select-option>
-            <ion-select-option value="50">50</ion-select-option>
-            <ion-select-option value="100">100</ion-select-option>
+            <ion-select-option value="20">20</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-col>
@@ -183,7 +197,8 @@
         <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
           <ion-label position="stacked" mode="ios">Mobile <ion-text color="medium">*</ion-text>
           </ion-label>
-          <ion-input type="number" name="companyName" mode="ios" class="setBorder"></ion-input>
+          <ion-input type="number" name="mobile" mode="ios" class="setBorder" [(ngModel)]="setp2Data.mobile">
+          </ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -194,14 +209,16 @@
         </ion-button>
       </ion-col>
       <ion-col size="6">
-        <ion-button fill="clear" (click)="changeStap('step3','next')">
+        <ion-button fill="clear" (click)="changeStap('step3','next')"
+          [disabled]="setp2Data.company_representative == '' || setp2Data.title == '' ||setp2Data.company_description == '' ||setp2Data.website == '' ||setp2Data.no_of_emp == '' ||setp2Data.mobile == ''">
           <ion-icon slot="icon-only" name="arrow-forward" mode="md"></ion-icon>
         </ion-button>
       </ion-col>
     </ion-row>
   </ion-card>
 
-  <ion-card *ngIf="setStep === 'step3'" color="light" class="animated" [ngClass]="buttonName=='next' ? 'slideInRight':'slideInLeft'">
+  <ion-card *ngIf="setStep === 'step3'" color="light" class="animated"
+    [ngClass]="buttonName=='next' ? 'slideInRight':'slideInLeft'">
     <ion-row class="ion-padding-top">
       <ul class="wizard wizard-steps-3">
         <li>
@@ -229,14 +246,15 @@
         <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
           <ion-label position="stacked" mode="ios">Stage<ion-text color="medium">*</ion-text>
           </ion-label>
-          <ion-input type="text" name="companyName" mode="ios" class="setBorder"></ion-input>
+          <ion-input type="text" name="stage" mode="ios" class="setBorder" [(ngModel)]="setp3Data.stage"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col size="12">
         <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
           <ion-label position="stacked" mode="ios">How much are you raising? <ion-text color="medium">*</ion-text>
           </ion-label>
-          <ion-input type="text" name="companyName" mode="ios" class="setBorder"></ion-input>
+          <ion-input type="text" name="raising" mode="ios" class="setBorder" [(ngModel)]="setp3Data.raising">
+          </ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -247,7 +265,8 @@
         </ion-button>
       </ion-col>
       <ion-col size="6">
-        <ion-button fill="clear" (click)="registerProfile()">
+        <ion-button fill="clear" (click)="registerProfile()"
+          [disabled]="setp3Data.stage == '' || setp3Data.raising == ''">
           <ion-icon name="checkmark" slot="icon-only" mode="md"></ion-icon>
         </ion-button>
       </ion-col>

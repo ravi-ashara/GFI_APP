@@ -18,7 +18,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public router: Router,
-    public alertModule: ApiCallService
+    public commonService: ApiCallService
   ) {
     this.initializeApp();
   }
@@ -28,6 +28,7 @@ export class AppComponent {
       this.statusBar.styleLightContent();
       this.splashScreen.hide();
       this.handleHardwareBackButton();
+      this.commonService.pushNotifications();
     });
   }
 
@@ -39,7 +40,7 @@ export class AppComponent {
         navigator['app'].exitApp();
       } else {
         if (this.router.url === '/home') {
-          this.alertModule.showConfirm('Goisrael App ','Are you sure you want to exit ?', ['Cancel', 'Exit'], (res: any) => {
+          this.commonService.showConfirm('Goisrael App ', 'Are you sure you want to exit ?', ['Cancel', 'Exit'], (res: any) => {
             if (res === "Yes") {
               navigator['app'].exitApp();
             }

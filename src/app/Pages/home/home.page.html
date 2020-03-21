@@ -2,7 +2,7 @@
   <ion-toolbar color="secondary" class="smallPadding" mode="ios" *ngIf="!showSearch">
     <ion-buttons slot="start">
       <ion-avatar class="ion-margin-start SetImagesSize" (click)="presentPopover()">
-        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+        <img [src]="userData?.image_url ? userData?.image_url : 'assets/images/profile_photo_icon.png'" />
       </ion-avatar>
     </ion-buttons>
     <ion-title>
@@ -17,7 +17,8 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-searchbar showCancelButton="focus" animated placeholder="Search companies" *ngIf="showSearch" (ionCancel)="searchCompany()" mode="ios"></ion-searchbar>
+  <ion-searchbar showCancelButton="focus" animated placeholder="Search companies" *ngIf="showSearch"
+    (ionCancel)="searchCompany()" mode="ios"></ion-searchbar>
 </ion-header>
 
 <ion-content class="customBackground homePage">
@@ -62,7 +63,7 @@
       <ion-button size="small" slot="start" color="danger">
         Investor
       </ion-button>
-      <ion-icon slot="end" name="add-circle-outline" color="medium" (click)="deleteMeetingFunc()"></ion-icon>
+      <ion-icon slot="end" name="add-circle-outline" color="medium"></ion-icon>
       <ion-icon slot="end" src="assets/icon/chatbox-outline.svg" color="medium" (click)="gotoChatList()"></ion-icon>
     </ion-item>
   </ion-card>

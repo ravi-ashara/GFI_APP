@@ -11,26 +11,25 @@ import { CreateMeetingPage } from '../create-meeting/create-meeting.page';
 })
 export class HomePage {
   showSearch: boolean = false;
-  constructor(private modalCtrl: ModalController, public apicall: ApiCallService, public navCtrl: NavController, public router: Router) { }
+  userData: any = {};
+  constructor(private modalCtrl: ModalController, public commonService: ApiCallService, public navCtrl: NavController, public router: Router) { }
+
+  ionViewWillEnter() {
+    this.userData = this.commonService.getUserLoginData();
+  }
 
   searchCompany() {
     this.showSearch = !this.showSearch;
   }
 
   presentPopover() {
-    this.apicall.showPopover().then((val: any) => {
+    this.commonService.showPopover().then((val: any) => {
       console.log(val);
     });
   }
 
   navigationTab(val: string) {
     this.navCtrl.navigateForward([val]);
-  }
-
-  deleteMeetingFunc() {
-    this.apicall.deleteMeeting('', (callBack: any) => {
-      console.log(callBack);
-    })
   }
 
   gotoChatList() {

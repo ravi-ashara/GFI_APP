@@ -3,9 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Network } from '@ionic-native/network/ngx';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -19,13 +17,22 @@ import { NetworkService } from './Services/network/network.service';
 /** Components */
 import { ComponentsModule } from './Components/components.module';
 import { SettingMenuComponent } from './Components/setting-menu/setting-menu.component';
+import { CommonHeaderComponent } from './Components/common-header/common-header.component';
 import { CreateMeetingPageModule } from './Pages/create-meeting/create-meeting.module';
+
+/** Plugin */
+import { Push } from '@ionic-native/push/ngx';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Network } from '@ionic-native/network/ngx';
+
 @NgModule({
   declarations: [
     AppComponent,
   ],
   entryComponents: [
-    SettingMenuComponent
+    SettingMenuComponent,
+    CommonHeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +50,7 @@ import { CreateMeetingPageModule } from './Pages/create-meeting/create-meeting.m
     AuthService,
     NetworkService,
     Network,
+    Push,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

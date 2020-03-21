@@ -1,0 +1,20 @@
+<ion-header mode="ios" class="customHeader">
+  <ion-toolbar color="secondary" class="smallPadding" mode="ios">
+    <ion-buttons slot="start">
+      <ion-avatar class="ion-margin-start SetImagesSize" (click)="presentPopover()">
+        <img [src]="userData?.image_url ? userData?.image_url : 'assets/images/profile_photo_icon.png'" />
+      </ion-avatar>
+    </ion-buttons>
+    <ion-title>{{name}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="gotoHome()"
+        *ngIf="name != 'Sponsor' && name != 'Contact Organizer' && name != 'Conference Book'">
+        <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" (click)="gotoMore()"
+        *ngIf="name == 'Sponsor' || name == 'Contact Organizer' || name == 'Conference Book' ">
+        <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>

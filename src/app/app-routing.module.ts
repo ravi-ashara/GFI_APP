@@ -54,7 +54,7 @@ const routes: Routes = [
     loadChildren: () => import('./Pages/contact-organizer/contact-organizer.module').then( m => m.ContactOrganizerPageModule)
   },
   {
-    path: 'conference-book',
+    path: 'conference-guide',
     loadChildren: () => import('./Pages/conference-book/conference-book.module').then( m => m.ConferenceBookPageModule)
   },
   {

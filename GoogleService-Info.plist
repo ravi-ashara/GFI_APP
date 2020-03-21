@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>703559770185-k04pgkios345o161aivl6btrgspj4nnc.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.703559770185-k04pgkios345o161aivl6btrgspj4nnc</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCa69JikolPq5AHRnNM55sm5Muh0TNhHVg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>703559770185</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.goisrael.app</string>
+	<key>PROJECT_ID</key>
+	<string>goformeet-60634</string>
+	<key>STORAGE_BUCKET</key>
+	<string>goformeet-60634.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:703559770185:ios:29085e993fd670278c5f98</string>
+	<key>DATABASE_URL</key>
+	<string>https://goformeet-60634.firebaseio.com</string>
+</dict>
+</plist>

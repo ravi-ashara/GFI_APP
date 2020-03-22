@@ -1,9 +1,7 @@
 <ion-header mode="ios" class="customHeader">
   <ion-toolbar color="secondary" class="smallPadding" mode="ios">
     <ion-buttons slot="start">
-      <ion-avatar class="ion-margin-start SetImagesSize" (click)="presentPopover()">
-        <img [src]="userData?.image_url ? userData?.image_url : 'assets/images/profile_photo_icon.png'" />
-      </ion-avatar>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>{{name}}</ion-title>
     <ion-buttons slot="end">

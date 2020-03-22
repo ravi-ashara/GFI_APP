@@ -11,12 +11,6 @@ export class MessageListPage {
 
   constructor(public apicall: ApiCallService, public router: Router) { }
 
-  presentPopover() {
-    this.apicall.showPopover().then((val: any) => {
-      console.log(val);
-    });
-  }
-
   gotoChatList(img: any, userName: any, userId: any) {
     const navigationExtras: NavigationExtras = {
       state: {

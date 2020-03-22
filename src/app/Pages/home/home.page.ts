@@ -22,12 +22,6 @@ export class HomePage {
     this.showSearch = !this.showSearch;
   }
 
-  presentPopover() {
-    this.commonService.showPopover().then((val: any) => {
-      console.log(val);
-    });
-  }
-
   navigationTab(val: string) {
     this.navCtrl.navigateForward([val]);
   }

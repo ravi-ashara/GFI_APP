@@ -1,7 +1,6 @@
-import { SettingMenuComponent } from './../../Components/setting-menu/setting-menu.component';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Platform, AlertController, ToastController, LoadingController, PopoverController, NavController } from '@ionic/angular';
+import { Platform, AlertController, ToastController, LoadingController, NavController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { Push, PushOptions, PushObject } from '@ionic-native/push/ngx';
 
@@ -16,7 +15,6 @@ export class ApiCallService {
     public alertController: AlertController,
     public toastController: ToastController,
     public loadingController: LoadingController,
-    public popoverController: PopoverController,
     public navCtrl: NavController,
     private push: Push) { }
 
@@ -150,22 +148,6 @@ export class ApiCallService {
     }).then((toast: any) => {
       toast.present();
     });
-  }
-
-  showPopover() {
-    return new Promise((resolve, reject) => {
-      this.popoverController.create({
-        component: SettingMenuComponent,
-        translucent: true,
-        cssClass: 'customPopover',
-        mode: 'md'
-      }).then((popover: any) => {
-        popover.present();
-        popover.onDidDismiss().then((val: any) => {
-          resolve(val);
-        })
-      });
-    })
   }
 
   deleteMeeting(message: any, callBack: any) {

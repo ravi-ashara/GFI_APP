@@ -10,12 +10,6 @@ export class SettingsPage {
 
   constructor(public apicall: ApiCallService) { }
 
-  presentPopover() {
-    this.apicall.showPopover().then((val: any) => {
-      console.log(val);
-    });
-  }
-
   logout() {
     this.apicall.afterLogout();
   }

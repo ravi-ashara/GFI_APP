@@ -7,18 +7,9 @@ import { NavController } from '@ionic/angular';
   templateUrl: './common-header.component.html',
   styleUrls: ['./common-header.component.scss'],
 })
-export class CommonHeaderComponent implements OnInit {
+export class CommonHeaderComponent {
   @Input() name: string;
-  userData: any = {};
-  constructor(public commonService: ApiCallService, public navCtrl: NavController) { }
-  ngOnInit() {
-    this.userData = this.commonService.getUserLoginData();
-  }
-  presentPopover() {
-    this.commonService.showPopover().then((val: any) => {
-      console.log(val);
-    });
-  }
+  constructor(public navCtrl: NavController) { }
 
   gotoHome() {
     this.navCtrl.navigateRoot(['home']);

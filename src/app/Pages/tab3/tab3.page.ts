@@ -11,12 +11,6 @@ export class Tab3Page {
   currentDate: any = '';
   constructor(public apicall: ApiCallService) { }
   
-  presentPopover() {
-    this.apicall.showPopover().then((val: any) => {
-      console.log(val);
-    });
-  }
-  
   ionViewWillEnter() {
     this.totalDays = this.enumerateDaysBetweenDates(moment().startOf('week'), moment().endOf('week'));
     this.currentDate = moment().format('DD-MMM');

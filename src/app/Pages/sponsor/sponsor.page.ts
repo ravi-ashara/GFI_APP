@@ -11,12 +11,6 @@ export class SponsorPage {
   totalSponsor = ['Gold Sponsors', 'Silver Sponsors', 'Bronze Sponsors', 'Financial Supporters', 'Governmental Supporters', 'Cooperations', 'Media Coverage']
   constructor(public apicall: ApiCallService) { }
 
-  presentPopover() {
-    this.apicall.showPopover().then((val: any) => {
-      console.log(val);
-    });
-  }
-
   segmentChanged(val: any) {
     console.log(val.detail.value);
   }

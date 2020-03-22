@@ -1,9 +1,12 @@
 <ion-header mode="ios" class="customHeader">
   <ion-toolbar color="secondary" class="smallPadding" mode="ios" *ngIf="!showSearch">
-    <ion-buttons slot="start">
+    <!-- <ion-buttons slot="start">
       <ion-avatar class="ion-margin-start SetImagesSize" (click)="presentPopover()">
         <img [src]="userData?.image_url ? userData?.image_url : 'assets/images/profile_photo_icon.png'" />
       </ion-avatar>
+    </ion-buttons> -->
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
       <img src="assets/images/agenda_logo.png" />
@@ -12,9 +15,9 @@
       <ion-button fill="clear" (click)="searchCompany()">
         <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
-      <ion-button fill="clear" (click)="createMeeting()">
+      <!-- <ion-button fill="clear" (click)="createMeeting()">
         <ion-icon slot="icon-only" src="assets/icon/create-outline.svg"></ion-icon>
-      </ion-button>
+      </ion-button> -->
     </ion-buttons>
   </ion-toolbar>
   <ion-searchbar showCancelButton="focus" animated placeholder="Search companies" *ngIf="showSearch"
@@ -22,6 +25,12 @@
 </ion-header>
 
 <ion-content class="customBackground homePage">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="createMeeting()" color="secondary">
+      <ion-icon src="assets/icon/create-outline.svg"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
   <ion-card color="light" class="companyCard">
     <ion-item color="light" lines="none" class="setBorderbottom">
       <ion-avatar slot="start">

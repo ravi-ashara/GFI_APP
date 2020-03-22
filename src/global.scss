@@ -26,6 +26,33 @@
 @import "~@ionic/angular/css/flex-utils.css";
 @import "./theme/animate.css";
 
+ion-menu-button {
+    font-size: 35px;
+}
+
+ion-menu {
+
+    ion-content {
+        --background: var(--ion-color-primary) !important;
+        --padding-start: 20px;
+    }
+
+    ion-footer {
+        background-color: var(--ion-color-primary);
+        color: var(--ion-color-light);
+    }
+
+    .inner-scroll {
+        --background: var(--ion-color-primary) !important;
+    }
+
+    .SetImagesSize {
+        width: 50px;
+        height: 50px;
+        border: 2px solid var(--ion-color-light);
+    }
+}
+
 .item-inner {
     padding: 0 !important;
     --padding: 0 !important;

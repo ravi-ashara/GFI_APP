@@ -10,12 +10,6 @@ export class MyProfilePage {
   userData: any = {};
   constructor(public commonService: ApiCallService) { }
 
-  presentPopover() {
-    this.commonService.showPopover().then((val: any) => {
-      console.log(val);
-    });
-  }
-
   ionViewWillEnter() {
     this.userData = this.commonService.getUserLoginData();
   }

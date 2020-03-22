@@ -16,7 +16,6 @@ import { NetworkService } from './Services/network/network.service';
 
 /** Components */
 import { ComponentsModule } from './Components/components.module';
-import { SettingMenuComponent } from './Components/setting-menu/setting-menu.component';
 import { CommonHeaderComponent } from './Components/common-header/common-header.component';
 import { CreateMeetingPageModule } from './Pages/create-meeting/create-meeting.module';
 
@@ -31,7 +30,6 @@ import { Network } from '@ionic-native/network/ngx';
     AppComponent,
   ],
   entryComponents: [
-    SettingMenuComponent,
     CommonHeaderComponent
   ],
   imports: [

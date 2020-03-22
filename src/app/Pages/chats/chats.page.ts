@@ -22,12 +22,6 @@ export class ChatsPage {
     }, 200);
   }
 
-  presentPopover() {
-    this.apicall.showPopover().then((val: any) => {
-      console.log(val);
-    });
-  }
-
   conversation = [
     {
       text: "Oh yes, this is gooood stuff",

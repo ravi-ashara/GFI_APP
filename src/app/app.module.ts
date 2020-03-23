@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { Camera } from '@ionic-native/camera/ngx';
 /** Services */
 import { ApiCallService } from './Services/api-call/api-call.service';
 import { AuthService } from './Services/auth/auth.service';
@@ -49,6 +49,7 @@ import { Network } from '@ionic-native/network/ngx';
     NetworkService,
     Network,
     Push,
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

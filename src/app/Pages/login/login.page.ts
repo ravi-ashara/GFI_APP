@@ -42,21 +42,22 @@ export class LoginPage {
           if (response.errors) {
             this.apiService.showAlert('', response.errors.u_email[0], 'Ok', () => { });
           } else {
-            this.apiService.showAlert('', 'Invalid Password.', 'Ok', () => { });
+            this.apiService.showAlert('', 'Invalid Password', 'Ok', () => { });
           }
         } else {
           localStorage.isLogin = true;
           this.navCtrl.navigateRoot(['/home']);
           localStorage.loginUserData = JSON.stringify(response.data);
           localStorage.token = response.data.token;
+          localStorage.userId = response.data.u_id;
         }
       }, (error) => {
         this.apiService.hideLoader();
-        this.apiService.showAlert('', 'Error form server side.', 'Ok', () => { });
+        this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
       });
     } catch (error) {
       this.apiService.hideLoader();
-      this.apiService.showAlert('', 'Error form server side.', 'Ok', () => { });
+      this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
     }
   }
 }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Platform, AlertController, ToastController, LoadingController, NavController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { Push, PushOptions, PushObject } from '@ionic-native/push/ngx';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class ApiCallService {
     public toastController: ToastController,
     public loadingController: LoadingController,
     public navCtrl: NavController,
-    private push: Push) { }
+    private push: Push,
+    public camera: Camera) { }
 
   showLoader() {
     this.loadingController.create({
@@ -42,7 +44,7 @@ export class ApiCallService {
       return this.http.get(environment.baseURL + val_url);
     } else if (val_method === 'post') {
       return this.http.post(environment.baseURL + val_url, val_data, {
-        headers: { 'Access-Control-Allow-Origin': '*', }
+        headers: { 'Access-Control-Allow-Origin': '*', 'Authorization': 'Bearer ' + localStorage.token }
       });
     } else if (val_method === 'delete') {
       return this.http.delete(environment.baseURL + val_url);

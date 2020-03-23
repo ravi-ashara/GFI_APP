@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { ApiCallService } from '../../Services/api-call/api-call.service';
 
 @Component({
   selector: 'app-create-profile',
@@ -30,9 +31,10 @@ export class CreateProfilePage {
 
   setp3Data: any = {
     stage: '',
-    raising: ''
+    raising: '',
+    email: ''
   }
-  constructor(private navCtrl: NavController) { }
+  constructor(private navCtrl: NavController, public commonService: ApiCallService) { }
 
   changeStap(val: any, val_buttonName: any) {
     if (val == "step2" && val_buttonName == "next") {
@@ -47,5 +49,20 @@ export class CreateProfilePage {
   registerProfile() {
     let combineObj = { ...this.setp1Data, ...this.setp2Data, ...this.setp3Data }
     console.log(combineObj);
+  }
+
+  getPhotos(val: any) {
+    if (val == "Add Photo" || val == "Add company logo") {
+      this.commonService.openCamera('PHOTOLIBRARY', (imageData: any) => {
+        if (val == "Add Photo") {
+          this.setp2Data.profile_pic = imageData
+        }
+        else {
+          this.setp2Data.logo = imageData
+        }
+      });
+    } else {
+      console.log('pager');
+    }
   }
 }

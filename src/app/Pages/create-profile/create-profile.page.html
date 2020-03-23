@@ -151,15 +151,15 @@
     </ion-row>
     <ion-row>
       <ion-col size="4" class="ion-text-center">
-        <img src="assets/images/icon_add_photo_on_two_step.png" class="setImageSize" />
+        <img src="assets/images/icon_add_photo_on_two_step.png" class="setImageSize" (click)="getPhotos('Add Photo')"/>
         <p>Add Photo</p>
       </ion-col>
       <ion-col size="4" class="ion-text-center">
-        <img src="assets/images/icon_add_photo_on_two_step.png" class="setImageSize" />
+        <img src="assets/images/icon_add_photo_on_two_step.png" class="setImageSize" (click)="getPhotos('Add company logo')" />
         <p>Add company logo</p>
       </ion-col>
       <ion-col size="4" class="ion-text-center">
-        <img src="assets/images/icon_add_photo_on_two_step.png" class="setImageSize" />
+        <img src="assets/images/icon_add_photo_on_two_step.png" class="setImageSize" (click)="getPhotos('Add one pager')"/>
         <p>Add one pager</p>
       </ion-col>
     </ion-row>
@@ -257,6 +257,14 @@
           </ion-input>
         </ion-item>
       </ion-col>
+      <ion-col size="12">
+        <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+          <ion-label position="stacked" mode="ios">How much are you raising? <ion-text color="medium">*</ion-text>
+          </ion-label>
+          <ion-input type="email" name="email" mode="ios" class="setBorder" [(ngModel)]="setp3Data.email">
+          </ion-input>
+        </ion-item>
+      </ion-col>
     </ion-row>
     <ion-row>
       <ion-col size="6" class="ion-text-right">
@@ -266,7 +274,7 @@
       </ion-col>
       <ion-col size="6">
         <ion-button fill="clear" (click)="registerProfile()"
-          [disabled]="setp3Data.stage == '' || setp3Data.raising == ''">
+          [disabled]="setp3Data.stage == '' || setp3Data.raising == ''|| setp3Data.email == ''">
           <ion-icon name="checkmark" slot="icon-only" mode="md"></ion-icon>
         </ion-button>
       </ion-col>

@@ -11,11 +11,31 @@ import { CreateMeetingPage } from '../create-meeting/create-meeting.page';
 })
 export class HomePage {
   showSearch: boolean = false;
-  userData: any = {};
+  attendeesList: any = [];
   constructor(private modalCtrl: ModalController, public commonService: ApiCallService, public navCtrl: NavController, public router: Router) { }
 
   ionViewWillEnter() {
-    this.userData = this.commonService.getUserLoginData();
+    this.getattendeesList();
+  }
+
+  getattendeesList() {
+    try {
+      this.commonService.showLoader();
+      this.commonService.hitAPICall('post', 'user/attendees-list', '').subscribe((response: any) => {
+        this.commonService.hideLoader();
+        if (response.status == "error") {
+          this.commonService.showAlert('Error', response.message, 'Ok', () => { });
+        } else {
+          this.attendeesList = response.data ? response.data : [];
+        }
+      }, error => {
+        this.commonService.showAlert('Error', 'Error form server side', 'Ok', () => { });
+        this.commonService.hideLoader();
+      });
+    } catch (error) {
+      this.commonService.hideLoader();
+      this.commonService.showAlert('Error', 'Error form server side', 'Ok', () => { });
+    }
   }
 
   searchCompany() {
@@ -26,7 +46,11 @@ export class HomePage {
     this.navCtrl.navigateForward([val]);
   }
 
-  gotoChatList() {
+  createnewList(val: any) {
+    console.log(val);
+  }
+
+  gotoChatList(val: any) {
     const navigationExtras: NavigationExtras = {
       state: {
         itemData: {

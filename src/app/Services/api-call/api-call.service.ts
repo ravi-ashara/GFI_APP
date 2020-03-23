@@ -230,9 +230,51 @@ export class ApiCallService {
    * Clear localStorage click on logout.
    */
   afterLogout() {
-    localStorage.isLogin = false;
-    localStorage.removeItem('token');
-    localStorage.removeItem('loginUserData');
-    this.navCtrl.navigateRoot(['/login']);
+    try {
+      this.showLoader();
+      let passData = {
+        type: this.platform.is('android') == true ? 'android' : this.platform.is('ios') == true ? 'ios' : 'web'
+      }
+      this.hitAPICall('post', 'user/logout', passData).subscribe((response: any) => {
+        this.hideLoader();
+        if (response.status == "error") {
+          this.showAlert('Error', response.message, 'Ok', () => { });
+        } else {
+          localStorage.isLogin = false;
+          localStorage.removeItem('token');
+          localStorage.removeItem('loginUserData');
+          localStorage.removeItem('userId');
+          this.navCtrl.navigateRoot(['/login']);
+        }
+      }, error => {
+        this.hideLoader();
+        this.showAlert('Error', 'Error form server side', 'Ok', () => { });
+      });
+    } catch (error) {
+      this.hideLoader();
+      this.showAlert('Error', 'Error form server side', 'Ok', () => { });
+    }
   }
+
+  /**
+   * 
+   * @param val // 'CAMERA/PHOTOLIBRARY'
+   * @param callBack callback function
+   */
+  openCamera(val: any, callBack: any) {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: val == "CAMERA" ? this.camera.PictureSourceType.CAMERA : this.camera.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: true,
+    };
+    this.camera.getPicture(options).then((imageData: any) => {
+      callBack('data:image/jpeg;base64,' + imageData);
+    }, (err) => {
+      callBack('Error');
+    });
+  }
+
 }

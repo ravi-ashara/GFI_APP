@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
+import { NavigationExtras, Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -12,7 +13,8 @@ export class LoginPage {
   public loginForm: FormGroup;
   constructor(public formBuilder: FormBuilder,
     private navCtrl: NavController,
-    private apiService: ApiCallService) {
+    private apiService: ApiCallService,
+    private router: Router) {
     this.loginForm = this.formBuilder.group({
       u_email: ['', Validators.email],
       u_password: ['', [Validators.required, Validators.minLength(3)]],
@@ -45,9 +47,18 @@ export class LoginPage {
             this.apiService.showAlert('', 'Invalid Password', 'Ok', () => { });
           }
         } else {
+          if (response.data.organization === null) {
+            const navigationExtras: NavigationExtras = {
+              state: {
+                itemData: 'getOrganization',
+              }
+            };
+            this.router.navigate(['create-profile'], navigationExtras);
+          } else {
+            this.navCtrl.navigateRoot(['/home']);
+            localStorage.loginUserData = JSON.stringify(response.data);
+          }
           localStorage.isLogin = true;
-          this.navCtrl.navigateRoot(['/home']);
-          localStorage.loginUserData = JSON.stringify(response.data);
           localStorage.token = response.data.token;
           localStorage.userId = response.data.u_id;
         }

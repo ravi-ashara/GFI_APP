@@ -17,6 +17,9 @@
 </ion-header>
 
 <ion-content class="customBackground homePage">
+  <div class="banner">
+    <img src="../../../assets/images/logoPage_allAttendees.png" alt="Banner" />
+  </div>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="createMeeting()" color="secondary">
       <ion-icon src="assets/icon/create-outline.svg"></ion-icon>
@@ -33,7 +36,7 @@
             [alt]="data?.u_first_name" class="customIcon" />
         </ion-avatar>
         <ion-label>{{data?.u_first_name}} {{data?.u_last_name}}
-          <p>{{data?.u_email}}</p>
+          <!-- <p>{{data?.u_email}}</p> -->
         </ion-label>
       </ion-item>
 
@@ -41,7 +44,7 @@
         {{data?.u_about_us}}
       </ion-card-content>
       <ion-item color="light" lines="none" class="setBordertop">
-        <ion-button size="small" slot="start">
+        <ion-button size="small" slot="start" *ngIf="data?.u_headline">
           {{data?.u_headline}}
         </ion-button>
         <ion-icon slot="end" name="add-circle-outline" color="medium" (click)="createnewList(data)"></ion-icon>

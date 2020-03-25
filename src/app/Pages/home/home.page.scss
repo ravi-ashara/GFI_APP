@@ -1,4 +1,19 @@
 .homePage {
+    .banner {
+        position: relative;
+    }
+
+    .banner:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, .6);
+        z-index: 1;
+    }
+
     .companyCard {
         .setBorderbottom {
             border-bottom: 1px solid var(--ion-color-medium);
@@ -13,6 +28,7 @@
         }
     }
 }
+
 .tab-selected {
     border-top: 3px solid var(--ion-color-danger);
 }
@@ -22,7 +38,8 @@
         width: 20px;
         height: auto;
     }
-    .setFontSize{
+
+    .setFontSize {
         font-size: 10px;
         margin-top: 5px;
     }

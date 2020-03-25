@@ -1,0 +1,22 @@
+.signupPage {
+    .setmargin {
+        margin-top: 8px;
+    }
+
+    .propicImg {
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+        margin: 0 auto;
+    }
+
+    .setBorder {
+        border: 1px solid #1d5b8f;
+        border-radius: 10px;
+        --padding-start: 10px;
+    }
+
+    .removeSpaces {
+        --inner-padding-end: 0px;
+    }
+}

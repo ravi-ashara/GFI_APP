@@ -1,0 +1,136 @@
+<ion-content class="signupPage customBackground">
+  <ion-card color="light" class="signupCard">
+    <ion-row class="ion-padding">
+      <ion-col size="5">
+        <ion-button fill="clear" routerLink="/login" routerDirection="root" class="setmargin">
+          <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="7" class="">
+        <h4><strong>Signup</strong></h4>
+      </ion-col>
+      <ion-col size="12">
+        <form [formGroup]="registerForm">
+          <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+            <img class="propicImg" [src]="userImage ? userImage: '../../../assets/images/profile_photo_icon.png'"
+              (click)="openImage()" />
+          </ion-item>
+          <p class="ion-no-margin ion-text-center">Profile Photo</p>
+          <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+            <ion-label position="stacked" mode="ios">FIRST NAME
+              <ion-text color="danger"> * </ion-text>
+            </ion-label>
+            <ion-input type="text" name="u_first_name" class="setBorder" formControlName="u_first_name"
+              placeholder="Enter FIRST NAME here">
+            </ion-input>
+          </ion-item>
+          <div class="ion-margin-top ion-margin-left" *ngIf="!registerForm.controls.u_first_name.valid
+            &&(registerForm.controls.u_first_name.dirty
+            ||registerForm.controls.u_first_name.touched)">
+            <div *ngIf="registerForm.controls['u_first_name'].errors['required']">
+              <ion-text color="danger">FIRST NAME is required.</ion-text>
+            </div>
+          </div>
+
+          <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+            <ion-label position="stacked" mode="ios">LAST NAME
+              <ion-text color="danger"> * </ion-text>
+            </ion-label>
+            <ion-input type="text" name="u_last_name" class="setBorder" formControlName="u_last_name"
+              placeholder="Enter LAST NAME here">
+            </ion-input>
+          </ion-item>
+          <div class="ion-margin-top ion-margin-left" *ngIf="!registerForm.controls.u_last_name.valid
+            &&(registerForm.controls.u_last_name.dirty
+            ||registerForm.controls.u_last_name.touched)">
+            <div *ngIf="registerForm.controls['u_last_name'].errors['required']">
+              <ion-text color="danger">LAST NAME is required.</ion-text>
+            </div>
+          </div>
+
+          <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+            <ion-label position="stacked" mode="ios">HEADLINE</ion-label>
+            <ion-input type="text" name="u_headline" class="setBorder" formControlName="u_headline"
+              placeholder="Enter HEADLINE here">
+            </ion-input>
+          </ion-item>
+
+          <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+            <ion-label position="stacked" mode="ios">GENDER
+              <ion-text color="danger"> * </ion-text>
+            </ion-label>
+            <ion-select placeholder="Select Gender" okText="Select" cancelText="Dismiss" name="u_gender"
+              formControlName="u_gender" mode="ios" class="setBorder">
+              <ion-select-option value="Female">Female</ion-select-option>
+              <ion-select-option value="Male">Male</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="ion-margin-top ion-margin-left" *ngIf="!registerForm.controls.u_gender.valid
+                        &&(registerForm.controls.u_gender.dirty
+                        ||registerForm.controls.u_gender.touched)">
+            <div *ngIf="registerForm.controls['u_gender'].errors['required']">
+              <ion-text color="danger">GENDER is required.</ion-text>
+            </div>
+          </div>
+
+          <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+            <ion-label position="stacked" mode="ios">ABOUT US</ion-label>
+            <ion-textarea rows="6" cols="20" class="setBorder" placeholder="Enter ABOUT US here" name="u_about_us"
+              formControlName="u_about_us"></ion-textarea>
+          </ion-item>
+
+          <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+            <ion-label position="stacked" mode="ios">PERSONAL WEBSITE</ion-label>
+            <ion-input type="url" name="u_personal_website" class="setBorder" formControlName="u_personal_website"
+              placeholder="Enter PERSONAL WEBSITE here">
+            </ion-input>
+          </ion-item>
+
+          <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+            <ion-label position="stacked" mode="ios">SOCIAL LINK</ion-label>
+            <ion-input type="url" name="u_social_link" class="setBorder" formControlName="u_social_link"
+              placeholder="Enter SOCIAL LINK here">
+            </ion-input>
+          </ion-item>
+
+
+          <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+            <ion-label position="stacked" mode="ios">EMAIL<ion-text color="danger"> * </ion-text>
+            </ion-label>
+            <ion-input type="email" name="u_email" mode="ios" class="setBorder" formControlName="u_email"
+              placeholder="Enter EMAIL here">
+            </ion-input>
+          </ion-item>
+          <div
+            *ngIf="!registerForm.controls['u_email'].valid && (registerForm.controls['u_email'].dirty || registerForm.controls['u_email'].touched)">
+            <div class="ion-margin-left" *ngIf="registerForm.controls['u_email'].hasError('email')">
+              <ion-text color="danger">Enter valid EMAIL</ion-text>
+            </div>
+          </div>
+          <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+            <ion-label position="stacked" mode="ios">PASSWORD<ion-text color="danger"> * </ion-text>
+            </ion-label>
+            <ion-input type="password" name="u_password" mode="ios" class="setBorder" formControlName="u_password"
+              placeholder="Enter PASSWORD here">
+            </ion-input>
+          </ion-item>
+          <div
+            *ngIf="!registerForm.controls['u_password'].valid && (registerForm.controls['u_password'].dirty || registerForm.controls['u_password'].touched)">
+            <div class="ion-margin-left" *ngIf="registerForm.controls['u_password'].hasError('required')">
+              <ion-text color="danger">PASSWORD is required</ion-text>
+            </div>
+            <div class="ion-margin-left" *ngIf="registerForm.controls['u_password'].hasError('minlength')">
+              <ion-text color="danger">Enter PASSWORD at least 6 character</ion-text>
+            </div>
+          </div>
+        </form>
+      </ion-col>
+      <ion-col size="12" class="ion-padding-top">
+        <ion-button type="submit" color="primary" shape="round" expand="block" mode="ios"
+          [disabled]="!registerForm.valid" (click)="submitForm(registerForm)">
+          Signup
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>

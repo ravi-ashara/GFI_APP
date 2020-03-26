@@ -38,8 +38,9 @@ export class RegisterPage {
         this.apiService.hideLoader();
         if (response.status == "failed") {
           if (response.errors) {
-            for (let i = 0; i < response.errors.length; i++) {
-              this.apiService.showAlert('', response.errors[i][0], 'Ok', () => { });
+            let errorsArray = Object.entries(response.errors);
+            for (let i = 0; i < errorsArray.length; i++) {
+              this.apiService.showAlert('', errorsArray[i][1][0], 'Ok', () => { });
             }
           }
         } else {

@@ -60,12 +60,11 @@ const routes: Routes = [
   {
     path: 'my-profile',
     loadChildren: () => import('./Pages/my-profile/my-profile.module').then( m => m.MyProfilePageModule)
-  },  {
+  },
+  {
     path: 'register',
     loadChildren: () => import('./Pages/register/register.module').then( m => m.RegisterPageModule)
-  }
-
-];
+  }];
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

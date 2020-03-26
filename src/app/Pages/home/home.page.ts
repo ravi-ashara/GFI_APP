@@ -1,3 +1,4 @@
+import { BookMeetingPage } from '../book-meeting/book-meeting.page';
 import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { NavController, ModalController } from '@ionic/angular';
@@ -12,7 +13,11 @@ import { CreateMeetingPage } from '../create-meeting/create-meeting.page';
 export class HomePage {
   showSearch: boolean = false;
   attendeesList: any = [];
-  constructor(private modalCtrl: ModalController, public commonService: ApiCallService, public navCtrl: NavController, public router: Router) { }
+  constructor(
+    private modalCtrl: ModalController,
+    public commonService: ApiCallService,
+    public navCtrl: NavController,
+    public router: Router) { }
 
   ionViewWillEnter() {
     this.getattendeesList();
@@ -47,7 +52,14 @@ export class HomePage {
   }
 
   createnewList(val: any) {
-    console.log(val);
+    this.modalCtrl.create({
+      component: BookMeetingPage,
+      componentProps: {
+        value: val
+      }
+    }).then((modal: any) => {
+      modal.present();
+    });
   }
 
   gotoChatList(val: any) {
@@ -68,6 +80,6 @@ export class HomePage {
       component: CreateMeetingPage
     }).then((modal: any) => {
       modal.present();
-    })
+    });
   }
 }

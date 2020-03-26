@@ -26,7 +26,9 @@
     </ion-fab-button>
   </ion-fab>
   <ion-card class="ion-text-center" *ngIf="attendeesList?.length <= 0; else showattendeesList">
-    <h4>No data found</h4>
+    <h4>
+      <ion-text color="light">No data found</ion-text>
+    </h4>
   </ion-card>
   <ng-template #showattendeesList>
     <ion-card color="light" class="companyCard" *ngFor="let data of attendeesList">
@@ -36,7 +38,7 @@
             [alt]="data?.u_first_name" class="customIcon" />
         </ion-avatar>
         <ion-label>{{data?.u_first_name}} {{data?.u_last_name}}
-          <!-- <p>{{data?.u_email}}</p> -->
+          <p *ngIf="data?.organization !== null">{{data?.organization.company_name}}</p>
         </ion-label>
       </ion-item>
 

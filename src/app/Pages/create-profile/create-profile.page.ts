@@ -40,7 +40,9 @@ export class CreateProfilePage {
     past_investment: '',
     tiket_size: '',
     is_usd: '',
-    mobile: ''
+    mobile: '',
+    email: '',
+    user_id: localStorage.userId
   }
 
   constructor(
@@ -99,20 +101,35 @@ export class CreateProfilePage {
   }
 
   changeStep(val: any, val_buttonName: any) {
-    if (val == "step1" && val_buttonName == "next") {
-
-    } else if (val == "step2" && val_buttonName == "next") {
-      console.log(this.setp1Data);
-    } else if (val == "step3" && val_buttonName == "next") {
-      console.log(this.setp2Data);
-    }
     this.setStep = val;
     this.buttonName = val_buttonName;
   }
 
   registerProfile() {
     let combineObj: any = { ...this.setp1Data, ...this.setp2Data, ...this.setp3Data }
-    console.log(combineObj);
+    this.commonService.showLoader();
+    try {
+      this.commonService.hitAPICall('post', 'organization/add', combineObj).subscribe((response: any) => {
+        this.commonService.hideLoader();
+        if (response.status == "failed") {
+          if (response.errors) {
+            let errorsArray = Object.entries(response.errors);
+            for (let i = 0; i < errorsArray.length; i++) {
+              this.commonService.showAlert('', errorsArray[i][1][0], 'Ok', () => { });
+            }
+          }
+        } else {
+          localStorage.loginUserData = JSON.stringify(response.data);
+          this.navCtrl.navigateRoot(['/home']);
+        }
+      }, error => {
+        this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
+        this.commonService.hideLoader();
+      });
+    } catch (error) {
+      this.commonService.hideLoader();
+      this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
+    }
   }
 
   getPhotos(val: any) {

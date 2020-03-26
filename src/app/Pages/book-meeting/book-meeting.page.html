@@ -1,0 +1,78 @@
+<ion-header mode="ios" class="customHeader">
+  <ion-toolbar color="secondary" class="smallPadding" mode="ios">
+    <ion-title>{{modalData?.u_first_name}} {{modalData?.u_last_name}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close" mode="md"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="customBackground">
+  <ion-card color="light">
+    <ion-row class="ion-padding-start ion-padding-top">
+      <ion-col size="12" class="ion-text-center">
+        <h4>
+          <ion-text>Select available timeslots</ion-text>
+        </h4>
+      </ion-col>
+      <ion-col size="12">
+        <form [formGroup]="bookMeetingForm">
+          <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
+            <ion-label position="stacked" mode="ios">Event</ion-label>
+            <ion-select okText="Okay" cancelText="Dismiss" mode="ios" name="event" formControlName="event">
+              <ion-select-option value="Indian Trade Exhibition">Indian Trade Exhibition</ion-select-option>
+              <ion-select-option value="New-Tech Exhibition">New-Tech Exhibition</ion-select-option>
+              <ion-select-option value="SemIsrael Expo">SemIsrael Expo</ion-select-option>
+              <ion-select-option value="ISRAFOOD">ISRAFOOD</ion-select-option>
+              <ion-select-option value="National Life Science & Technology Week">National Life Science & Technology Week
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
+            <ion-label position="stacked" mode="ios">Select date:</ion-label>
+            <ion-datetime displayFormat="YYYY-MM-DD" name="date" formControlName="date"></ion-datetime>
+          </ion-item>
+
+          <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
+            <ion-label position="stacked" mode="ios">Available timeslots</ion-label>
+            <ion-select okText="Okay" cancelText="Dismiss" mode="ios" name="timeslots" formControlName="timeslots">
+              <ion-select-option value="06:30:00 - 07:00:00">06:30:00 - 07:00:00</ion-select-option>
+              <ion-select-option value="07:00:00 - 07:30:00">07:00:00 - 07:30:00</ion-select-option>
+              <ion-select-option value="07:30:00 - 08:00:00">07:30:00 - 08:00:00</ion-select-option>
+              <ion-select-option value="08:00:00 - 08:30:00">08:00:00 - 08:30:00</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
+            <ion-label position="stacked" mode="ios">Location</ion-label>
+            <ion-select okText="Okay" cancelText="Dismiss" mode="ios" name="location" formControlName="location">
+              <ion-select-option value="Hilton, Yel Aviv">Hilton, Yel Aviv</ion-select-option>
+              <ion-select-option value="Sde Boker">Sde Boker</ion-select-option>
+              <ion-select-option value="Yeruham">Yeruham</ion-select-option>
+              <ion-select-option value="Dimona">Dimona</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item color="light" class="ion-no-padding" mode="ios">
+            <ion-label position="stacked" mode="ios">Leave a message</ion-label>
+            <ion-textarea name="message" rows="6" cols="20" formControlName="message"></ion-textarea>
+          </ion-item>
+        </form>
+      </ion-col>
+      <ion-col size="6" class="ion-text-center">
+        <ion-button color="medium" shape="round" type="button" (click)="closeModal()">
+          Camcel
+        </ion-button>
+      </ion-col>
+      <ion-col size="6" class="ion-text-center">
+        <ion-button shape="round" type="submit" mode="ios" [disabled]="!bookMeetingForm.valid"
+          (click)="bookMeetingFunc(bookMeetingForm)">
+          Save Changes
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>

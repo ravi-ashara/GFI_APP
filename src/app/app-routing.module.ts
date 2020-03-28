@@ -23,48 +23,70 @@ const routes: Routes = [
   },
   {
     path: 'create-profile-intro',
-    loadChildren: () => import('./Pages/create-profile-intro/create-profile-intro.module').then( m => m.CreateProfileIntroPageModule)
+    loadChildren: () => import('./Pages/create-profile-intro/create-profile-intro.module').then(m => m.CreateProfileIntroPageModule)
   },
   {
     path: 'settings',
-    loadChildren: () => import('./Pages/settings/settings.module').then( m => m.SettingsPageModule)
+    loadChildren: () => import('./Pages/settings/settings.module').then(m => m.SettingsPageModule)
   },
   {
     path: 'notification',
-    loadChildren: () => import('./Pages/notification/notification.module').then( m => m.NotificationPageModule)
+    loadChildren: () => import('./Pages/notification/notification.module').then(m => m.NotificationPageModule)
   },
   {
     path: 'create-profile',
-    loadChildren: () => import('./Pages/create-profile/create-profile.module').then( m => m.CreateProfilePageModule)
+    loadChildren: () => import('./Pages/create-profile/create-profile.module').then(m => m.CreateProfilePageModule)
   },
   {
     path: 'message-list',
-    loadChildren: () => import('./Pages/message-list/message-list.module').then( m => m.MessageListPageModule)
+    loadChildren: () => import('./Pages/message-list/message-list.module').then(m => m.MessageListPageModule)
   },
   {
     path: 'chat',
-    loadChildren: () => import('./Pages/chats/chats.module').then( m => m.ChatsPageModule)
+    loadChildren: () => import('./Pages/chats/chats.module').then(m => m.ChatsPageModule)
   },
   {
     path: 'sponsor',
-    loadChildren: () => import('./Pages/sponsor/sponsor.module').then( m => m.SponsorPageModule)
+    loadChildren: () => import('./Pages/sponsor/sponsor.module').then(m => m.SponsorPageModule)
   },
   {
     path: 'contact-organizer',
-    loadChildren: () => import('./Pages/contact-organizer/contact-organizer.module').then( m => m.ContactOrganizerPageModule)
+    loadChildren: () => import('./Pages/contact-organizer/contact-organizer.module').then(m => m.ContactOrganizerPageModule)
   },
   {
     path: 'conference-guide',
-    loadChildren: () => import('./Pages/conference-book/conference-book.module').then( m => m.ConferenceBookPageModule)
+    loadChildren: () => import('./Pages/conference-book/conference-book.module').then(m => m.ConferenceBookPageModule)
   },
   {
     path: 'my-profile',
-    loadChildren: () => import('./Pages/my-profile/my-profile.module').then( m => m.MyProfilePageModule)
+    loadChildren: () => import('./Pages/my-profile/my-profile.module').then(m => m.MyProfilePageModule)
   },
   {
     path: 'register',
-    loadChildren: () => import('./Pages/register/register.module').then( m => m.RegisterPageModule)
-  }];
+    loadChildren: () => import('./Pages/register/register.module').then(m => m.RegisterPageModule)
+  },
+  {
+    path: 'about',
+    loadChildren: () => import('./Pages/about-page/about-page.module').then(m => m.AboutPagePageModule)
+  },
+  {
+    path: 'acknowledgement',
+    loadChildren: () => import('./Pages/acknowledgement/acknowledgement.module').then( m => m.AcknowledgementPageModule)
+  },
+  {
+    path: 'term-of-service',
+    loadChildren: () => import('./Pages/termof-service/termof-service.module').then( m => m.TermofServicePageModule)
+  },  {
+    path: 'privacy-policy',
+    loadChildren: () => import('./Pages/privacy-policy/privacy-policy.module').then( m => m.PrivacyPolicyPageModule)
+  },
+  {
+    path: 'event-privacy-policy',
+    loadChildren: () => import('./Pages/event-privacy-policy/event-privacy-policy.module').then( m => m.EventPrivacyPolicyPageModule)
+  }
+
+
+];
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

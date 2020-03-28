@@ -25,6 +25,7 @@ import { Push } from '@ionic-native/push/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Network } from '@ionic-native/network/ngx';
+import { PipesModule } from './Pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { Network } from '@ionic-native/network/ngx';
     HttpClientModule,
     ComponentsModule,
     CreateMeetingPageModule,
-    BookMeetingPageModule
+    BookMeetingPageModule,
+    PipesModule
   ],
   providers: [
     StatusBar,

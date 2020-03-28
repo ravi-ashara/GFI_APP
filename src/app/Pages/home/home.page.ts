@@ -13,6 +13,7 @@ import { CreateMeetingPage } from '../create-meeting/create-meeting.page';
 export class HomePage {
   showSearch: boolean = false;
   attendeesList: any = [];
+  searchVal: any = "";
   constructor(
     private modalCtrl: ModalController,
     public commonService: ApiCallService,
@@ -21,6 +22,9 @@ export class HomePage {
 
   ionViewWillEnter() {
     this.getattendeesList();
+    if (localStorage.registerPushNotification != 'true') {
+      this.commonService.addDeviceToken();
+    }
   }
 
   getattendeesList() {

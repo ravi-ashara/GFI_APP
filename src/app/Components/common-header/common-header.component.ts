@@ -16,6 +16,10 @@ export class CommonHeaderComponent {
   }
 
   gotoMore() {
+    if (this.name == "About App" || this.name == "Acknowledgement" || this.name == "Term Of Service" || this.name == "Privacy Policy" || this.name == "Event Privacy Policy") {
+      this.navCtrl.navigateBack(['/settings']);
+      return false;
+    }
     this.navCtrl.navigateBack(['/tabs/tab5']);
   }
 }

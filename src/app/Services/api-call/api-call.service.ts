@@ -30,7 +30,9 @@ export class ApiCallService {
   }
 
   hideLoader() {
-    this.loadingController.dismiss();
+    setTimeout(() => {
+      this.loadingController.dismiss();
+    }, 1000);
   }
 
   /**
@@ -225,9 +227,13 @@ export class ApiCallService {
     });
   }
 
+  /**
+   * get user login data
+   */
   getUserLoginData() {
     return JSON.parse(localStorage.loginUserData);
   }
+
   /**
    * Clear localStorage click on logout.
    */
@@ -279,4 +285,22 @@ export class ApiCallService {
     });
   }
 
+  addDeviceToken() {
+    try {
+      let passData: any = {
+        user_id: localStorage.userId,
+        type: this.platform.is('android') ? 'android' : 'ios',
+        token: localStorage.registrationPushToken
+      }
+      this.hitAPICall('post', 'user/add-device-token', passData).subscribe((response: any) => {
+        if (response.status == "success") {
+          localStorage.registerPushNotification = true;
+        }
+      }, error => {
+        console.log(error);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

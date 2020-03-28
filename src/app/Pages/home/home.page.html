@@ -12,8 +12,8 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-searchbar showCancelButton="focus" animated placeholder="Search companies" *ngIf="showSearch"
-    (ionCancel)="searchCompany()" mode="ios"></ion-searchbar>
+  <ion-searchbar showCancelButton="always" spellcheck="true" animated placeholder="Search companies" *ngIf="showSearch"
+    (ionCancel)="searchCompany()" mode="ios" [(ngModel)]="searchVal"></ion-searchbar>
 </ion-header>
 
 <ion-content class="customBackground homePage">
@@ -31,7 +31,7 @@
     </h4>
   </ion-card>
   <ng-template #showattendeesList>
-    <ion-card color="light" class="companyCard" *ngFor="let data of attendeesList">
+    <ion-card color="light" class="companyCard" *ngFor="let data of attendeesList | search:'u_first_name': searchVal">
       <ion-item color="light" lines="none" class="setBorderbottom">
         <ion-avatar slot="start">
           <img [src]="data?.image_url ? data?.image_url : '../../../assets/images/profile_photo_icon.png'"

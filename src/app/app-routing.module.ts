@@ -83,6 +83,10 @@ const routes: Routes = [
   {
     path: 'event-privacy-policy',
     loadChildren: () => import('./Pages/event-privacy-policy/event-privacy-policy.module').then( m => m.EventPrivacyPolicyPageModule)
+  },
+  {
+    path: 'forgot-password',
+    loadChildren: () => import('./Pages/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   }
 
 

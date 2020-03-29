@@ -6,16 +6,13 @@
           <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
         </ion-button>
       </ion-col>
-      <ion-col size="7" class="">
-        <h4><strong>Signup</strong></h4>
-      </ion-col>
       <ion-col size="12">
         <form [formGroup]="registerForm">
           <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
             <img class="propicImg" [src]="userImage ? userImage: '../../../assets/images/profile_photo_icon.png'"
               (click)="openImage()" />
           </ion-item>
-          <p class="ion-no-margin ion-text-center">Profile Photo</p>
+          <p class="ion-no-margin ion-text-center profile_photo">PROFILE PHOTO</p>
           <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
             <ion-label position="stacked" mode="ios">FIRST NAME
               <ion-text color="danger"> * </ion-text>

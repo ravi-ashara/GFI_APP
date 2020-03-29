@@ -2,33 +2,33 @@
   <ion-card color="light" class="loginCard">
     <ion-row class="ion-padding">
       <ion-col size="12" class="ion-text-center">
-        <h4><strong>Sing In</strong></h4>
+        <img src="assets/images/logo.png" alt="logo" class="setLogo" />
       </ion-col>
       <ion-col size="12">
         <form [formGroup]="loginForm">
           <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-            <ion-label position="stacked" mode="ios">Your E-mail</ion-label>
+            <ion-label position="stacked" mode="ios">EMAIL</ion-label>
             <ion-input type="email" name="u_email" mode="ios" class="setBorder" formControlName="u_email">
             </ion-input>
           </ion-item>
           <div
             *ngIf="!loginForm.controls['u_email'].valid && (loginForm.controls['u_email'].dirty || loginForm.controls['u_email'].touched)">
             <div class="ion-margin-left" *ngIf="loginForm.controls['u_email'].hasError('email')">
-              <ion-text color="danger">Enter valid email</ion-text>
+              <ion-text color="danger">Enter valid EMAIL</ion-text>
             </div>
           </div>
           <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-            <ion-label position="stacked" mode="ios">Password</ion-label>
+            <ion-label position="stacked" mode="ios">PASSWORD</ion-label>
             <ion-input type="password" name="u_password" mode="ios" class="setBorder" formControlName="u_password">
             </ion-input>
           </ion-item>
           <div
             *ngIf="!loginForm.controls['u_password'].valid && (loginForm.controls['u_password'].dirty || loginForm.controls['u_password'].touched)">
             <div class="ion-margin-left" *ngIf="loginForm.controls['u_password'].hasError('required')">
-              <ion-text color="danger">Password is required</ion-text>
+              <ion-text color="danger">PASSWORD is required</ion-text>
             </div>
             <div class="ion-margin-left" *ngIf="loginForm.controls['u_password'].hasError('minlength')">
-              <ion-text color="danger">Enter password at least 6 character</ion-text>
+              <ion-text color="danger">Enter PASSWORD at least 6 character</ion-text>
             </div>
           </div>
         </form>
@@ -46,7 +46,7 @@
         </ion-button>
       </ion-col>
 
-      <ion-col size="12" class="ion-padding-top ion-padding-bottom ion-text-center">
+      <ion-col size="12" class="ion-text-center">
         OR
       </ion-col>
       <ion-col size="8" offset="2">

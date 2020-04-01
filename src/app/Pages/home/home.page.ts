@@ -38,8 +38,8 @@ export class HomePage {
           this.attendeesList = response.data ? response.data : [];
         }
       }, error => {
-        this.commonService.showAlert('Error', 'Error form server side', 'Ok', () => { });
         this.commonService.hideLoader();
+        this.commonService.showAlert('Error', 'Error form server side', 'Ok', () => { });
       });
     } catch (error) {
       this.commonService.hideLoader();

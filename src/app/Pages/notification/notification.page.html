@@ -4,18 +4,18 @@
   <ion-card class="notificationList">
     <ion-item-sliding>
       <ion-item-options side="end">
-        <ion-item-option>
+        <ion-item-option (click)="deleteNotification()">
           <ion-icon name="close" slot="top" size="large"></ion-icon>
           Delete
         </ion-item-option>
-        <ion-item-option>
+        <ion-item-option (click)="replyNotification()">
           <ion-icon slot="top" src="assets/icon/arrow-undo-sharp.svg" size="large"></ion-icon>
           Reply
         </ion-item-option>
       </ion-item-options>
       <ion-item lines="none">
         <ion-avatar slot="start">
-          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+          <img src="../../../assets/images/profile_photo_icon.png">
         </ion-avatar>
         <ion-label>David Lee<span class="setSmallSizeFont"> Sent you a message</span>
           <p>4 min ago</p>
@@ -23,5 +23,26 @@
       </ion-item>
     </ion-item-sliding>
   </ion-card>
-  
+  <ion-card class="notificationList">
+    <ion-item-sliding>
+      <ion-item-options side="end">
+        <ion-item-option (click)="deleteNotification()">
+          <ion-icon name="close" slot="top" size="large"></ion-icon>
+          Delete
+        </ion-item-option>
+        <ion-item-option (click)="replyNotification()">
+          <ion-icon slot="top" src="assets/icon/arrow-undo-sharp.svg" size="large"></ion-icon>
+          Reply
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item lines="none">
+        <ion-avatar slot="start">
+          <img src="../../../assets/images/profile_photo_icon.png">
+        </ion-avatar>
+        <ion-label>David Lee<span class="setSmallSizeFont"> Sent you a message</span>
+          <p>4 min ago</p>
+        </ion-label>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-card>
 </ion-content>

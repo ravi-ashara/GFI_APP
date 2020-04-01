@@ -8,6 +8,54 @@ import { ApiCallService } from '../../Services/api-call/api-call.service';
 })
 export class NotificationPage {
 
-  constructor(public apicall: ApiCallService) { }
+  constructor(private apiService: ApiCallService) { }
 
+  ionViewWillEnter() {
+
+  }
+
+  showNotificationList() {
+    try {
+      this.apiService.showLoader();
+      this.apiService.hitAPICall('post', '', '').subscribe((response: any) => {
+        this.apiService.hideLoader();
+      }, error => {
+        this.apiService.hideLoader();
+        this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+      })
+    } catch (error) {
+      this.apiService.hideLoader();
+      this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+    }
+  }
+
+  deleteNotification(val: any) {
+    // try {
+    //   this.apiService.showLoader();
+    //   this.apiService.hitAPICall('post', '', '').subscribe((response: any) => {
+    //     this.apiService.hideLoader();
+    //   }, error => {
+    //     this.apiService.hideLoader();
+    //     this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+    //   })
+    // } catch (error) {
+    //   this.apiService.hideLoader();
+    //   this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+    // }
+  }
+
+  replyNotification() {
+    // try {
+    //   this.apiService.showLoader();
+    //   this.apiService.hitAPICall('post', '', '').subscribe((response: any) => {
+    //     this.apiService.hideLoader();
+    //   }, error => {
+    //     this.apiService.hideLoader();
+    //     this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+    //   })
+    // } catch (error) {
+    //   this.apiService.hideLoader();
+    //   this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+    // }
+  }
 }

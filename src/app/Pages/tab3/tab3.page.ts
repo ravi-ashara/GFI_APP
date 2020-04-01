@@ -9,11 +9,29 @@ import * as moment from 'moment';
 export class Tab3Page {
   totalDays: any = [];
   currentDate: any = '';
-  constructor(public apicall: ApiCallService) { }
-  
+  constructor(private apiService: ApiCallService) { }
+
   ionViewWillEnter() {
     this.totalDays = this.enumerateDaysBetweenDates(moment().startOf('week'), moment().endOf('week'));
     this.currentDate = moment().format('DD-MMM');
+  }
+
+  showSchedule() {
+    try {
+      let passData: any = {
+        user_id: localStorage.userId
+      }
+      this.apiService.showLoader();
+      this.apiService.hitAPICall('post', 'user/meeting-request-list', passData).subscribe((response: any) => {
+        this.apiService.hideLoader();
+      }, error => {
+        this.apiService.hideLoader();
+        this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+      });
+    } catch (error) {
+      this.apiService.hideLoader();
+      this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+    }
   }
 
   enumerateDaysBetweenDates(startDate: any, endDate: any) {

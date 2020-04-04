@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="customBackground">
+<ion-content class="customBackground bookMeetingPage">
   <ion-card color="light">
     <ion-row class="ion-padding-start ion-padding-top">
       <ion-col size="12" class="ion-text-center">
@@ -21,7 +21,7 @@
         <form [formGroup]="bookMeetingForm">
           <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
             <ion-label position="stacked" mode="ios">EVENT</ion-label>
-            <ion-select okText="Okay" cancelText="Dismiss" mode="ios" name="event" formControlName="event_id">
+            <ion-select okText="Okay" class="setBorder" cancelText="Dismiss" mode="ios" name="event" formControlName="event_id">
               <ion-select-option value="Indian Trade Exhibition">Indian Trade Exhibition</ion-select-option>
               <ion-select-option value="New-Tech Exhibition">New-Tech Exhibition</ion-select-option>
               <ion-select-option value="SemIsrael Expo">SemIsrael Expo</ion-select-option>
@@ -33,12 +33,12 @@
 
           <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
             <ion-label position="stacked" mode="ios">SELECT DATE:</ion-label>
-            <ion-datetime displayFormat="YYYY-MM-DD" name="meeting_date" formControlName="meeting_date"></ion-datetime>
+            <ion-datetime class="setBorder" displayFormat="YYYY-MM-DD" name="meeting_date" formControlName="meeting_date"></ion-datetime>
           </ion-item>
 
           <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
             <ion-label position="stacked" mode="ios">AVAILABLE TIMESLOTS</ion-label>
-            <ion-select okText="Okay" cancelText="Dismiss" mode="ios" name="timeslots" formControlName="timeslots">
+            <ion-select class="setBorder" okText="Okay" cancelText="Dismiss" mode="ios" name="timeslots" formControlName="timeslots">
               <ion-select-option value="06:30:00 - 07:00:00">06:30:00 - 07:00:00</ion-select-option>
               <ion-select-option value="07:00:00 - 07:30:00">07:00:00 - 07:30:00</ion-select-option>
               <ion-select-option value="07:30:00 - 08:00:00">07:30:00 - 08:00:00</ion-select-option>
@@ -48,7 +48,7 @@
 
           <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
             <ion-label position="stacked" mode="ios">LOCATION</ion-label>
-            <ion-select okText="Okay" cancelText="Dismiss" mode="ios" name="location" formControlName="location">
+            <ion-select class="setBorder" okText="Okay" cancelText="Dismiss" mode="ios" name="location" formControlName="location">
               <ion-select-option value="Hilton, Yel Aviv">Hilton, Yel Aviv</ion-select-option>
               <ion-select-option value="Sde Boker">Sde Boker</ion-select-option>
               <ion-select-option value="Yeruham">Yeruham</ion-select-option>
@@ -58,7 +58,7 @@
 
           <ion-item color="light" class="ion-no-padding" mode="ios">
             <ion-label position="stacked" mode="ios">LEAVE A MESSAGE</ion-label>
-            <ion-textarea name="message" rows="6" cols="20" formControlName="message"></ion-textarea>
+            <ion-textarea class="setBorder" name="message" rows="6" cols="20" formControlName="message"></ion-textarea>
           </ion-item>
         </form>
       </ion-col>

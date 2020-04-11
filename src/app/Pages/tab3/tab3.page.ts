@@ -46,4 +46,25 @@ export class Tab3Page {
   segmentChanged(val: any) {
     console.log(val.detail.value);
   }
+
+  acceptDeclienMeeting(val: any, meetingStatus: any) {
+    try {
+      const passData: any = {
+        meeting_slote_id: val.MeetingSlotId,
+        user_id: val.UserId,
+        status: meetingStatus == 'Accept' ? 1 : 0
+      }
+      this.apiService.showLoader();
+      this.apiService.hitAPICall('post', 'event/change-request-accept-declien-status', passData).subscribe((response: any) => {
+        this.apiService.hideLoader();
+        console.log('Response =>', response);
+      }, error => {
+        this.apiService.hideLoader();
+        this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+      })
+    } catch (error) {
+      this.apiService.hideLoader();
+      this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+    }
+  }
 }

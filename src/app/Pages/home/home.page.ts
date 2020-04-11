@@ -1,4 +1,3 @@
-import { BookMeetingPage } from '../book-meeting/book-meeting.page';
 import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { NavController, ModalController } from '@ionic/angular';
@@ -57,7 +56,7 @@ export class HomePage {
 
   createnewList(val: any) {
     this.modalCtrl.create({
-      component: BookMeetingPage,
+      component: CreateMeetingPage,
       componentProps: {
         value: val
       }

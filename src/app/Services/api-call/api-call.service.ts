@@ -303,4 +303,9 @@ export class ApiCallService {
       console.log(error);
     }
   }
+
+  serverSideError() {
+    this.hideLoader();
+    this.showAlert('', 'Error form server side', 'Ok', () => { });
+  }
 }

@@ -11,66 +11,86 @@
 
 <ion-content class="customBackground createMeetingPage">
   <ion-card color="light">
-    <ion-row class="ion-padding-start ion-padding-top" *ngIf="!createMeeting">
-      <ion-col size="12">
-        <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
-          <ion-label position="stacked" mode="ios" mode="ios">Select Participants</ion-label>
-          <ion-select okText="Okay" class="setBorder" cancelText="Dismiss" mode="ios" name="event">
-            <ion-select-option *ngFor="let eventData of eventListByCompanyData?.events" [value]="eventData?.id">
-              {{eventData?.value}}</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-col>
-      <ion-col size="6" class="ion-text-right">
-        <ion-button fill="outline" shape="round" (click)="closeModal()">
-          Cancel
-        </ion-button>
-      </ion-col>
-      <ion-col size="6">
-        <ion-button fill="outline" shape="round" (click)="setMeetingData()">
-          Next
-        </ion-button>
-      </ion-col>
-    </ion-row>
+    <form [formGroup]="createMeetingForm">
+      <ion-row class="ion-padding-start ion-padding-top" *ngIf="!createMeeting">
+        <ion-col size="12">
+          <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
+            <ion-label position="stacked" mode="ios" mode="ios">Select Event</ion-label>
+            <ion-select okText="Okay" class="setBorder" cancelText="Dismiss" mode="ios" name="event_id"
+              formControlName="event_id">
+              <ion-select-option *ngFor="let eventData of eventListByCompanyData?.events" [value]="eventData?.id" (ionChange)="getuserlistbyEvent($event)">
+                {{eventData?.value}}</ion-select-option>
+            </ion-select>
+          </ion-item>
 
-    <ion-row class="ion-padding-start ion-padding-top" *ngIf="createMeeting">
-      <ion-col size="12">
-        <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
-          <ion-icon slot="start" name="calendar" color="dark"></ion-icon>
-          <ion-label position="stacked" mode="ios">Picker in menu</ion-label>
-          <ion-datetime displayFormat="YYYY-MM-DD" class="setBorder">
-          </ion-datetime>
-        </ion-item>
+          <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
+            <ion-label position="stacked" mode="ios" mode="ios">Select Participants</ion-label>
+            <ion-select okText="Okay" class="setBorder" cancelText="Dismiss" mode="ios" name="request_receivers"
+              multiple="true" formControlName="request_receivers">
+              <ion-select-option *ngFor="let eventData of eventListByCompanyData?.events" [value]="eventData?.id">
+                {{eventData?.value}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6" class="ion-text-right">
+          <ion-button fill="outline" shape="round" (click)="closeModal()">
+            Cancel
+          </ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button fill="outline" shape="round" (click)="setMeetingData()" [disabled]="!createMeetingForm?.value.event_id || !createMeetingForm?.value.request_receivers">
+            Next
+          </ion-button>
+        </ion-col>
+      </ion-row>
 
-        <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
-          <ion-icon slot="start" name="time" color="dark"></ion-icon>
-          <ion-label position="stacked" mode="ios">Interval</ion-label>
-          <ion-select okText="Okay" class="setBorder" cancelText="Dismiss" mode="ios">
-            <ion-select-option value="06:30:00 - 07:00:00">06:30:00 - 07:00:00</ion-select-option>
-            <ion-select-option value="07:00:00 - 07:30:00">07:00:00 - 07:30:00</ion-select-option>
-            <ion-select-option value="07:30:00 - 08:00:00">07:30:00 - 08:00:00</ion-select-option>
-            <ion-select-option value="08:00:00 - 08:30:00">08:00:00 - 08:30:00</ion-select-option>
-          </ion-select>
-        </ion-item>
+      <ion-row class="ion-padding-start ion-padding-top" *ngIf="createMeeting">
+        <ion-col size="12">
+          <p><strong>From:</strong> {{loginUserDetails?.u_first_name}}  {{loginUserDetails?.u_last_name}}</p>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
+            <ion-label position="stacked" mode="ios">Event Name</ion-label>
+            <ion-input type="text" readonly="true" class="setBorder" name="eventName"></ion-input>
+          </ion-item>
 
-        <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
-          <ion-icon slot="start" src="../../../assets/icon/location-outline.svg"></ion-icon>
-          <ion-label position="stacked" mode="ios">Table</ion-label>
-          <ion-select okText="Okay" class="setBorder" cancelText="Dismiss" mode="ios">
-            <ion-select-option value="">No data available</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-col>
-      <ion-col size="6" class="ion-text-right">
-        <ion-button fill="outline" shape="round" (click)="closeModal()">
-          <ion-icon name="close" slot="icon-only" size="large"></ion-icon>
-        </ion-button>
-      </ion-col>
-      <ion-col size="6">
-        <ion-button fill="outline" shape="round" (click)="bookMeeting('')">
-          <ion-icon name="checkmark" slot="icon-only" size="large"></ion-icon>
-        </ion-button>
-      </ion-col>
-    </ion-row>
+          <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
+            <ion-label position="stacked" mode="ios">Company Table Name</ion-label>
+            <ion-input type="text" readonly="true" class="setBorder" name="companytableName"></ion-input>
+          </ion-item>
+
+          <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
+            <ion-label position="stacked" mode="ios">Select Meeting Date</ion-label>
+            <ion-datetime displayFormat="YYYY-MM-DD" class="setBorder" name="meeting_date" formGroupName="meeting_date">
+            </ion-datetime>
+          </ion-item>
+
+          <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
+            <ion-label position="stacked" mode="ios">Available Free Slots</ion-label>
+            <ion-select okText="Okay" class="setBorder" cancelText="Dismiss" mode="ios" name="start_time"
+              formControlName="start_time">
+
+            </ion-select>
+          </ion-item>
+
+          <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
+            <ion-label position="stacked" mode="ios">Meeting Details</ion-label>
+            <ion-textarea class="setBorder" name="meeting_details" rows="6" cols="20" formControlName="meeting_details">
+            </ion-textarea>
+          </ion-item>
+        </ion-col>
+        <ion-col size="5" class="ion-text-center">
+          <ion-button fill="outline" shape="round" (click)="closeModal()">
+            Cancel
+          </ion-button>
+        </ion-col>
+        <ion-col size="7" class="ion-text-center">
+          <ion-button fill="outline" shape="round" (click)="bookMeeting('')" [disabled]="!createMeetingForm.valid">
+            Meeting Request
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+    </form>
   </ion-card>
 </ion-content>

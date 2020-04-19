@@ -10,28 +10,33 @@ import { ApiCallService } from '../../Services/api-call/api-call.service';
 })
 export class CreateMeetingPage {
   modalData: any = '';
+  loginUserDetails: any = '';
   createMeeting: boolean = false;
   public createMeetingForm: FormGroup;
   public eventListByCompanyData: any = [];
+  public userListByEvent:any = [];
   constructor(
     private modalCtrl: ModalController,
     public navParam: NavParams,
     private formBuilder: FormBuilder,
     private apiService: ApiCallService) {
     this.modalData = this.navParam.get('value');
+    this.loginUserDetails = JSON.parse(localStorage.loginUserData);
+    
     console.log(this.modalData);
+    console.log(this.loginUserDetails);
+
     this.createMeetingForm = this.formBuilder.group({
       event_id: ['', Validators.required],
+      request_receivers: ['', Validators.required],
       meeting_date: ['', Validators.required],
       timeslots: ['', Validators.required],
       location: ['', Validators.required],
-      message: ['', Validators.required],
-      request_sender: '',
-      request_receivers: '',
-      requested_by: '',
-      start_time: '',
+      start_time: ['', Validators.required],
       end_time: '',
-      ent_id: '',
+      meeting_details: '',
+      request_sender: this.modalData,
+      requested_by: ''
     });
   }
 
@@ -44,6 +49,7 @@ export class CreateMeetingPage {
       const passData = {
         organization_id: this.modalData.organization_id
       }
+
       this.apiService.showLoader();
       this.apiService.hitAPICall('post', 'organization/get-event-list-by-company', passData).subscribe((response: any) => {
         this.apiService.hideLoader();
@@ -62,6 +68,25 @@ export class CreateMeetingPage {
     }
   }
 
+  getuserlistbyEvent(val: any) {
+    try {
+      const passData = {
+        event_id: val,
+        organization_id: this.modalData.organization_id
+      }
+
+      this.apiService.showLoader();
+      this.apiService.hitAPICall('post', 'event/get-user-list-by-event', passData).subscribe((response: any) => {
+        this.apiService.hideLoader();
+        this.userListByEvent = response;
+      }, error => {
+        this.apiService.serverSideError();
+      });
+    } catch (error) {
+      this.apiService.serverSideError();
+    }
+  }
+
   setMeetingData() {
     this.createMeeting = !this.createMeeting;
   }
@@ -77,12 +102,10 @@ export class CreateMeetingPage {
         this.apiService.hideLoader();
         console.log(response);
       }, error => {
-        this.apiService.hideLoader();
-        this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+        this.apiService.serverSideError();
       });
     } catch (error) {
-      this.apiService.hideLoader();
-      this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+      this.apiService.serverSideError();
     }
   }
 }

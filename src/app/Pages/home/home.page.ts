@@ -77,12 +77,4 @@ export class HomePage {
     };
     this.router.navigate(['chat'], navigationExtras);
   }
-
-  createMeeting() {
-    this.modalCtrl.create({
-      component: CreateMeetingPage
-    }).then((modal: any) => {
-      modal.present();
-    });
-  }
 }

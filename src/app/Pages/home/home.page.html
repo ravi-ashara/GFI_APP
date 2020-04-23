@@ -34,8 +34,8 @@
     <ion-card color="light" class="companyCard" *ngFor="let data of attendeesList | search:'u_first_name': searchVal">
       <ion-item color="light" lines="none" class="setBorderbottom">
         <ion-avatar slot="start">
-          <img [src]="data?.image_url ? data?.image_url : '../../../assets/images/profile_photo_icon.png'"
-            [alt]="data?.u_first_name" class="customIcon" />
+          <ion-img [src]="data?.image_url ? data?.image_url : '../../../assets/images/profile_photo_icon.png'"
+            [alt]="data?.u_first_name" class="customIcon" (ionError)="errorImage($event)"></ion-img>
         </ion-avatar>
         <ion-label>{{data?.u_first_name}} {{data?.u_last_name}}
           <p *ngIf="data?.organization !== null">{{data?.organization.company_name}}</p>

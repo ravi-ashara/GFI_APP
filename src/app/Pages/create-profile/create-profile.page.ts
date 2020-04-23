@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { Router } from '@angular/router';
+import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
 
 @Component({
   selector: 'app-create-profile',
@@ -48,7 +49,8 @@ export class CreateProfilePage {
   constructor(
     private navCtrl: NavController,
     public commonService: ApiCallService,
-    public router: Router) {
+    public router: Router,
+    private networkService: NetworkService) {
     if (this.router.getCurrentNavigation().extras.state) {
       if (this.router.getCurrentNavigation().extras.state.itemData) {
         this.setStep = this.router.getCurrentNavigation().extras.state.itemData === "getOrganization" ? 'organization' : 'step1';
@@ -57,16 +59,20 @@ export class CreateProfilePage {
   }
 
   ionViewWillEnter() {
-    try {
-      this.commonService.hitAPICall('post', 'organization/list', '').subscribe((response: any) => {
-        if (response.status === "success") {
-          this.organizationList = response.data;
-        } else {
-          this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
-        }
-      });
-    } catch (error) {
-      this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
+      try {
+        this.commonService.hitAPICall('post', 'organization/list', '').subscribe((response: any) => {
+          if (response.status === "success") {
+            this.organizationList = response.data;
+          } else {
+            this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
+          }
+        });
+      } catch (error) {
+        this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
+      }
+    } else {
+      this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
     }
   }
 
@@ -75,28 +81,30 @@ export class CreateProfilePage {
       this.changeStep('step1', 'next');
       return false;
     }
-    try {
-      this.commonService.showLoader();
-      let passData: any = {
-        organization_id: this.selectOrganization,
-        user_id: localStorage.userId
-      }
-      this.commonService.hitAPICall('post', 'organization/assign-user-rganization', passData).subscribe((response: any) => {
-        this.commonService.hideLoader();
-        if (response.status === "success") {
-          this.organizationList = response.data;
-          localStorage.loginUserData = JSON.stringify(response.data);
-          this.navCtrl.navigateRoot(['/home']);
-        } else {
-          this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
+      try {
+        this.commonService.showLoader();
+        let passData: any = {
+          organization_id: this.selectOrganization,
+          user_id: localStorage.userId
         }
-      }, error => {
-        this.commonService.hideLoader();
-        this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
-      });
-    } catch (error) {
-      this.commonService.hideLoader();
-      this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
+        this.commonService.hitAPICall('post', 'organization/assign-user-rganization', passData).subscribe((response: any) => {
+          this.commonService.hideLoader();
+          if (response.status === "success") {
+            this.organizationList = response.data;
+            localStorage.loginUserData = JSON.stringify(response.data);
+            this.navCtrl.navigateRoot(['/home']);
+          } else {
+            this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
+          }
+        }, error => {
+          this.commonService.serverSideError();
+        });
+      } catch (error) {
+        this.commonService.serverSideError();
+      }
+    } else {
+      this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
     }
   }
 
@@ -106,29 +114,31 @@ export class CreateProfilePage {
   }
 
   registerProfile() {
-    let combineObj: any = { ...this.setp1Data, ...this.setp2Data, ...this.setp3Data }
-    this.commonService.showLoader();
-    try {
-      this.commonService.hitAPICall('post', 'organization/add', combineObj).subscribe((response: any) => {
-        this.commonService.hideLoader();
-        if (response.status == "failed") {
-          if (response.errors) {
-            let errorsArray = Object.entries(response.errors);
-            for (let i = 0; i < errorsArray.length; i++) {
-              this.commonService.showAlert('', errorsArray[i][1][0], 'Ok', () => { });
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
+      try {
+        let combineObj: any = { ...this.setp1Data, ...this.setp2Data, ...this.setp3Data }
+        this.commonService.showLoader();
+        this.commonService.hitAPICall('post', 'organization/add', combineObj).subscribe((response: any) => {
+          this.commonService.hideLoader();
+          if (response.status == "failed") {
+            if (response.errors) {
+              let errorsArray = Object.entries(response.errors);
+              for (let i = 0; i < errorsArray.length; i++) {
+                this.commonService.showAlert('', errorsArray[i][1][0], 'Ok', () => { });
+              }
             }
+          } else {
+            localStorage.loginUserData = JSON.stringify(response.data);
+            this.navCtrl.navigateRoot(['/home']);
           }
-        } else {
-          localStorage.loginUserData = JSON.stringify(response.data);
-          this.navCtrl.navigateRoot(['/home']);
-        }
-      }, error => {
-        this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
-        this.commonService.hideLoader();
-      });
-    } catch (error) {
-      this.commonService.hideLoader();
-      this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
+        }, error => {
+          this.commonService.serverSideError();
+        });
+      } catch (error) {
+        this.commonService.serverSideError();
+      }
+    } else {
+      this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
     }
   }
 

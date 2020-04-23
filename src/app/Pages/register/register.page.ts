@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { NavController } from '@ionic/angular';
+import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
 
 @Component({
   selector: 'app-register',
@@ -13,8 +14,9 @@ export class RegisterPage {
   public registerForm: FormGroup;
   constructor(
     public formBuilder: FormBuilder,
-    public apiService: ApiCallService,
-    public navCtrl: NavController
+    public commonService: ApiCallService,
+    public navCtrl: NavController,
+    private networkService: NetworkService
   ) {
     this.registerForm = this.formBuilder.group({
       u_first_name: ['', Validators.required],
@@ -31,35 +33,37 @@ export class RegisterPage {
   }
 
   submitForm(val: any) {
-    val.value.profile_pic = this.userImage;
-    try {
-      this.apiService.showLoader();
-      this.apiService.hitAPICall('post', 'registration', val.value).subscribe((response: any) => {
-        this.apiService.hideLoader();
-        if (response.status == "failed") {
-          if (response.errors) {
-            let errorsArray = Object.entries(response.errors);
-            for (let i = 0; i < errorsArray.length; i++) {
-              this.apiService.showAlert('', errorsArray[i][1][0], 'Ok', () => { });
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
+      val.value.profile_pic = this.userImage;
+      try {
+        this.commonService.showLoader();
+        this.commonService.hitAPICall('post', 'registration', val.value).subscribe((response: any) => {
+          this.commonService.hideLoader();
+          if (response.status == "failed") {
+            if (response.errors) {
+              let errorsArray = Object.entries(response.errors);
+              for (let i = 0; i < errorsArray.length; i++) {
+                this.commonService.showAlert('', errorsArray[i][1][0], 'Ok', () => { });
+              }
             }
+          } else {
+            this.commonService.showAlert('', response.msg, 'Ok', () => {
+              this.navCtrl.navigateRoot(['/login']);
+            });
           }
-        } else {
-          this.apiService.showAlert('', response.msg, 'Ok', () => {
-            this.navCtrl.navigateRoot(['/login']);
-          });
-        }
-      }, (error) => {
-        this.apiService.hideLoader();
-        this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
-      });
-    } catch (error) {
-      this.apiService.hideLoader();
-      this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+        }, (error) => {
+          this.commonService.serverSideError();
+        });
+      } catch (error) {
+        this.commonService.serverSideError();
+      }
+    } else {
+      this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
     }
   }
 
   openImage() {
-    this.apiService.openCamera('PHOTOLIBRARY', (imageData: any) => {
+    this.commonService.openCamera('PHOTOLIBRARY', (imageData: any) => {
       if (imageData != 'Error') {
         this.userImage = imageData;
       }

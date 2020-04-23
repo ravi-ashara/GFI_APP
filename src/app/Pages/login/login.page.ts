@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { NavigationExtras, Router } from '@angular/router';
+import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -13,8 +14,9 @@ export class LoginPage {
   public loginForm: FormGroup;
   constructor(public formBuilder: FormBuilder,
     private navCtrl: NavController,
-    private apiService: ApiCallService,
-    private router: Router) {
+    public commonService: ApiCallService,
+    private router: Router,
+    private networkService: NetworkService) {
     this.loginForm = this.formBuilder.group({
       u_email: ['', Validators.email],
       u_password: ['', [Validators.required, Validators.minLength(3)]],
@@ -30,45 +32,47 @@ export class LoginPage {
   }
 
   submitForm(val: any) {
-    if (this.checkstaySingIng.nativeElement.checked === true) {
-      localStorage.isRemember = 'true';
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
+      if (this.checkstaySingIng.nativeElement.checked === true) {
+        localStorage.isRemember = 'true';
+      } else {
+        localStorage.isRemember = 'false';
+      }
+      localStorage.loginDetails = JSON.stringify(val.value);
+      try {
+        this.commonService.showLoader();
+        this.commonService.hitAPICall('post', 'login', val.value).subscribe((response: any) => {
+          this.commonService.hideLoader();
+          if (response.status == "failed") {
+            if (response.errors) {
+              this.commonService.showAlert('', response.errors.u_email[0], 'Ok', () => { });
+            } else {
+              this.commonService.showAlert('', 'Invalid Password', 'Ok', () => { });
+            }
+          } else {
+            if (response.data.organization === null) {
+              const navigationExtras: NavigationExtras = {
+                state: {
+                  itemData: 'getOrganization',
+                }
+              };
+              this.router.navigate(['create-profile'], navigationExtras);
+            } else {
+              this.navCtrl.navigateRoot(['/home']);
+              localStorage.loginUserData = JSON.stringify(response.data);
+            }
+            localStorage.isLogin = true;
+            localStorage.token = response.data.token;
+            localStorage.userId = response.data.u_id;
+          }
+        }, (error) => {
+          this.commonService.serverSideError();
+        });
+      } catch (error) {
+        this.commonService.serverSideError();
+      }
     } else {
-      localStorage.isRemember = 'false';
-    }
-    localStorage.loginDetails = JSON.stringify(val.value);
-    try {
-      this.apiService.showLoader();
-      this.apiService.hitAPICall('post', 'login', val.value).subscribe((response: any) => {
-        this.apiService.hideLoader();
-        if (response.status == "failed") {
-          if (response.errors) {
-            this.apiService.showAlert('', response.errors.u_email[0], 'Ok', () => { });
-          } else {
-            this.apiService.showAlert('', 'Invalid Password', 'Ok', () => { });
-          }
-        } else {
-          if (response.data.organization === null) {
-            const navigationExtras: NavigationExtras = {
-              state: {
-                itemData: 'getOrganization',
-              }
-            };
-            this.router.navigate(['create-profile'], navigationExtras);
-          } else {
-            this.navCtrl.navigateRoot(['/home']);
-            localStorage.loginUserData = JSON.stringify(response.data);
-          }
-          localStorage.isLogin = true;
-          localStorage.token = response.data.token;
-          localStorage.userId = response.data.u_id;
-        }
-      }, (error) => {
-        this.apiService.hideLoader();
-        this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
-      });
-    } catch (error) {
-      this.apiService.hideLoader();
-      this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+      this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
     }
   }
 }

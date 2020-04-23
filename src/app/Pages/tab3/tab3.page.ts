@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
 import * as moment from 'moment';
+import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
@@ -9,7 +10,9 @@ import * as moment from 'moment';
 export class Tab3Page {
   totalDays: any = [];
   currentDate: any = '';
-  constructor(private apiService: ApiCallService) { }
+  constructor(
+    public commonService: ApiCallService,
+    private networkService: NetworkService) { }
 
   ionViewWillEnter() {
     this.totalDays = this.enumerateDaysBetweenDates(moment().startOf('week'), moment().endOf('week'));
@@ -17,20 +20,22 @@ export class Tab3Page {
   }
 
   showSchedule() {
-    try {
-      let passData: any = {
-        user_id: localStorage.userId
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
+      try {
+        let passData: any = {
+          user_id: localStorage.userId
+        }
+        this.commonService.showLoader();
+        this.commonService.hitAPICall('post', 'user/meeting-request-list', passData).subscribe((response: any) => {
+          this.commonService.hideLoader();
+        }, error => {
+          this.commonService.serverSideError();
+        });
+      } catch (error) {
+        this.commonService.serverSideError();
       }
-      this.apiService.showLoader();
-      this.apiService.hitAPICall('post', 'user/meeting-request-list', passData).subscribe((response: any) => {
-        this.apiService.hideLoader();
-      }, error => {
-        this.apiService.hideLoader();
-        this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
-      });
-    } catch (error) {
-      this.apiService.hideLoader();
-      this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+    } else {
+      this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
     }
   }
 
@@ -48,23 +53,25 @@ export class Tab3Page {
   }
 
   acceptDeclienMeeting(val: any, meetingStatus: any) {
-    try {
-      const passData: any = {
-        meeting_slote_id: val.MeetingSlotId,
-        user_id: val.UserId,
-        status: meetingStatus == 'Accept' ? 1 : 0
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
+      try {
+        const passData: any = {
+          meeting_slote_id: val.MeetingSlotId,
+          user_id: val.UserId,
+          status: meetingStatus == 'Accept' ? 1 : 0
+        }
+        this.commonService.showLoader();
+        this.commonService.hitAPICall('post', 'event/change-request-accept-declien-status', passData).subscribe((response: any) => {
+          this.commonService.hideLoader();
+          console.log('Response =>', response);
+        }, error => {
+          this.commonService.serverSideError();
+        })
+      } catch (error) {
+        this.commonService.serverSideError();
       }
-      this.apiService.showLoader();
-      this.apiService.hitAPICall('post', 'event/change-request-accept-declien-status', passData).subscribe((response: any) => {
-        this.apiService.hideLoader();
-        console.log('Response =>', response);
-      }, error => {
-        this.apiService.hideLoader();
-        this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
-      })
-    } catch (error) {
-      this.apiService.hideLoader();
-      this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+    } else {
+      this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
     }
   }
 }

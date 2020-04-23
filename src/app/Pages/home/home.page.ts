@@ -3,6 +3,7 @@ import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { NavController, ModalController } from '@ionic/angular';
 import { NavigationExtras, Router } from '@angular/router';
 import { CreateMeetingPage } from '../create-meeting/create-meeting.page';
+import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,8 @@ export class HomePage {
     private modalCtrl: ModalController,
     public commonService: ApiCallService,
     public navCtrl: NavController,
-    public router: Router) { }
+    public router: Router,
+    private networkService: NetworkService) { }
 
   ionViewWillEnter() {
     this.getattendeesList();
@@ -27,22 +29,24 @@ export class HomePage {
   }
 
   getattendeesList() {
-    try {
-      this.commonService.showLoader();
-      this.commonService.hitAPICall('post', 'user/attendees-list', '').subscribe((response: any) => {
-        this.commonService.hideLoader();
-        if (response.status == "error") {
-          this.commonService.showAlert('Error', response.message, 'Ok', () => { });
-        } else {
-          this.attendeesList = response.data ? response.data : [];
-        }
-      }, error => {
-        this.commonService.hideLoader();
-        this.commonService.showAlert('Error', 'Error form server side', 'Ok', () => { });
-      });
-    } catch (error) {
-      this.commonService.hideLoader();
-      this.commonService.showAlert('Error', 'Error form server side', 'Ok', () => { });
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
+      try {
+        this.commonService.showLoader();
+        this.commonService.hitAPICall('post', 'user/attendees-list', '').subscribe((response: any) => {
+          this.commonService.hideLoader();
+          if (response.status == "error") {
+            this.commonService.showAlert('Error', response.message, 'Ok', () => { });
+          } else {
+            this.attendeesList = response.data ? response.data : [];
+          }
+        }, error => {
+          this.commonService.serverSideError();
+        });
+      } catch (error) {
+        this.commonService.serverSideError();
+      }
+    } else {
+      this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
     }
   }
 
@@ -55,26 +59,39 @@ export class HomePage {
   }
 
   createnewList(val: any) {
-    this.modalCtrl.create({
-      component: CreateMeetingPage,
-      componentProps: {
-        value: val
-      }
-    }).then((modal: any) => {
-      modal.present();
-    });
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
+      this.modalCtrl.create({
+        component: CreateMeetingPage,
+        componentProps: {
+          value: val
+        }
+      }).then((modal: any) => {
+        modal.present();
+      });
+    } else {
+      this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
+    }
   }
 
   gotoChatList(val: any) {
-    const navigationExtras: NavigationExtras = {
-      state: {
-        itemData: {
-          img: '../../../assets/images/sg1.jpg',
-          userName: 'Jeff',
-          userId: '1'
-        },
-      }
-    };
-    this.router.navigate(['chat'], navigationExtras);
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
+      const navigationExtras: NavigationExtras = {
+        state: {
+          itemData: {
+            img: '../../../assets/images/sg1.jpg',
+            userName: 'Jeff',
+            userId: '1'
+          },
+        }
+      };
+      this.router.navigate(['chat'], navigationExtras);
+    } else {
+      this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
+    }
+  }
+
+  errorImage(val: any) {
+    // console.log(val);
+    return val.target.src="assets/images/profile_photo_icon.png";
   }
 }

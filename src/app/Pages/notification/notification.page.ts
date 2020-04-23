@@ -8,7 +8,7 @@ import { ApiCallService } from '../../Services/api-call/api-call.service';
 })
 export class NotificationPage {
 
-  constructor(private apiService: ApiCallService) { }
+  constructor(private commonService: ApiCallService) { }
 
   ionViewWillEnter() {
 
@@ -16,46 +16,46 @@ export class NotificationPage {
 
   showNotificationList() {
     try {
-      this.apiService.showLoader();
-      this.apiService.hitAPICall('post', '', '').subscribe((response: any) => {
-        this.apiService.hideLoader();
+      this.commonService.showLoader();
+      this.commonService.hitAPICall('post', '', '').subscribe((response: any) => {
+        this.commonService.hideLoader();
       }, error => {
-        this.apiService.hideLoader();
-        this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+        this.commonService.hideLoader();
+        this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
       })
     } catch (error) {
-      this.apiService.hideLoader();
-      this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+      this.commonService.hideLoader();
+      this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
     }
   }
 
   deleteNotification(val: any) {
     // try {
-    //   this.apiService.showLoader();
-    //   this.apiService.hitAPICall('post', '', '').subscribe((response: any) => {
-    //     this.apiService.hideLoader();
+    //   this.commonService.showLoader();
+    //   this.commonService.hitAPICall('post', '', '').subscribe((response: any) => {
+    //     this.commonService.hideLoader();
     //   }, error => {
-    //     this.apiService.hideLoader();
-    //     this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+    //     this.commonService.hideLoader();
+    //     this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
     //   })
     // } catch (error) {
-    //   this.apiService.hideLoader();
-    //   this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+    //   this.commonService.hideLoader();
+    //   this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
     // }
   }
 
   replyNotification() {
     // try {
-    //   this.apiService.showLoader();
-    //   this.apiService.hitAPICall('post', '', '').subscribe((response: any) => {
-    //     this.apiService.hideLoader();
+    //   this.commonService.showLoader();
+    //   this.commonService.hitAPICall('post', '', '').subscribe((response: any) => {
+    //     this.commonService.hideLoader();
     //   }, error => {
-    //     this.apiService.hideLoader();
-    //     this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+    //     this.commonService.hideLoader();
+    //     this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
     //   })
     // } catch (error) {
-    //   this.apiService.hideLoader();
-    //   this.apiService.showAlert('', 'Error form server side', 'Ok', () => { });
+    //   this.commonService.hideLoader();
+    //   this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
     // }
   }
 }

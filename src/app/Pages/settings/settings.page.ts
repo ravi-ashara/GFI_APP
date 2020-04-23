@@ -1,5 +1,6 @@
 import { ApiCallService } from './../../Services/api-call/api-call.service';
 import { Component } from '@angular/core';
+import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
 
 @Component({
   selector: 'app-settings',
@@ -8,9 +9,15 @@ import { Component } from '@angular/core';
 })
 export class SettingsPage {
 
-  constructor(public apicall: ApiCallService) { }
+  constructor(public commonService: ApiCallService,
+    private networkService: NetworkService) { }
 
   logout() {
-    this.apicall.afterLogout();
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
+      this.commonService.afterLogout();
+    }
+    else {
+      this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
+    }
   }
 }

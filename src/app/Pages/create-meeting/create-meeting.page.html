@@ -17,18 +17,18 @@
           <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
             <ion-label position="stacked" mode="ios" mode="ios">Select Event</ion-label>
             <ion-select okText="Okay" class="setBorder" cancelText="Dismiss" mode="ios" name="event_id"
-              formControlName="event_id">
-              <ion-select-option *ngFor="let eventData of eventListByCompanyData?.events" [value]="eventData?.id" (ionChange)="getuserlistbyEvent($event)">
-                {{eventData?.value}}</ion-select-option>
+              formControlName="event_id" (ionChange)="getuserlistbyEvent($event)">
+              <ion-select-option *ngFor="let eventData of eventListByCompanyData?.events" [value]="eventData?.event_id">
+                {{eventData?.event_title}}</ion-select-option>
             </ion-select>
           </ion-item>
 
           <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
             <ion-label position="stacked" mode="ios" mode="ios">Select Participants</ion-label>
             <ion-select okText="Okay" class="setBorder" cancelText="Dismiss" mode="ios" name="request_receivers"
-              multiple="true" formControlName="request_receivers">
-              <ion-select-option *ngFor="let eventData of eventListByCompanyData?.events" [value]="eventData?.id">
-                {{eventData?.value}}</ion-select-option>
+              multiple="true" formControlName="request_receivers" (ionChange)="addParticipants($event)">
+              <ion-select-option *ngFor="let userList of userListByEvent?.data" [value]="userList?.u_id">
+                {{userList?.u_first_name}} {{userList?.u_last_name}}</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-col>
@@ -38,7 +38,8 @@
           </ion-button>
         </ion-col>
         <ion-col size="6">
-          <ion-button fill="outline" shape="round" (click)="setMeetingData()" [disabled]="!createMeetingForm?.value.event_id || !createMeetingForm?.value.request_receivers">
+          <ion-button fill="outline" shape="round" (click)="setMeetingData()"
+            [disabled]="!createMeetingForm?.value.event_id || !createMeetingForm?.value.request_receivers">
             Next
           </ion-button>
         </ion-col>
@@ -46,22 +47,25 @@
 
       <ion-row class="ion-padding-start ion-padding-top" *ngIf="createMeeting">
         <ion-col size="12">
-          <p><strong>From:</strong> {{loginUserDetails?.u_first_name}}  {{loginUserDetails?.u_last_name}}</p>
+          <p><strong>From:</strong> {{loginUserDetails?.u_first_name}} {{loginUserDetails?.u_last_name}}</p>
+          <p><strong>To:</strong> {{selectedParticipants}}</p>
         </ion-col>
         <ion-col size="12">
           <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
             <ion-label position="stacked" mode="ios">Event Name</ion-label>
-            <ion-input type="text" readonly="true" class="setBorder" name="eventName"></ion-input>
+            <ion-input type="text" readonly="true" class="setBorder" [value]="selectedEventData?.event_title">
+            </ion-input>
           </ion-item>
-
           <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
             <ion-label position="stacked" mode="ios">Company Table Name</ion-label>
-            <ion-input type="text" readonly="true" class="setBorder" name="companytableName"></ion-input>
+            <ion-input type="text" readonly="true" class="setBorder" [value]="eventListByCompanyData?.company_name">
+            </ion-input>
           </ion-item>
 
           <ion-item color="light" class="ion-no-padding ion-margin-bottom" mode="ios">
             <ion-label position="stacked" mode="ios">Select Meeting Date</ion-label>
-            <ion-datetime displayFormat="YYYY-MM-DD" class="setBorder" name="meeting_date" formGroupName="meeting_date">
+            <ion-datetime displayFormat="YYYY-MM-DD" class="setBorder" name="meeting_date"
+              formControlName="meeting_date" [max]="setMaxDate" [min]="setMinDate" (ionChange)="getFreeSlote($event)">
             </ion-datetime>
           </ion-item>
 
@@ -69,7 +73,9 @@
             <ion-label position="stacked" mode="ios">Available Free Slots</ion-label>
             <ion-select okText="Okay" class="setBorder" cancelText="Dismiss" mode="ios" name="start_time"
               formControlName="start_time">
-
+              <ion-select-option *ngFor="let slots of userFreeSlots?.free_slotes"
+                value="{{slots?.start_time}}-{{slots?.end_time}}">
+                {{slots?.start_time}} - {{slots?.end_time}}</ion-select-option>
             </ion-select>
           </ion-item>
 
@@ -79,13 +85,14 @@
             </ion-textarea>
           </ion-item>
         </ion-col>
-        <ion-col size="5" class="ion-text-center">
+        <ion-col size="4" class="ion-text-center">
           <ion-button fill="outline" shape="round" (click)="closeModal()">
             Cancel
           </ion-button>
         </ion-col>
-        <ion-col size="7" class="ion-text-center">
-          <ion-button fill="outline" shape="round" (click)="bookMeeting('')" [disabled]="!createMeetingForm.valid">
+        <ion-col size="8" class="ion-text-center">
+          <ion-button fill="outline" shape="round" (click)="bookMeeting(createMeetingForm.value)"
+            [disabled]="!createMeetingForm.valid">
             Meeting Request
           </ion-button>
         </ion-col>

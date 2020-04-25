@@ -39,7 +39,7 @@ export class CreateMeetingPage {
       meeting_details: '',
       request_sender: this.modalData.u_id,
       requested_by: this.modalData.u_id,
-      ent_id:''
+      ent_id: ''
     });
   }
 
@@ -149,11 +149,16 @@ export class CreateMeetingPage {
     let splitData: any = val.start_time.split("-");
     val.start_time = splitData[0];
     val.end_time = splitData[1];
+    val.ent_id = val.event_id;
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
       try {
         this.commonService.showLoader();
         this.commonService.hitAPICall('post', 'event/send-meeting-request', val).subscribe((response: any) => {
           this.commonService.hideLoader();
+          if (response.status == "success") {
+            this.commonService.showToastWithDuration(response.msg, 'top', 3000);
+            this.closeModal();
+          }
         }, error => {
           this.commonService.serverSideError();
         });

@@ -10,13 +10,25 @@ import { NetworkService, ConnectionStatus } from '../../Services/network/network
 export class Tab3Page {
   totalDays: any = [];
   currentDate: any = '';
+
+  public meetings_Eventts: any = '';
+  eventSource: any;
+  viewTitle: string;
+  selectedDate: any;
+  calendar = {
+    mode: 'month',
+    currentDate: this.selectedDate ? this.selectedDate : new Date()
+  };
+
   constructor(
     public commonService: ApiCallService,
     private networkService: NetworkService) { }
 
   ionViewWillEnter() {
-    this.totalDays = this.enumerateDaysBetweenDates(moment().startOf('week'), moment().endOf('week'));
+    // this.totalDays = this.enumerateDaysBetweenDates(moment().startOf('week'), moment().endOf('week'));
     this.currentDate = moment().format('DD-MMM');
+    this.calendar.currentDate = new Date();
+    this.showSchedule();
   }
 
   showSchedule() {
@@ -39,18 +51,18 @@ export class Tab3Page {
     }
   }
 
-  enumerateDaysBetweenDates(startDate: any, endDate: any) {
-    let date = []
-    while (moment(startDate) <= moment(endDate)) {
-      date.push(startDate);
-      startDate = moment(startDate).add(1, 'days');
-    }
-    return date;
-  }
+  // enumerateDaysBetweenDates(startDate: any, endDate: any) {
+  //   let date = []
+  //   while (moment(startDate) <= moment(endDate)) {
+  //     date.push(startDate);
+  //     startDate = moment(startDate).add(1, 'days');
+  //   }
+  //   return date;
+  // }
 
-  segmentChanged(val: any) {
-    console.log(val.detail.value);
-  }
+  // segmentChanged(val: any) {
+  //   console.log(val.detail.value);
+  // }
 
   acceptDeclienMeeting(val: any, meetingStatus: any) {
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
@@ -73,5 +85,21 @@ export class Tab3Page {
     } else {
       this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
     }
+  }
+
+  onViewTitleChanged(title: any) {
+    const currentDate = this.calendar.currentDate ? moment(this.calendar.currentDate).format("DD") : moment().format('DD');
+    const fullDate = currentDate + ' ' + title;
+    this.viewTitle = moment(fullDate).format('MMMM DD, YYYY');
+  }
+
+  onTimeSelected(ev: any) {
+    this.viewTitle = moment(ev.selectedTime).format('MMMM DD, YYYY');
+    this.meetings_Eventts = ev.events;
+  }
+
+  onCurrentDateChanged(event: Date) {
+    let today = new Date(event);
+    this.selectedDate = today;
   }
 }

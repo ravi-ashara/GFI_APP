@@ -1,12 +1,24 @@
 <app-common-header name="My Schedule"></app-common-header>
 
 <ion-content class="customBackground mySchedulePage">
-  <ion-segment (ionChange)="segmentChanged($event)" scrollable [value]="currentDate" mode="md" color="light">
+  <!-- <ion-segment (ionChange)="segmentChanged($event)" scrollable [value]="currentDate" mode="md" color="light">
     <ion-segment-button [value]="date | date : 'dd-MMM'" *ngFor="let date of totalDays" mode="md" color="light">
       <ion-label>{{date | date : 'dd/M'}}<p class="ion-no-margin scheduleDatesFont">{{date | date: 'EEE'}}</p>
       </ion-label>
     </ion-segment-button>
-  </ion-segment>
+  </ion-segment> -->
+
+  <ion-row>
+    <ion-col size="12" class="ion-text-center">
+      <h4 class="ion-no-margin"><ion-text color="light">{{viewTitle}}</ion-text></h4>
+    </ion-col>
+    <ion-col size="10" offset="1">
+      <calendar [showEventDetail]="false" [autoSelect]="true" [eventSource]="eventSource" [calendarMode]="calendar.mode"
+        [currentDate]="calendar.currentDate" (onTitleChanged)="onViewTitleChanged($event)" step="30" class="calendar"
+        (onCurrentDateChanged)="onCurrentDateChanged($event)" (onTimeSelected)="onTimeSelected($event)">
+      </calendar>
+    </ion-col>
+  </ion-row>
 
   <ion-row class="ion-no-padding">
     <ion-col size="12" class="ion-no-padding">

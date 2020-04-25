@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Camera } from '@ionic-native/camera/ngx';
+
 /** Services */
 import { ApiCallService } from './Services/api-call/api-call.service';
 import { AuthService } from './Services/auth/auth.service';
@@ -25,13 +26,13 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Network } from '@ionic-native/network/ngx';
 import { PipesModule } from './Pipes/pipes.module';
-
+import { NgCalendarModule } from 'ionic2-calendar';
 @NgModule({
   declarations: [
     AppComponent,
   ],
   entryComponents: [
-    CommonHeaderComponent
+    CommonHeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +42,8 @@ import { PipesModule } from './Pipes/pipes.module';
     HttpClientModule,
     ComponentsModule,
     CreateMeetingPageModule,
-    PipesModule
+    PipesModule,
+    NgCalendarModule
   ],
   providers: [
     StatusBar,

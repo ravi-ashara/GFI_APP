@@ -71,25 +71,24 @@ const routes: Routes = [
   },
   {
     path: 'acknowledgement',
-    loadChildren: () => import('./Pages/acknowledgement/acknowledgement.module').then( m => m.AcknowledgementPageModule)
+    loadChildren: () => import('./Pages/acknowledgement/acknowledgement.module').then(m => m.AcknowledgementPageModule)
   },
   {
     path: 'term-of-service',
-    loadChildren: () => import('./Pages/termof-service/termof-service.module').then( m => m.TermofServicePageModule)
-  },  {
+    loadChildren: () => import('./Pages/termof-service/termof-service.module').then(m => m.TermofServicePageModule)
+  },
+  {
     path: 'privacy-policy',
-    loadChildren: () => import('./Pages/privacy-policy/privacy-policy.module').then( m => m.PrivacyPolicyPageModule)
+    loadChildren: () => import('./Pages/privacy-policy/privacy-policy.module').then(m => m.PrivacyPolicyPageModule)
   },
   {
     path: 'event-privacy-policy',
-    loadChildren: () => import('./Pages/event-privacy-policy/event-privacy-policy.module').then( m => m.EventPrivacyPolicyPageModule)
+    loadChildren: () => import('./Pages/event-privacy-policy/event-privacy-policy.module').then(m => m.EventPrivacyPolicyPageModule)
   },
   {
     path: 'forgot-password',
-    loadChildren: () => import('./Pages/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+    loadChildren: () => import('./Pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordPageModule)
   }
-
-
 ];
 @NgModule({
   imports: [

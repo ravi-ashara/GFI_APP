@@ -19,6 +19,7 @@ import { NetworkService } from './Services/network/network.service';
 import { ComponentsModule } from './Components/components.module';
 import { CommonHeaderComponent } from './Components/common-header/common-header.component';
 import { CreateMeetingPageModule } from './Pages/create-meeting/create-meeting.module';
+import { MeetingDetailsPageModule } from './Pages/meeting-details/meeting-details.module';
 
 /** Plugin */
 import { Push } from '@ionic-native/push/ngx';
@@ -43,7 +44,8 @@ import { NgCalendarModule } from 'ionic2-calendar';
     ComponentsModule,
     CreateMeetingPageModule,
     PipesModule,
-    NgCalendarModule
+    NgCalendarModule,
+    MeetingDetailsPageModule
   ],
   providers: [
     StatusBar,

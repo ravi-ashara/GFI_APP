@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
-import * as moment from 'moment';
+// import * as moment from 'moment';
 import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
+import { ActionSheetController, ModalController } from '@ionic/angular';
+import { MeetingDetailsPage } from '../meeting-details/meeting-details.page';
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
+  segmentSelectedValue: string = "Today"
   /*totalDays: any = [];
   currentDate: any = '';
 
@@ -22,7 +25,9 @@ export class Tab3Page {
 
   constructor(
     public commonService: ApiCallService,
-    private networkService: NetworkService) { }
+    private networkService: NetworkService,
+    private actionSheetController: ActionSheetController,
+    private modalCtrl: ModalController) { }
 
   ionViewWillEnter() {
     /*this.currentDate = moment().format('DD-MMM');
@@ -66,13 +71,56 @@ export class Tab3Page {
     this.selectedDate = today;
   }*/
 
-  acceptDeclienMeeting(val: any, meetingStatus: any) {
+  showOptions(val: any) {
+    this.actionSheetController.create({
+      mode: 'ios',
+      buttons: [{
+        text: 'Delete Meeting',
+        role: 'destructive',
+        handler: () => {
+          // this.deleteMeeting(val);
+        }
+      }, {
+        text: 'Accept',
+        handler: () => {
+          // this.acceptDeclineMeeting(val, 'Accept');
+        }
+      }, {
+        text: 'Decline',
+        handler: () => {
+          // this.acceptDeclineMeeting(val, 'Decline');
+        }
+      }, {
+        text: 'View',
+        handler: () => {
+          this.modalCtrl.create({
+            component: MeetingDetailsPage,
+            componentProps: {
+              value: val
+            }
+          }).then((modal: any) => {
+            modal.present();
+          });
+        }
+      }, {
+        text: 'Cancel',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    }).then((action_sheet: any) => {
+      action_sheet.present();
+    });
+  }
+
+  acceptDeclineMeeting(val: any, meetingStatus: any) {
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
       try {
         const passData: any = {
           meeting_slote_id: val.MeetingSlotId,
           user_id: val.UserId,
-          status: meetingStatus == 'Accept' ? 1 : 0
+          status: meetingStatus == 'Accept' ? 1 : 2
         }
         this.commonService.showLoader();
         this.commonService.hitAPICall('post', 'event/change-request-accept-declien-status', passData).subscribe((response: any) => {
@@ -81,6 +129,27 @@ export class Tab3Page {
         }, error => {
           this.commonService.serverSideError();
         })
+      } catch (error) {
+        this.commonService.serverSideError();
+      }
+    } else {
+      this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
+    }
+  }
+
+  deleteMeeting(val: any) {
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
+      try {
+        const passData: any = {
+          meeting_slote_id: val.MeetingSlotId,
+          user_id: val.UserId
+        }
+        this.commonService.showLoader();
+        this.commonService.hitAPICall('post', 'event/delete-meeting', passData).subscribe((response: any) => {
+          this.commonService.hideLoader();
+        }, error => {
+          this.commonService.serverSideError();
+        });
       } catch (error) {
         this.commonService.serverSideError();
       }

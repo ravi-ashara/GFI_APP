@@ -1,12 +1,63 @@
+.mySchedulePage {
+    .borderTopBottom {
+        border-top: 1px solid #eaeaea;
+        border-bottom: 1px solid #eaeaea;
+    }
 
-.mySchedulePage{
-    .smallPaddingRight{
-        padding-right: 8px;
-    }
-    .scheduleStatusFont{
-        font-size: 12px;
-    }
-    .scheduleDatesFont{
-        font-size: 10px;
+    .scheduleMeetingList {
+        .lableHeading {
+            font-weight: 600;
+        }
+
+        .meetingFontSize12 {
+            font-size: 12px;
+        }
+
+        .meetingFontSize10 {
+            font-size: 10px;
+        }
+
+        .viewStatus {
+            margin-inline-start: 10px;
+        }
+
+        .moreButton {
+            width: 35px;
+            height: 35px;
+            background-color: #298aab;
+            border-radius: 50%;
+        }
+
+        .verticalCenter {
+            margin-top: 8px;
+        }
+
+        .displayRequestUsersListImgs {
+            margin-left: 70px;
+            margin-bottom: 8px;
+
+            .smallImages {
+                display: inline-block;
+                margin-right: 2px;
+
+                img {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                }
+            }
+
+            .moreCount {
+                display: inline-block;
+                vertical-align: top;
+                padding-top: 8px;
+            }
+        }
+
+        .customContent {
+            border-top: 1px solid #e1e1e1;
+            padding-bottom: 8px;
+            padding-top: 8px;
+        }
     }
 }

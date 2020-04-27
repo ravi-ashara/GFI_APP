@@ -63,10 +63,10 @@ export class AppComponent {
       this.splashScreen.hide();
       this.handleHardwareBackButton();
       this.commonService.pushNotifications();
-      if (localStorage.token) {
-        this.getDetails();
-      }
     });
+    if (localStorage.token) {
+      this.getDetails();
+    }
   }
 
   getDetails() {

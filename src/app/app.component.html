@@ -1,17 +1,16 @@
 <ion-app>
-  <ion-menu type="overlay" side="start" menuId="first" mode="ios">
+  <ion-menu type="overlay" side="start" menuId="first" mode="ios" class="ionicMenu">
     <ion-header mode="ios">
       <ion-toolbar mode="ios" color="primary">
-        <!-- <ion-title>Menu</ion-title> -->
         <ion-row>
           <ion-col size="2">
             <ion-avatar class="ion-margin-start SetImagesSize">
-              <img [src]="userData?.user?.image_url ? userData?.user?.image_url : 'assets/images/profile_photo_white.png'" />
+              <img [src]="userData?.image_url ? userData?.image_url : 'assets/images/profile_photo_white.png'" />
             </ion-avatar>
           </ion-col>
           <ion-col size="10" class="ion-text-center">
-            <!-- <p>{{userData?.user?.u_first_name}} {{userData?.user?.u_last_name}}</p> -->
-            <p>{{userData?.u_first_name}} {{userData?.u_last_name}}</p>
+            <p class="ion-no-margin marginTop">{{userData?.u_first_name}} {{userData?.u_last_name}}</p>
+            <p class="ion-no-margin">{{userData?.u_email}} </p>
           </ion-col>
         </ion-row>
       </ion-toolbar>

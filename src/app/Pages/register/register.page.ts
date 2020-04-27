@@ -67,6 +67,6 @@ export class RegisterPage {
       if (imageData != 'Error') {
         this.userImage = imageData;
       }
-    })
+    });
   }
 }

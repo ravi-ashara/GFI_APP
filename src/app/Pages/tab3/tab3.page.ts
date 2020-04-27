@@ -22,7 +22,8 @@ export class Tab3Page {
     mode: 'month',
     currentDate: this.selectedDate ? this.selectedDate : new Date()
   };*/
-
+  public fullEventsData: any = [];
+  public getDataBySegmentSelected: any = [];
   constructor(
     public commonService: ApiCallService,
     private networkService: NetworkService,
@@ -32,7 +33,7 @@ export class Tab3Page {
   ionViewWillEnter() {
     /*this.currentDate = moment().format('DD-MMM');
     this.calendar.currentDate = new Date();*/
-    // this.showSchedule();
+    this.showSchedule();
   }
 
   showSchedule() {
@@ -44,6 +45,10 @@ export class Tab3Page {
         this.commonService.showLoader();
         this.commonService.hitAPICall('post', 'user/meeting-request-list', passData).subscribe((response: any) => {
           this.commonService.hideLoader();
+          if (response.status == 'success') {
+            this.fullEventsData = response.data;
+            this.getDataBySegmentSelected = this.fullEventsData.today;
+          }
         }, error => {
           this.commonService.serverSideError();
         });
@@ -52,6 +57,16 @@ export class Tab3Page {
       }
     } else {
       this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
+    }
+  }
+
+  changeSegment() {
+    if (this.segmentSelectedValue == 'Today') {
+      this.getDataBySegmentSelected = this.fullEventsData.today;
+    } else if (this.segmentSelectedValue == 'Upcoming') {
+      this.getDataBySegmentSelected = this.fullEventsData.upcomming;
+    } else {
+      // this.getDataBySegmentSelected = this.fullEventsData;
     }
   }
 
@@ -72,55 +87,82 @@ export class Tab3Page {
   }*/
 
   showOptions(val: any) {
-    this.actionSheetController.create({
-      mode: 'ios',
-      buttons: [{
-        text: 'Delete Meeting',
-        role: 'destructive',
-        handler: () => {
-          // this.deleteMeeting(val);
-        }
-      }, {
-        text: 'Accept',
-        handler: () => {
-          // this.acceptDeclineMeeting(val, 'Accept');
-        }
-      }, {
-        text: 'Decline',
-        handler: () => {
-          // this.acceptDeclineMeeting(val, 'Decline');
-        }
-      }, {
-        text: 'View',
-        handler: () => {
-          this.modalCtrl.create({
-            component: MeetingDetailsPage,
-            componentProps: {
-              value: val
-            }
-          }).then((modal: any) => {
-            modal.present();
-          });
-        }
-      }, {
-        text: 'Cancel',
-        role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
-      }]
-    }).then((action_sheet: any) => {
-      action_sheet.present();
-    });
+    if (val.is_owner == true) {
+      this.actionSheetController.create({
+        mode: 'ios',
+        buttons: [{
+          text: 'Delete Meeting',
+          role: 'destructive',
+          handler: () => {
+            // this.deleteMeeting(val);
+          }
+        }, {
+          text: 'View',
+          handler: () => {
+            this.modalCtrl.create({
+              component: MeetingDetailsPage,
+              componentProps: {
+                value: val
+              }
+            }).then((modal: any) => {
+              modal.present();
+            });
+          }
+        }, {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }]
+      }).then((action_sheet: any) => {
+        action_sheet.present();
+      });
+    } else {
+      this.actionSheetController.create({
+        mode: 'ios',
+        buttons: [{
+          text: 'Accept',
+          handler: () => {
+            // this.acceptDeclineMeeting(val,1);
+          }
+        }, {
+          text: 'Decline',
+          handler: () => {
+            // this.acceptDeclineMeeting(val,2);
+          }
+        }, {
+          text: 'View',
+          handler: () => {
+            this.modalCtrl.create({
+              component: MeetingDetailsPage,
+              componentProps: {
+                value: val
+              }
+            }).then((modal: any) => {
+              modal.present();
+            });
+          }
+        }, {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }]
+      }).then((action_sheet: any) => {
+        action_sheet.present();
+      });
+    }
   }
 
   acceptDeclineMeeting(val: any, meetingStatus: any) {
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
       try {
         const passData: any = {
-          meeting_slote_id: val.MeetingSlotId,
-          user_id: val.UserId,
-          status: meetingStatus == 'Accept' ? 1 : 2
+          meeting_slote_id: val.id,
+          user_id: val.user_id,
+          status: meetingStatus
         }
         this.commonService.showLoader();
         this.commonService.hitAPICall('post', 'event/change-request-accept-declien-status', passData).subscribe((response: any) => {

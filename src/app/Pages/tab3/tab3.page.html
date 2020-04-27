@@ -1,8 +1,8 @@
 <app-common-header name="My Schedule"></app-common-header>
 
 <ion-content class="customBackground mySchedulePage">
-  <ion-segment mode="md" value="Today" color="light" class="borderTopBottom" [(ngModel)]="segmentSelectedValue"
-    [value]="segmentSelectedValue">
+  <ion-segment mode="md" color="light" class="borderTopBottom" [(ngModel)]="segmentSelectedValue"
+    [value]="segmentSelectedValue" (ionChange)="changeSegment()">
     <ion-segment-button value="Today" mode="md">
       <ion-label>Today</ion-label>
     </ion-segment-button>
@@ -13,17 +13,17 @@
       <ion-label>Past</ion-label>
     </ion-segment-button>
   </ion-segment>
-  <div *ngIf="segmentSelectedValue == 'Today'">
-    <ion-card color="light" class="scheduleMeetingList">
+  <div *ngIf="getDataBySegmentSelected?.length != 0; else showNodataRow;">
+    <ion-card color="light" class="scheduleMeetingList"
+      *ngFor="let meedingData of getDataBySegmentSelected?.meeting_slotes">
       <ion-item lines="none" color="light">
         <ion-avatar slot="start">
           <img src="../../../assets/images/profile_photo_icon.png" alt="Company Image" />
         </ion-avatar>
-        <ion-label><span class="lableHeading">App Design discussion</span>
-          <p class="meetingFontSize12">This is content, without any paragraph or header tags,
-            within an ion-card-content element.</p>
+        <ion-label><span class="lableHeading">{{meedingData?.events?.event_title}}</span>
+          <p class="meetingFontSize12">{{meedingData?.events?.event_description}}</p>
         </ion-label>
-        <ion-button slot="end" fill="clear" class="viewStatus moreButton" (click)="showOptions(' ')">
+        <ion-button slot="end" fill="clear" class="viewStatus moreButton" (click)="showOptions(meedingData)">
           <ion-icon slot="icon-only" src="../../../assets/icon/ellipsis-horizontal-outline.svg"></ion-icon>
         </ion-button>
       </ion-item>
@@ -49,71 +49,28 @@
         <ion-row class="ion-no-padding">
           <ion-col size="4">
             <p class="ion-no-margin meetingFontSize10"> Meeting Time</p>
-            <p class="ion-no-margin meetingFontSize12"> <strong> 10:20 AM</strong></p>
+            <p class="ion-no-margin meetingFontSize12"> <strong> {{meedingData?.start_time}}</strong></p>
           </ion-col>
           <ion-col size="3" class="ion-text-center verticalCenter">
-            <ion-badge color="success">Accepted</ion-badge>
+            <ion-badge
+              [color]='meedingData?.status == "1" ? "success" : meedingData?.status == "2" ? "danger" : "warning"'>
+              {{meedingData?.status == "1" ? "Accepted" : meedingData?.status == "2" ? "Declined" : "Pending"}}
+            </ion-badge>
           </ion-col>
           <ion-col size="5" class="ion-text-right">
-            <p class="ion-no-margin meetingFontSize12"> David J. Vandyne</p>
-            <p class="ion-no-margin meetingFontSize10"> Product Manager</p>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
-    <ion-card color="light" class="scheduleMeetingList">
-      <ion-item lines="none" color="light">
-        <ion-avatar slot="start">
-          <img src="../../../assets/images/profile_photo_icon.png" alt="Company Image" />
-        </ion-avatar>
-        <ion-label><span class="lableHeading">App Design discussion</span>
-          <p class="meetingFontSize12">This is content, without any paragraph or header tags,
-            within an ion-card-content element.</p>
-        </ion-label>
-        <ion-button slot="end" fill="clear" class="viewStatus moreButton" (click)="showOptions(' ')">
-          <ion-icon slot="icon-only" src="../../../assets/icon/ellipsis-horizontal-outline.svg"></ion-icon>
-        </ion-button>
-      </ion-item>
-      <div class="ion-no-margin displayRequestUsersListImgs">
-        <div class="smallImages">
-          <img src="../../../assets/images/sg1.jpg" />
-        </div>
-        <div class="smallImages">
-          <img src="../../../assets/images/sg1.jpg" class="smallImages" />
-        </div>
-        <div class="smallImages">
-          <img src="../../../assets/images/sg1.jpg" class="smallImages" />
-        </div>
-        <div class="smallImages">
-          <img src="../../../assets/images/sg1.jpg" class="smallImages" />
-        </div>
-        <div class="smallImages">
-          <img src="../../../assets/images/sg1.jpg" class="smallImages" />
-        </div>
-        <div class="moreCount">+6 More</div>
-      </div>
-      <ion-card-content class="customContent">
-        <ion-row class="ion-no-padding">
-          <ion-col size="4">
-            <p class="ion-no-margin meetingFontSize10"> Meeting Time</p>
-            <p class="ion-no-margin meetingFontSize12"> <strong> 10:20 AM</strong></p>
-          </ion-col>
-          <ion-col size="3" class="ion-text-center verticalCenter">
-            <ion-badge color="danger">Declined</ion-badge>
-          </ion-col>
-          <ion-col size="5" class="ion-text-right">
-            <p class="ion-no-margin meetingFontSize12"> David J. Vandyne</p>
-            <p class="ion-no-margin meetingFontSize10"> Product Manager</p>
+            <p class="ion-no-margin meetingFontSize12">{{meedingData?.request_sender?.u_first_name}}
+              {{meedingData?.request_sender?.u_last_name}}</p>
+            <p class="ion-no-margin meetingFontSize10"> {{meedingData?.request_sender.u_headline}}</p>
           </ion-col>
         </ion-row>
       </ion-card-content>
     </ion-card>
   </div>
-  <div *ngIf="segmentSelectedValue == 'Upcoming'">
+  <!-- <div *ngIf="segmentSelectedValue == 'Upcoming'">
     <p class="ion-text-center">
       <ion-text color="light">27/04/2020</ion-text>
     </p>
-   
+
     <ion-card color="light" class="scheduleMeetingList">
       <ion-item lines="none" color="light">
         <ion-avatar slot="start">
@@ -165,7 +122,7 @@
     <p class="ion-text-center">
       <ion-text color="light">28/04/2020</ion-text>
     </p>
-    
+
     <ion-card color="light" class="scheduleMeetingList">
       <ion-item lines="none" color="light">
         <ion-avatar slot="start">
@@ -213,8 +170,8 @@
         </ion-row>
       </ion-card-content>
     </ion-card>
-  </div>
-  <div *ngIf="segmentSelectedValue == 'Past'">
+  </div> -->
+  <ng-template #showNodataRow>
     <ion-row>
       <ion-col size="12" class="ion-text-center">
         <h4>
@@ -222,7 +179,7 @@
         </h4>
       </ion-col>
     </ion-row>
-  </div>
+  </ng-template>
   <!-- <ion-row>
     <ion-col size="12" class="ion-text-center">
       <h4 class="ion-no-margin"><ion-text color="light">{{viewTitle}}</ion-text></h4>

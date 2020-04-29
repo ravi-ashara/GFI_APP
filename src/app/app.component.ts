@@ -73,6 +73,10 @@ export class AppComponent {
     this.userData = this.commonService.getUserLoginData();
   }
 
+  errorImage(val: any) {
+    return val.target.src = "assets/images/profile_photo_icon.png";
+  }
+  
   handleHardwareBackButton() {
     this.platform.backButton.subscribe((event: any) => {
       if (this.routerOutlet && this.routerOutlet.canGoBack()) {

@@ -91,7 +91,6 @@ export class HomePage {
   }
 
   errorImage(val: any) {
-    // console.log(val);
-    return val.target.src="assets/images/profile_photo_icon.png";
+    return val.target.src = "assets/images/profile_photo_icon.png";
   }
 }

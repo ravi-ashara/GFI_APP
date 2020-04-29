@@ -1,3 +1,4 @@
+import { CreateMeetingPage } from './../create-meeting/create-meeting.page';
 import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
 // import * as moment from 'moment';
@@ -47,7 +48,7 @@ export class Tab3Page {
           this.commonService.hideLoader();
           if (response.status == 'success') {
             this.fullEventsData = response.data;
-            this.getDataBySegmentSelected = this.fullEventsData.today;
+            this.changeSegment();
           }
         }, error => {
           this.commonService.serverSideError();
@@ -66,7 +67,8 @@ export class Tab3Page {
     } else if (this.segmentSelectedValue == 'Upcoming') {
       this.getDataBySegmentSelected = this.fullEventsData.upcomming;
     } else {
-      // this.getDataBySegmentSelected = this.fullEventsData;
+      this.getDataBySegmentSelected = Object.entries(this.fullEventsData.past);
+      console.log(this.getDataBySegmentSelected);
     }
   }
 
@@ -86,15 +88,19 @@ export class Tab3Page {
     this.selectedDate = today;
   }*/
 
+  errorImage(val: any) {
+    return val.target.src = "assets/images/profile_photo_icon.png";
+  }
+
   showOptions(val: any) {
-    if (val.is_owner == true) {
+    if (val.request_sender == localStorage.userId) {
       this.actionSheetController.create({
         mode: 'ios',
         buttons: [{
           text: 'Delete Meeting',
           role: 'destructive',
           handler: () => {
-            // this.deleteMeeting(val);
+            this.deleteMeeting(val);
           }
         }, {
           text: 'View',
@@ -106,6 +112,40 @@ export class Tab3Page {
               }
             }).then((modal: any) => {
               modal.present();
+            });
+          }
+        },
+        {
+          text: 'Edit Meeting',
+          handler: () => {
+            this.commonService.alertController.create({
+              header: 'Edit Description',
+              mode: 'ios',
+              inputs: [
+                {
+                  name: 'event_description',
+                  type: 'text',
+                  placeholder: 'Edit Description',
+                  value: val.events.event_description
+                }
+              ],
+              buttons: [
+                {
+                  text: 'Cancel',
+                  role: 'cancel',
+                  cssClass: 'secondary',
+                  handler: () => {
+
+                  }
+                }, {
+                  text: 'Ok',
+                  handler: (val_input: any) => {
+                    this.updateMeetingDetails(val, val_input.event_description);
+                  }
+                }
+              ]
+            }).then((alert: any) => {
+              alert.present();
             });
           }
         }, {
@@ -124,12 +164,12 @@ export class Tab3Page {
         buttons: [{
           text: 'Accept',
           handler: () => {
-            // this.acceptDeclineMeeting(val,1);
+            this.acceptDeclineMeeting(val, 1);
           }
         }, {
           text: 'Decline',
           handler: () => {
-            // this.acceptDeclineMeeting(val,2);
+            this.acceptDeclineMeeting(val, 2);
           }
         }, {
           text: 'View',
@@ -183,11 +223,38 @@ export class Tab3Page {
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
       try {
         const passData: any = {
-          meeting_slote_id: val.MeetingSlotId,
-          user_id: val.UserId
+          request_id: val.request_id
         }
         this.commonService.showLoader();
         this.commonService.hitAPICall('post', 'event/delete-meeting', passData).subscribe((response: any) => {
+          this.commonService.hideLoader();
+          if (response.status == "success") {
+            this.commonService.showToastWithDuration(response.msg, 'top', 3000);
+            this.showSchedule();
+          } else {
+            this.commonService.showToastWithDuration('Error form server side', 'top', 3000);
+          }
+        }, error => {
+          this.commonService.serverSideError();
+        });
+      } catch (error) {
+        this.commonService.serverSideError();
+      }
+    } else {
+      this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
+    }
+  }
+
+  updateMeetingDetails(val: any, meetingDetail: any) {
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
+      try {
+        const passData: any = {
+          request_id: val.request_id,
+          meeting_detail: meetingDetail,
+          request_sender: val.request_sender
+        }
+        this.commonService.showLoader();
+        this.commonService.hitAPICall('post', 'event/edit-meeting', passData).subscribe((response: any) => {
           this.commonService.hideLoader();
         }, error => {
           this.commonService.serverSideError();

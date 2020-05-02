@@ -14,7 +14,7 @@ import { NgCalendarModule } from 'ionic2-calendar';
     FormsModule,
     RouterModule.forChild([{ path: '', component: Tab3Page }]),
     ComponentsModule,
-    NgCalendarModule
+    NgCalendarModule,
   ],
   declarations: [Tab3Page],
 })

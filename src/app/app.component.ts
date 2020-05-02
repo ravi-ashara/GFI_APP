@@ -1,7 +1,7 @@
 import { ApiCallService } from './Services/api-call/api-call.service';
 import { Component, ViewChild } from '@angular/core';
 
-import { Platform, IonRouterOutlet, NavController } from '@ionic/angular';
+import { Platform, IonRouterOutlet, NavController, Events } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
@@ -52,9 +52,14 @@ export class AppComponent {
     private statusBar: StatusBar,
     public router: Router,
     public commonService: ApiCallService,
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    public event: Events
   ) {
     this.initializeApp();
+    this.event.unsubscribe('UpdateUserData');
+    this.event.subscribe('UpdateUserData', () => {
+      this.getDetails();
+    });
   }
 
   initializeApp() {

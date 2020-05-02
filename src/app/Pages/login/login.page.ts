@@ -33,11 +33,7 @@ export class LoginPage {
 
   submitForm(val: any) {
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
-      if (this.checkstaySingIng.nativeElement.checked === true) {
-        localStorage.isRemember = 'true';
-      } else {
-        localStorage.isRemember = 'false';
-      }
+      localStorage.isRemember = this.checkstaySingIng.nativeElement.checked === true ? 'true' : 'false';
       localStorage.loginDetails = JSON.stringify(val.value);
       try {
         this.commonService.showLoader();
@@ -60,6 +56,7 @@ export class LoginPage {
             } else {
               this.navCtrl.navigateRoot(['/home']);
               localStorage.loginUserData = JSON.stringify(response.data);
+              this.commonService.commonUpdateUserDataEve();
             }
             localStorage.isLogin = true;
             localStorage.token = response.data.token;

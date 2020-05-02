@@ -1,4 +1,8 @@
 .myProfilePage {
+    .removeSpaces {
+        --inner-padding-end: 0px;
+    }
+    
     .setProfileImageSize {
         width: 100px;
         height: auto;

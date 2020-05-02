@@ -4,8 +4,9 @@
   <ion-card color="light" *ngIf="!showEditProfileForm">
     <ion-row>
       <ion-col size="6" class="ion-text-center">
-        <img [src]="userData?.image_url ? userData?.image_url : 'assets/images/profile_photo_icon.png'"
-          class="setProfileImageSize">
+        <ion-img class="setProfileImageSize"
+          [src]="userData?.image_url ? userData?.image_url : 'assets/images/profile_photo_icon.png'"
+          (ionError)="errorImage($event)"></ion-img>
       </ion-col>
       <ion-col size="6">
         <h4>{{userData?.u_first_name}} {{userData?.u_last_name}}</h4>
@@ -15,7 +16,7 @@
       </ion-col>
     </ion-row>
   </ion-card>
-  
+
   <ion-card color="light" *ngIf="showEditProfileForm">
     <ion-segment mode="md" class="borderTopBottom" [(ngModel)]="segmentSelectedValue" [value]="segmentSelectedValue">
       <ion-segment-button value="Personal" mode="md">
@@ -29,6 +30,11 @@
     <ion-row class="ion-padding-horizontal" *ngIf="segmentSelectedValue == 'Personal'">
       <ion-col size="12">
         <form [formGroup]="registerForm">
+          <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+            <ion-img class="setProfileImageSize"
+              [src]="userData?.image_url ? userData?.image_url : 'assets/images/profile_photo_icon.png'"
+              (click)="getPhotos('')" (ionError)="errorImage($event)"></ion-img>
+          </ion-item>
 
           <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
             <ion-label position="stacked" mode="ios">FIRST NAME
@@ -127,324 +133,339 @@
     </ion-row>
 
     <div class="ion-padding-horizontal" *ngIf="segmentSelectedValue == 'Organization'">
-      <div *ngIf="setStep === 'step1'" class="animated" [ngClass]="buttonName=='next' ? 'slideInRight':'slideInLeft'">
-        <ion-row class="ion-padding-top">
-          <ul class="wizard wizard-steps-3">
-            <li>
-              <div class="step">
-                <img src="assets/images/icon_first_step_active.png">
-              </div>
-              <div class="setText">Step 1</div>
-            </li>
-            <li>
-              <div class="step">
-                <img src="assets/images/icon_two_step_not_active.png">
-              </div>
-              <div class="setText">Step 2</div>
-            </li>
-            <li>
-              <div class="step">
-                <img src="assets/images/icon_three_step_not_active.png">
-              </div>
-              <div class="setText">Step 3</div>
-            </li>
-          </ul>
-        </ion-row>
+      <form [formGroup]="organizationForm">
+        <div *ngIf="setStep === 'step1'" class="animated" [ngClass]="buttonName=='next' ? 'slideInRight':'slideInLeft'">
+          <ion-row class="ion-padding-top">
+            <ul class="wizard wizard-steps-3">
+              <li>
+                <div class="step">
+                  <img src="assets/images/icon_first_step_active.png">
+                </div>
+                <div class="setText">Step 1</div>
+              </li>
+              <li>
+                <div class="step">
+                  <img src="assets/images/icon_two_step_not_active.png">
+                </div>
+                <div class="setText">Step 2</div>
+              </li>
+              <li>
+                <div class="step">
+                  <img src="assets/images/icon_three_step_not_active.png">
+                </div>
+                <div class="setText">Step 3</div>
+              </li>
+            </ul>
+          </ion-row>
 
-        <ion-row>
-          <ion-col class="ion-no-padding radioCol">
-            <ion-list class="ion-no-padding">
-              <ion-radio-group>
-                <ion-item color="light" lines="none" class="inlineRadiogroup company_Investor">
-                  <ion-label class="setFontsize ion-no-margin">INVESTOR</ion-label>
-                  <ion-radio slot="start" name="user_type" value="investor" mode="md" class="ion-no-margin">
-                  </ion-radio>
-                </ion-item>
-                <ion-item color="light" lines="none" class="inlineRadiogroup company_Israeli">
-                  <ion-label class="setFontsize ion-no-margin">ISRAELI COMPANY</ion-label>
-                  <ion-radio slot="start" name="user_type" value="company" mode="md" class="ion-no-margin">
-                  </ion-radio>
-                </ion-item>
-              </ion-radio-group>
-            </ion-list>
-          </ion-col>
+          <ion-row>
+            <ion-col class="ion-no-padding radioCol">
+              <ion-list class="ion-no-padding">
+                <ion-radio-group formControlName="user_type">
+                  <ion-item color="light" lines="none" class="inlineRadiogroup company_Investor">
+                    <ion-label class="setFontsize ion-no-margin">INVESTOR</ion-label>
+                    <ion-radio slot="start" name="user_type" value="investor" mode="md" class="ion-no-margin">
+                    </ion-radio>
+                  </ion-item>
+                  <ion-item color="light" lines="none" class="inlineRadiogroup company_Israeli">
+                    <ion-label class="setFontsize ion-no-margin">ISRAELI COMPANY</ion-label>
+                    <ion-radio slot="start" name="user_type" value="company" mode="md" class="ion-no-margin">
+                    </ion-radio>
+                  </ion-item>
+                </ion-radio-group>
+              </ion-list>
+            </ion-col>
 
-          <ion-col size="12">
-            <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-              <ion-label position="stacked" mode="ios">COMPANY NAME <ion-text color="danger">*</ion-text>
-              </ion-label>
-              <ion-input type="text" name="company_name" mode="ios" class="setBorder">
-              </ion-input>
-            </ion-item>
+            <ion-col size="12">
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                <ion-label position="stacked" mode="ios">COMPANY NAME <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-input type="text" name="company_name" formControlName="company_name" mode="ios" class="setBorder">
+                </ion-input>
+              </ion-item>
 
-            <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-              <ion-label position="stacked" mode="ios">COUNTRY <ion-text color="danger">*</ion-text>
-              </ion-label>
-              <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios" name="country">
-                <ion-select-option value="Israel">Israel</ion-select-option>
-                <ion-select-option value="Russia">Russia</ion-select-option>
-                <ion-select-option value="USA">USA</ion-select-option>
-                <ion-select-option value="Germany">Germany</ion-select-option>
-              </ion-select>
-            </ion-item>
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                <ion-label position="stacked" mode="ios">COUNTRY <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios" name="country"
+                  formControlName="country">
+                  <ion-select-option value="Israel">Israel</ion-select-option>
+                  <ion-select-option value="Russia">Russia</ion-select-option>
+                  <ion-select-option value="USA">USA</ion-select-option>
+                  <ion-select-option value="Germany">Germany</ion-select-option>
+                </ion-select>
+              </ion-item>
 
-            <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-              <ion-label position="stacked" mode="ios">FIELD <ion-text color="danger">*</ion-text>
-              </ion-label>
-              <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios" name="field">
-                <ion-select-option value="Technology">Technology</ion-select-option>
-                <ion-select-option value="Life Sciences">Life Sciences</ion-select-option>
-                <ion-select-option value="Pharmaceuticals">Pharmaceuticals</ion-select-option>
-                <ion-select-option value="MedTech">MedTech</ion-select-option>
-                <ion-select-option value="BioTech">BioTech</ion-select-option>
-                <ion-select-option value="Digital Health">Digital Health</ion-select-option>
-                <ion-select-option value="Mobility">Mobility</ion-select-option>
-                <ion-select-option value="Energy">Energy</ion-select-option>
-                <ion-select-option value="Clean-Tech">Clean-Tech</ion-select-option>
-                <ion-select-option value="Automotive">Automotive</ion-select-option>
-                <ion-select-option value="AI">AI</ion-select-option>
-                <ion-select-option value="IOT">IOT</ion-select-option>
-                <ion-select-option value="Real Estate">Real Estate</ion-select-option>
-                <ion-select-option value="Other">Other</ion-select-option>
-              </ion-select>
-            </ion-item>
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                <ion-label position="stacked" mode="ios">FIELD <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios" name="field"
+                  formControlName="field">
+                  <ion-select-option value="Technology">Technology</ion-select-option>
+                  <ion-select-option value="Life Sciences">Life Sciences</ion-select-option>
+                  <ion-select-option value="Pharmaceuticals">Pharmaceuticals</ion-select-option>
+                  <ion-select-option value="MedTech">MedTech</ion-select-option>
+                  <ion-select-option value="BioTech">BioTech</ion-select-option>
+                  <ion-select-option value="Digital Health">Digital Health</ion-select-option>
+                  <ion-select-option value="Mobility">Mobility</ion-select-option>
+                  <ion-select-option value="Energy">Energy</ion-select-option>
+                  <ion-select-option value="Clean-Tech">Clean-Tech</ion-select-option>
+                  <ion-select-option value="Automotive">Automotive</ion-select-option>
+                  <ion-select-option value="AI">AI</ion-select-option>
+                  <ion-select-option value="IOT">IOT</ion-select-option>
+                  <ion-select-option value="Real Estate">Real Estate</ion-select-option>
+                  <ion-select-option value="Other">Other</ion-select-option>
+                </ion-select>
+              </ion-item>
 
-            <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-              <ion-label position="stacked" mode="ios">BUSINESS MODEL <ion-text color="danger">*</ion-text>
-              </ion-label>
-              <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios" name="country"
-                multiple="true">
-                <ion-select-option value="B2B">B2B</ion-select-option>
-                <ion-select-option value="B2C">B2C</ion-select-option>
-                <ion-select-option value="B2B2C">B2B2C</ion-select-option>
-                <ion-select-option value="B2G">B2G</ion-select-option>
-              </ion-select>
-            </ion-item>
-          </ion-col>
-          <ion-col size="6" class="ion-text-right">
-            <ion-button fill="clear" (click)="toggleEditProfile()" routerDirection="root">
-              <ion-icon slot="icon-only" color="medium" name="arrow-back" mode="md"></ion-icon>
-            </ion-button>
-          </ion-col>
-          <ion-col size="6">
-            <ion-button fill="clear" (click)="changeStep('step2','next')">
-              <ion-icon slot="icon-only" name="arrow-forward" mode="md"></ion-icon>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </div>
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                <ion-label position="stacked" mode="ios">BUSINESS MODEL <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios" name="business_model"
+                  formControlName="business_model" multiple="true">
+                  <ion-select-option value="B2B">B2B</ion-select-option>
+                  <ion-select-option value="B2C">B2C</ion-select-option>
+                  <ion-select-option value="B2B2C">B2B2C</ion-select-option>
+                  <ion-select-option value="B2G">B2G</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6" class="ion-text-right">
+              <ion-button fill="clear" (click)="toggleEditProfile()" routerDirection="root">
+                <ion-icon slot="icon-only" color="medium" name="arrow-back" mode="md"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <ion-button fill="clear" (click)="changeStep('step2','next')">
+                <ion-icon slot="icon-only" name="arrow-forward" mode="md"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </div>
 
-      <div *ngIf="setStep === 'step2'" class="setp2 animated"
-        [ngClass]="buttonName=='next' ? 'slideInRight':'slideInLeft'">
-        <ion-row class="ion-padding-top">
-          <ul class="wizard wizard-steps-3">
-            <li>
-              <div class="step">
-                <img src="assets/images/icon_succes_step.png">
-              </div>
-              <div class="setText">Step 1</div>
-            </li>
-            <li>
-              <div class="step">
-                <img src="assets/images/icon_two_step_active.png">
-              </div>
-              <div class="setText">Step 2</div>
-            </li>
-            <li>
-              <div class="step">
-                <img src="assets/images/icon_three_step_not_active.png">
-              </div>
-              <div class="setText">Step 3</div>
-            </li>
-          </ul>
-        </ion-row>
+        <div *ngIf="setStep === 'step2'" class="setp2 animated"
+          [ngClass]="buttonName=='next' ? 'slideInRight':'slideInLeft'">
+          <ion-row class="ion-padding-top">
+            <ul class="wizard wizard-steps-3">
+              <li>
+                <div class="step">
+                  <img src="assets/images/icon_succes_step.png">
+                </div>
+                <div class="setText">Step 1</div>
+              </li>
+              <li>
+                <div class="step">
+                  <img src="assets/images/icon_two_step_active.png">
+                </div>
+                <div class="setText">Step 2</div>
+              </li>
+              <li>
+                <div class="step">
+                  <img src="assets/images/icon_three_step_not_active.png">
+                </div>
+                <div class="setText">Step 3</div>
+              </li>
+            </ul>
+          </ion-row>
 
-        <ion-row>
-          <ion-col size="12">
-            <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-              <ion-label position="stacked" mode="ios">COMPANY REPRESENTATIVE <ion-text color="danger">*</ion-text>
-              </ion-label>
-              <ion-input type="text" name="company_representative" mode="ios" class="setBorder"></ion-input>
-            </ion-item>
-            <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-              <ion-label position="stacked" mode="ios">TITLE <ion-text color="danger">*</ion-text>
-              </ion-label>
-              <ion-input type="text" name="title" mode="ios" class="setBorder">
-              </ion-input>
-            </ion-item>
-          </ion-col>
+          <ion-row>
+            <ion-col size="12">
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                <ion-label position="stacked" mode="ios">COMPANY REPRESENTATIVE <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-input type="text" name="company_representative" formControlName="company_representative" mode="ios"
+                  class="setBorder"></ion-input>
+              </ion-item>
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                <ion-label position="stacked" mode="ios">TITLE <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-input type="text" name="title" formControlName="title" mode="ios" class="setBorder">
+                </ion-input>
+              </ion-item>
+            </ion-col>
 
-          <ion-col size="6" class="ion-text-center">
-            <img src="assets/images/icon_add_photo_on_two_step.png" class="setImageSize"
-              (click)="getPhotos('Add company logo')" />
-            <p>Add company logo</p>
-          </ion-col>
-          <ion-col size="6" class="ion-text-center">
-            <img src="assets/images/icon_add_photo_on_two_step.png" class="setImageSize"
-              (click)="getPhotos('Add one pager')" />
-            <p>Add one pager</p>
-          </ion-col>
+            <ion-col size="6" class="ion-text-center">
 
-          <ion-col size="12">
-            <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-              <ion-label position="stacked" mode="ios">COMPANY DESCRIPTION <ion-text color="danger">*</ion-text>
-              </ion-label>
-              <ion-textarea rows="6" cols="20" class="setBorder" name="company_description"></ion-textarea>
-            </ion-item>
-          </ion-col>
-          <ion-col size="12">
-            <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-              <ion-label position="stacked" mode="ios">WEBSITE <ion-text color="danger">*</ion-text>
-              </ion-label>
-              <ion-input type="url" name="website" mode="ios" class="setBorder">
-              </ion-input>
-            </ion-item>
-          </ion-col>
-          <ion-col size="12">
-            <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-              <ion-label position="stacked" mode="ios">EMPLOYEE RANGE
-              </ion-label>
-              <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios" name="employee_range">
-                <ion-select-option value="1-10">1-10</ion-select-option>
-                <ion-select-option value="11-50">11-50</ion-select-option>
-                <ion-select-option value="51-200">51-200</ion-select-option>
-                <ion-select-option value="201-500">201-500</ion-select-option>
-                <ion-select-option value="500+">500+</ion-select-option>
-              </ion-select>
-            </ion-item>
-            <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-              <ion-label position="stacked" mode="ios">SECTOR <ion-text color="danger">*</ion-text>
-              </ion-label>
-              <ion-input type="text" name="sector" mode="ios" class="setBorder">
-              </ion-input>
-            </ion-item>
-            <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-              <ion-label position="stacked" mode="ios">ADDRESS <ion-text color="danger">*</ion-text>
-              </ion-label>
-              <ion-input type="text" name="address" mode="ios" class="setBorder">
-              </ion-input>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="6" class="ion-text-right">
-            <ion-button fill="clear" (click)="changeStep('step1','back')">
-              <ion-icon slot="icon-only" color="medium" name="arrow-back" mode="md"></ion-icon>
-            </ion-button>
-          </ion-col>
-          <ion-col size="6">
-            <ion-button fill="clear" (click)="changeStep('step3','next')">
-              <ion-icon slot="icon-only" name="arrow-forward" mode="md"></ion-icon>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </div>
+              <ion-img class="setImageSize"
+                [src]="userData?.organization?.logo_url ? userData?.organization?.logo_url : 'assets/images/icon_add_photo_on_two_step.png'"
+                (click)="getPhotos('Add company logo')" (ionError)="errorImage($event)"></ion-img>
 
-      <div *ngIf="setStep === 'step3'" class="animated" [ngClass]="buttonName=='next' ? 'slideInRight':'slideInLeft'">
-        <ion-row class="ion-padding-top">
-          <ul class="wizard wizard-steps-3">
-            <li>
-              <div class="step">
-                <img src="assets/images/icon_succes_step.png">
-              </div>
-              <div class="setText">Step 1</div>
-            </li>
-            <li>
-              <div class="step">
-                <img src="assets/images/icon_succes_step.png">
-              </div>
-              <div class="setText">Step 2</div>
-            </li>
-            <li>
-              <div class="step">
-                <img src="assets/images/icon_three_step_active.png">
-              </div>
-              <div class="setText">Step 3</div>
-            </li>
-          </ul>
-        </ion-row>
-        <ion-row>
-          <ion-col size="12">
-            <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-              <ion-label position="stacked" mode="ios">FUNDING STAGE <ion-text color="danger">*</ion-text>
-              </ion-label>
-              <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios" name="funding_stage">
-                <ion-select-option value="BOOTSTRAPPED">BOOTSTRAPPED</ion-select-option>
-                <ion-select-option value="SEED">SEED</ion-select-option>
-                <ion-select-option value="B">B</ion-select-option>
-                <ion-select-option value="PUBLIC">PUBLIC</ion-select-option>
-                <ion-select-option value="ESTABLISHED">ESTABLISHED</ion-select-option>
-                <ion-select-option value="PRE-SEED">PRE-SEED</ion-select-option>
-                <ion-select-option value="A">A</ion-select-option>
-                <ion-select-option value="C+">C+</ion-select-option>
-                <ion-select-option value="REVENUE FINANCED">REVENUE FINANCED</ion-select-option>
-              </ion-select>
-            </ion-item>
+              <p>Add company logo</p>
+            </ion-col>
+            <ion-col size="6" class="ion-text-center">
 
-            <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-              <ion-label position="stacked" mode="ios">PRODUCT RANGE <ion-text color="danger">*</ion-text>
-              </ion-label>
-              <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios" name="product_stage">
-                <ion-select-option value="CUSTOMER DEVELOPMENT">CUSTOMER DEVELOPMENT</ion-select-option>
-                <ion-select-option value="CLINICAL TRIAL">CLINICAL TRIAL</ion-select-option>
-                <ion-select-option value="BETA">BETA</ion-select-option>
-                <ion-select-option value="R&D">R&D</ion-select-option>
-                <ion-select-option value="ALPHA">ALPHA</ion-select-option>
-                <ion-select-option value="RELEASED">RELEASED</ion-select-option>
-              </ion-select>
-            </ion-item>
+              <ion-img class="setImageSize"
+                [src]="userData?.organization?.pager_url ? userData?.organization?.pager_url : 'assets/images/icon_add_photo_on_two_step.png'"
+                (click)="getPhotos('Add one pager')" (ionError)="errorImage($event)"></ion-img>
+              <p>Add one pager</p>
+            </ion-col>
 
-            <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-              <ion-label position="stacked" mode="ios">PAST INVESTOMENTS
-              </ion-label>
-              <ion-input type="number" name="past_investment" mode="ios" class="setBorder"></ion-input>
-            </ion-item>
+            <ion-col size="12">
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                <ion-label position="stacked" mode="ios">COMPANY DESCRIPTION <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-textarea rows="6" cols="20" class="setBorder" name="company_description"
+                  formControlName="company_description"></ion-textarea>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12">
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                <ion-label position="stacked" mode="ios">WEBSITE <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-input type="url" name="website" formControlName="website" mode="ios" class="setBorder">
+                </ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12">
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                <ion-label position="stacked" mode="ios">EMPLOYEE RANGE
+                </ion-label>
+                <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios"
+                  formControlName="employee_range" name="employee_range">
+                  <ion-select-option value="1-10">1-10</ion-select-option>
+                  <ion-select-option value="11-50">11-50</ion-select-option>
+                  <ion-select-option value="51-200">51-200</ion-select-option>
+                  <ion-select-option value="201-500">201-500</ion-select-option>
+                  <ion-select-option value="500+">500+</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                <ion-label position="stacked" mode="ios">SECTOR <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-input type="text" name="sector" formControlName="sector" mode="ios" class="setBorder">
+                </ion-input>
+              </ion-item>
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                <ion-label position="stacked" mode="ios">ADDRESS <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-input type="text" name="address" formControlName="address" mode="ios" class="setBorder">
+                </ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" class="ion-text-right">
+              <ion-button fill="clear" (click)="changeStep('step1','back')">
+                <ion-icon slot="icon-only" color="medium" name="arrow-back" mode="md"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <ion-button fill="clear" (click)="changeStep('step3','next')">
+                <ion-icon slot="icon-only" name="arrow-forward" mode="md"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </div>
 
-            <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-              <ion-label position="stacked" mode="ios">WHAT IS YOUR TYPICAL TICKET SIZE?
-              </ion-label>
-              <ion-input type="number" name="tiket_size" mode="ios" class="setBorder">
-              </ion-input>
-            </ion-item>
+        <div *ngIf="setStep === 'step3'" class="animated" [ngClass]="buttonName=='next' ? 'slideInRight':'slideInLeft'">
+          <ion-row class="ion-padding-top">
+            <ul class="wizard wizard-steps-3">
+              <li>
+                <div class="step">
+                  <img src="assets/images/icon_succes_step.png">
+                </div>
+                <div class="setText">Step 1</div>
+              </li>
+              <li>
+                <div class="step">
+                  <img src="assets/images/icon_succes_step.png">
+                </div>
+                <div class="setText">Step 2</div>
+              </li>
+              <li>
+                <div class="step">
+                  <img src="assets/images/icon_three_step_active.png">
+                </div>
+                <div class="setText">Step 3</div>
+              </li>
+            </ul>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                <ion-label position="stacked" mode="ios">FUNDING STAGE <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios" name="funding_stage"
+                  formControlName="funding_stage">
+                  <ion-select-option value="BOOTSTRAPPED">BOOTSTRAPPED</ion-select-option>
+                  <ion-select-option value="SEED">SEED</ion-select-option>
+                  <ion-select-option value="B">B</ion-select-option>
+                  <ion-select-option value="PUBLIC">PUBLIC</ion-select-option>
+                  <ion-select-option value="ESTABLISHED">ESTABLISHED</ion-select-option>
+                  <ion-select-option value="PRE-SEED">PRE-SEED</ion-select-option>
+                  <ion-select-option value="A">A</ion-select-option>
+                  <ion-select-option value="C+">C+</ion-select-option>
+                  <ion-select-option value="REVENUE FINANCED">REVENUE FINANCED</ion-select-option>
+                </ion-select>
+              </ion-item>
 
-            <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-              <ion-label position="stacked" mode="ios">ARE YOU ABLE TO INVEST IN USD?
-              </ion-label>
-              <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios" name="is_usd">
-                <ion-select-option value="Yes">YES</ion-select-option>
-                <ion-select-option value="No">NO</ion-select-option>
-              </ion-select>
-            </ion-item>
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                <ion-label position="stacked" mode="ios">PRODUCT RANGE <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios" name="product_stage"
+                  formControlName="product_stage">
+                  <ion-select-option value="CUSTOMER DEVELOPMENT">CUSTOMER DEVELOPMENT</ion-select-option>
+                  <ion-select-option value="CLINICAL TRIAL">CLINICAL TRIAL</ion-select-option>
+                  <ion-select-option value="BETA">BETA</ion-select-option>
+                  <ion-select-option value="R&D">R&D</ion-select-option>
+                  <ion-select-option value="ALPHA">ALPHA</ion-select-option>
+                  <ion-select-option value="RELEASED">RELEASED</ion-select-option>
+                </ion-select>
+              </ion-item>
 
-            <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-              <ion-label position="stacked" mode="ios">EMAIL <ion-text color="danger">*</ion-text>
-              </ion-label>
-              <ion-input type="email" name="email" mode="ios" class="setBorder">
-              </ion-input>
-            </ion-item>
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                <ion-label position="stacked" mode="ios">PAST INVESTOMENTS
+                </ion-label>
+                <ion-input type="number" name="past_investment" formControlName="past_investment" mode="ios"
+                  class="setBorder"></ion-input>
+              </ion-item>
 
-            <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-              <ion-label position="stacked" mode="ios">MOBILE <ion-text color="danger">*</ion-text>
-              </ion-label>
-              <ion-input type="number" name="mobile" mode="ios" class="setBorder">
-              </ion-input>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="6" class="ion-text-right">
-            <ion-button fill="clear" (click)="changeStep('step2','back')">
-              <ion-icon slot="icon-only" color="medium" name="arrow-back" mode="md"></ion-icon>
-            </ion-button>
-          </ion-col>
-          <ion-col size="6">
-            <ion-button fill="clear" (click)="registerProfile()">
-              <ion-icon name="checkmark" slot="icon-only" mode="md"></ion-icon>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </div>
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                <ion-label position="stacked" mode="ios">WHAT IS YOUR TYPICAL TICKET SIZE?
+                </ion-label>
+                <ion-input type="number" name="tiket_size" formControlName="tiket_size" mode="ios" class="setBorder">
+                </ion-input>
+              </ion-item>
+
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                <ion-label position="stacked" mode="ios">ARE YOU ABLE TO INVEST IN USD?
+                </ion-label>
+                <ion-select okText="Okay" cancelText="Dismiss" class="setBorder" mode="ios" name="is_usd"
+                  formControlName="is_usd">
+                  <ion-select-option value="Yes">YES</ion-select-option>
+                  <ion-select-option value="No">NO</ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                <ion-label position="stacked" mode="ios">EMAIL <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-input type="email" name="email" formControlName="email" mode="ios" class="setBorder">
+                </ion-input>
+              </ion-item>
+
+              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                <ion-label position="stacked" mode="ios">MOBILE <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-input type="number" name="mobile" formControlName="mobile" mode="ios" class="setBorder">
+                </ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" class="ion-text-right">
+              <ion-button fill="clear" (click)="changeStep('step2','back')">
+                <ion-icon slot="icon-only" color="medium" name="arrow-back" mode="md"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <ion-button fill="clear" (click)="registerProfile(organizationForm)" [disabled]="!organizationForm.valid">
+                <ion-icon name="checkmark" slot="icon-only" mode="md"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </form>
     </div>
-
   </ion-card>
 </ion-content>

@@ -112,46 +112,54 @@ ion-item {
     }
 }
 
-.calendar {
-    table {
-        border: none !important;
-        margin: 10px;
-        color: #fff;
+// .calendar {
+//     table {
+//         border: none !important;
+//         margin: 10px;
+//         color: #fff;
 
-        tbody {
-            tr {
-                height: 20px;
-                line-height: 20px;
+//         tbody {
+//             tr {
+//                 height: 20px;
+//                 line-height: 20px;
 
-                td {
-                    border: none !important;
-                    // padding: 0 !important;
-                    vertical-align: middle !important;
-                    // line-height: 50px !important;
-                    // border-radius: 50%;
-                }
-            }
+//                 td {
+//                     border: none !important;
+//                     // padding: 0 !important;
+//                     vertical-align: middle !important;
+//                     // line-height: 50px !important;
+//                     // border-radius: 50%;
+//                 }
+//             }
 
-            .monthview-selected {
-                background-color: #009900 !important;
-                color: white !important;
-            }
+//             .monthview-selected {
+//                 background-color: #009900 !important;
+//                 color: white !important;
+//             }
 
-            .monthview-current {
-                background-color: #e1e1e1;
-                color: #000;
-            }
-        }
+//             .monthview-current {
+//                 background-color: #e1e1e1;
+//                 color: #000;
+//             }
+//         }
 
-        thead {
-            border-bottom: 1px solid;
+//         thead {
+//             border-bottom: 1px solid;
 
-            tr {
-                th {
-                    border: none !important;
-                }
-            }
-        }
+//             tr {
+//                 th {
+//                     border: none !important;
+//                 }
+//             }
+//         }
+//     }
+// }
+
+.meetingDetailsComponent {
+    .popover-content {
+        left: 10px !important;
+        --width: calc(100% - 20px);
+        background: white !important;
     }
 }
 

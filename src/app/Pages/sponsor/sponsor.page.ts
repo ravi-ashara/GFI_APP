@@ -47,4 +47,8 @@ export class SponsorPage {
       this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
     }
   }
+
+  errorImage(val: any) {
+    return val.target.src = "assets/images/company-placeholder.jpg";
+  }
 }

@@ -2,6 +2,12 @@
     .companyCard {
         .companycardHeader {
             border-top: 5px solid var(--ion-color-primary);
+            padding-top: 5px;
+            padding-bottom: 0;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-bottom: -8px;
+
             .setLogo {
                 width: 44px;
                 height: auto;
@@ -14,16 +20,32 @@
                 font-size: 16px;
                 font-weight: 600;
             }
+
+            .companyDescription {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+            }
         }
 
         .companycardFooter {
-            .compnayDesc {
-                font-size: 12px;
-            }
+            .setTopMargin {
+                margin-top: 8px;
 
-            .nameDesc {
-                font-size: 16px;
-                font-weight: 600;
+                .investor {
+                    vertical-align: middle;
+                }
+
+                .compnayDesc {
+                    font-size: 12px;
+                }
+
+                .nameDesc {
+                    font-size: 14px;
+                    font-weight: 600;
+                }
             }
         }
 
@@ -31,7 +53,8 @@
             border-top: 1px solid var(--ion-color-medium);
         }
     }
-    hr{
+
+    hr {
         border-width: 1px;
     }
 }

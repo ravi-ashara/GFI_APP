@@ -1,62 +1,54 @@
 <app-common-header name="Companies"></app-common-header>
 
 <ion-content class="customBackground companiesPage">
-  <ion-card color="light" class="companyCard">
-    <ion-card-header class="ion-no-padding ion-padding-horizontal ion-padding-top companycardHeader">
+  <div *ngIf="companyData?.length != 0; else showErorMessage;" >
+    <ion-card color="light" class="companyCard" *ngFor="let cmpnyData of companyData">
+      <ion-card-header class="ion-no-padding companycardHeader">
+        <ion-row>
+          <ion-col size="4">
+            <ion-img class="setLogo"
+              [src]="cmpnyData?.logo_url ? cmpnyData?.logo_url : 'assets/images/company-placeholder.jpg'"
+              (ionError)="errorImage($event)" [alt]="cmpnyData?.company_name"></ion-img>
+          </ion-col>
+          <ion-col size="8" class="ion-text-right">
+            <ion-icon src="assets/icon/facebook_icon.svg" size="large" class="ion-padding-end"></ion-icon>
+            <ion-icon src="assets/icon/twitter_icon.svg" size="large" class="ion-padding-end"></ion-icon>
+            <ion-icon src="assets/icon/web_icon.svg" size="large"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-card-header>
+      <hr>
+      <ion-card-content class="ion-no-padding ion-padding-horizontal ion-padding-bottom companycardContent">
+        <p class="ion-no-margin companyTitle">
+          <ion-text color="primary">{{cmpnyData?.company_name}}</ion-text>
+        </p>
+        <p class="companyDescription">{{cmpnyData?.company_description}}</p>
+      </ion-card-content>
+      <ion-item color="light" lines="none" class="setBordertop companycardFooter">
+        <ion-label class="ion-no-margin setTopMargin">
+          <ion-text color="primary" class="nameDesc">{{cmpnyData?.company_representative}}
+            <span *ngIf="cmpnyData?.user_type == 'investor'" class="investor">
+              <ion-badge color="primary" size="small">Investor</ion-badge>
+            </span>
+          </ion-text>
+          <p>
+            <ion-text color="medium" class="compnayDesc">Company CEO</ion-text>
+          </p>
+        </ion-label>
+        <ion-icon slot="end" name="add-circle-outline" color="medium" (click)="createnewList(cmpnyData)"></ion-icon>
+        <ion-icon slot="end" src="assets/icon/chatbox-outline.svg" color="medium" (click)="gotoChatList(cmpnyData)">
+        </ion-icon>
+      </ion-item>
+    </ion-card>
+  </div>
+  <ng-template #showErorMessage>
+    <ion-card color="light">
       <ion-row>
-        <ion-col size="4">
-          <img src="assets/images/google.jpg" class="setLogo"/>
-        </ion-col>
-        <ion-col size="8" class="ion-text-right">
-          <ion-icon src="assets/icon/facebook_icon.svg" size="large" class="ion-padding-end"></ion-icon>
-          <ion-icon src="assets/icon/twitter_icon.svg" size="large" class="ion-padding-end"></ion-icon>
-          <ion-icon src="assets/icon/web_icon.svg" size="large"></ion-icon>
+        <ion-col size="12" class="ion-text-center">
+          <h5>No companies found.</h5>
         </ion-col>
       </ion-row>
-    </ion-card-header>
-    <hr>
-    <ion-card-content class="ion-no-padding ion-padding-horizontal ion-padding-bottom companycardContent">
-      <p class="ion-no-margin companyTitle"><ion-text color="primary">Nutritional Grown Solutions</ion-text></p>
-      <p>
-        Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. 
-      </p>
-    </ion-card-content>
-    <ion-item color="light" lines="none" class="setBordertop companycardFooter">
-      <ion-label><ion-text color="medium" class="compnayDesc">Company CEO</ion-text>
-        <p><ion-text color="primary" class="nameDesc">Lori Chmura</ion-text></p>
-      </ion-label>
-      <ion-icon slot="end" name="mail" color="medium"></ion-icon>
-      <ion-icon slot="end" name="call" color="medium"></ion-icon>
-      <ion-icon slot="end" src="assets/icon/chatbox-outline.svg" color="medium"></ion-icon>
-    </ion-item>
-  </ion-card>
-  <ion-card color="light" class="companyCard">
-    <ion-card-header class="ion-no-padding ion-padding-horizontal ion-padding-top companycardHeader">
-      <ion-row>
-        <ion-col size="4">
-          <img src="assets/images/google.jpg" class="setLogo"/>
-        </ion-col>
-        <ion-col size="8" class="ion-text-right">
-          <ion-icon src="assets/icon/facebook_icon.svg" size="large" class="ion-padding-end"></ion-icon>
-          <ion-icon src="assets/icon/twitter_icon.svg" size="large" class="ion-padding-end"></ion-icon>
-          <ion-icon src="assets/icon/web_icon.svg" size="large"></ion-icon>
-        </ion-col>
-      </ion-row>
-    </ion-card-header>
-    <hr>
-    <ion-card-content class="ion-no-padding ion-padding-horizontal ion-padding-bottom companycardContent">
-      <p class="ion-no-margin companyTitle"><ion-text color="primary">Nutritional Grown Solutions</ion-text></p>
-      <p>
-        Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. 
-      </p>
-    </ion-card-content>
-    <ion-item color="light" lines="none" class="setBordertop companycardFooter">
-      <ion-label><ion-text color="medium" class="compnayDesc">Company CEO</ion-text>
-        <p><ion-text color="primary" class="nameDesc">Lori Chmura</ion-text></p>
-      </ion-label>
-      <ion-icon slot="end" name="mail" color="medium"></ion-icon>
-      <ion-icon slot="end" name="call" color="medium"></ion-icon>
-      <ion-icon slot="end" src="assets/icon/chatbox-outline.svg" color="medium"></ion-icon>
-    </ion-item>
-  </ion-card>
+    </ion-card>
+  </ng-template>
+  
 </ion-content>

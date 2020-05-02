@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Platform, AlertController, ToastController, LoadingController, NavController } from '@ionic/angular';
+import { Platform, AlertController, ToastController, LoadingController, NavController, Events } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { Push, PushOptions, PushObject } from '@ionic-native/push/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Crop } from '@ionic-native/crop/ngx';
+import { Base64 } from '@ionic-native/base64/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +20,14 @@ export class ApiCallService {
     public loadingController: LoadingController,
     public navCtrl: NavController,
     private push: Push,
-    public camera: Camera) { }
+    public camera: Camera,
+    public event: Events,
+    private base64: Base64,
+    private crop: Crop) { }
 
+  commonUpdateUserDataEve() {
+    this.event.publish('UpdateUserData');
+  }
   showLoader() {
     this.loadingController.create({
       message: 'Please wait...',
@@ -154,10 +162,16 @@ export class ApiCallService {
     });
   }
 
-  deleteMeeting(message: any, callBack: any) {
+  /**
+   * 
+   * @param val_header //Show header pass '' to show custom header
+   * @param message // Show Message
+   * @param callBack // CallBack (Delete/Cancel)
+   */
+  deleteMeetingConfirmBox(val_header: string, message: string, callBack: any) {
     this.alertController.create({
-      header: 'Delete Meeting',
-      message: message ? message : 'Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs.',
+      header: val_header ? val_header : 'Delete Data',
+      message: message ? message : '',
       mode: 'ios',
       cssClass: 'deleteMeetingConfirm',
       buttons: [
@@ -272,19 +286,49 @@ export class ApiCallService {
   openCamera(val: any, callBack: any) {
     const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: val == "CAMERA" ? this.camera.PictureSourceType.CAMERA : this.camera.PictureSourceType.PHOTOLIBRARY,
-      allowEdit: true,
+      correctOrientation: true,
     };
     this.camera.getPicture(options).then((imageData: any) => {
-      callBack('data:image/jpeg;base64,' + imageData);
+      this.cropImage(imageData, (returnVal: any) => {
+        callBack(returnVal);
+      });
     }, (err) => {
       callBack('Error');
     });
   }
 
+  /**
+   * 
+   * @param fileURI //File URL
+   * @param callBack //Return base64 string
+   */
+  cropImage(fileURI: any, callBack: any) {
+    this.crop.crop(fileURI, { quality: 100 }).then((newImage: any) => {
+      this.base64.encodeFile(newImage).then((base64File: string) => {
+        callBack(this.replaceBase64String(base64File));
+      }, (err) => {
+        callBack('Error');
+      });
+    }, error => {
+      callBack('Error');
+    });
+  }
+
+  /**
+   * 
+   * @param val_Base64 remove 'data:image/*;charset=utf-8;base64'
+   */
+  replaceBase64String(val_Base64: any) {
+    return val_Base64.replace('data:image/*;charset=utf-8;base64,', '');
+  }
+
+  /**
+   * Register device token
+   */
   addDeviceToken() {
     try {
       let passData: any = {
@@ -304,6 +348,9 @@ export class ApiCallService {
     }
   }
 
+  /**
+   * Hide loader with Show server side error message
+   */
   serverSideError() {
     this.hideLoader();
     this.showAlert('', 'Error form server side', 'Ok', () => { });

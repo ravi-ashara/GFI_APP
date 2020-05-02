@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { Camera } from '@ionic-native/camera/ngx';
+
 
 /** Services */
 import { ApiCallService } from './Services/api-call/api-call.service';
@@ -18,6 +18,7 @@ import { NetworkService } from './Services/network/network.service';
 /** Components */
 import { ComponentsModule } from './Components/components.module';
 import { CommonHeaderComponent } from './Components/common-header/common-header.component';
+import { MeetingDetailEditComponent } from './Components/meeting-detail-edit/meeting-detail-edit.component';
 import { CreateMeetingPageModule } from './Pages/create-meeting/create-meeting.module';
 import { MeetingDetailsPageModule } from './Pages/meeting-details/meeting-details.module';
 
@@ -28,12 +29,16 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Network } from '@ionic-native/network/ngx';
 import { PipesModule } from './Pipes/pipes.module';
 import { NgCalendarModule } from 'ionic2-calendar';
+import { Base64 } from '@ionic-native/base64/ngx';
+import { Crop } from '@ionic-native/crop/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
 @NgModule({
   declarations: [
     AppComponent,
   ],
   entryComponents: [
     CommonHeaderComponent,
+    MeetingDetailEditComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +61,8 @@ import { NgCalendarModule } from 'ionic2-calendar';
     Network,
     Push,
     Camera,
+    Base64,
+    Crop,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

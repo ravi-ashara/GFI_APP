@@ -20,7 +20,7 @@ export class CreateProfilePage {
     company_name: '',
     field: '',
     country: '',
-    business_modal: ''
+    business_model: ''
   }
 
   setp2Data: any = {
@@ -94,6 +94,7 @@ export class CreateProfilePage {
             this.organizationList = response.data;
             localStorage.loginUserData = JSON.stringify(response.data);
             this.navCtrl.navigateRoot(['/home']);
+            this.commonService.commonUpdateUserDataEve();
           } else {
             this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
           }
@@ -130,6 +131,7 @@ export class CreateProfilePage {
           } else {
             localStorage.loginUserData = JSON.stringify(response.data);
             this.navCtrl.navigateRoot(['/home']);
+            this.commonService.commonUpdateUserDataEve();
           }
         }, error => {
           this.commonService.serverSideError();

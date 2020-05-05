@@ -86,6 +86,7 @@ export class MyProfilePage {
             this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
           } else {
             this.commonService.commonUpdateUserDataEve();
+            this.toggleEditProfile();
           }
         }, error => {
           this.commonService.serverSideError();
@@ -96,8 +97,6 @@ export class MyProfilePage {
     } else {
       this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
     }
-    console.log(val.value);
-    this.toggleEditProfile();
   }
 
   changeStep(val: any, val_buttonName: any) {

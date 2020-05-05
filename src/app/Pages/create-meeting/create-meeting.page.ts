@@ -36,9 +36,9 @@ export class CreateMeetingPage {
       meeting_date: ['', Validators.required],
       start_time: ['', Validators.required],
       end_time: '',
-      meeting_details: '',
-      request_sender: this.modalData.u_id,
-      requested_by: this.modalData.u_id,
+      meeting_detail: '',
+      request_sender: localStorage.userId,
+      requested_by: localStorage.userId,
       ent_id: ''
     });
   }

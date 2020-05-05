@@ -16,7 +16,7 @@
   <div *ngIf="segmentSelectedValue == 'Today'">
     <div *ngIf="getDataBySegmentSelected?.length != 0; else showNodataRow;">
       <ion-card color="light" class="scheduleMeetingList"
-        *ngFor="let meetingData of getDataBySegmentSelected?.meeting_slotes">
+        *ngFor="let meetingData of getDataBySegmentSelected">
         <ion-item lines="none" color="light">
           <ion-avatar slot="start">
             <ion-img

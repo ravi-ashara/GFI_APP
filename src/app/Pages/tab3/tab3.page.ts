@@ -37,6 +37,7 @@ export class Tab3Page {
           this.commonService.hideLoader();
           if (response.status == 'success') {
             this.fullEventsData = response.data;
+            this.segmentSelectedValue == 'Today'
             this.changeSegment();
           }
         }, error => {

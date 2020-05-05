@@ -8,12 +8,18 @@ import { ModalController, NavParams } from '@ionic/angular';
 })
 export class MeetingDetailsPage {
   public modalData: any;
+  public loginUserID: any;
   constructor(private modalCtrl: ModalController,
     private navParam: NavParams) {
-    this.modalData =this.navParam.get('value');
+    this.loginUserID = localStorage.userId;
+    this.modalData = this.navParam.get('value');
   }
 
   closeModal() {
     this.modalCtrl.dismiss();
+  }
+
+  errorImage(val: any) {
+    return val.target.src = "assets/images/profile_photo_icon.png";
   }
 }

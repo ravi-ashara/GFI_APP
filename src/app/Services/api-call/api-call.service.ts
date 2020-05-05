@@ -28,6 +28,7 @@ export class ApiCallService {
   commonUpdateUserDataEve() {
     this.event.publish('UpdateUserData');
   }
+  
   showLoader() {
     this.loadingController.create({
       message: 'Please wait...',
@@ -40,7 +41,7 @@ export class ApiCallService {
   hideLoader() {
     setTimeout(() => {
       this.loadingController.dismiss();
-    }, 1000);
+    }, 500);
   }
 
   /**
@@ -54,7 +55,7 @@ export class ApiCallService {
       return this.http.get(environment.baseURL + val_url);
     } else if (val_method === 'post') {
       return this.http.post(environment.baseURL + val_url, val_data, {
-        headers: { 'Access-Control-Allow-Origin': '*', 'Authorization': 'Bearer ' + localStorage.token }
+        headers: { 'Authorization': 'Bearer ' + localStorage.token}
       });
     } else if (val_method === 'delete') {
       return this.http.delete(environment.baseURL + val_url);
@@ -307,7 +308,7 @@ export class ApiCallService {
    * @param callBack //Return base64 string
    */
   cropImage(fileURI: any, callBack: any) {
-    this.crop.crop(fileURI, { quality: 100 }).then((newImage: any) => {
+    this.crop.crop(fileURI, { quality: 65 }).then((newImage: any) => {
       this.base64.encodeFile(newImage).then((base64File: string) => {
         callBack(this.replaceBase64String(base64File));
       }, (err) => {

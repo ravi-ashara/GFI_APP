@@ -31,11 +31,19 @@ export class HomePage {
   getattendeesList() {
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
       try {
+        const passData = {
+          user_id: localStorage.userId
+        }
         this.commonService.showLoader();
-        this.commonService.hitAPICall('post', 'user/attendees-list', '').subscribe((response: any) => {
+        this.commonService.hitAPICall('post', 'user/attendees-list', passData).subscribe((response: any) => {
           this.commonService.hideLoader();
           if (response.status == "error") {
             this.commonService.showAlert('Error', response.message, 'Ok', () => { });
+            localStorage.isLogin = false;
+            localStorage.removeItem('token');
+            localStorage.removeItem('loginUserData');
+            localStorage.removeItem('userId');
+            this.navCtrl.navigateRoot(['/login']);
           } else {
             this.attendeesList = response.data ? response.data : [];
           }

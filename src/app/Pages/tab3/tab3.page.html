@@ -24,7 +24,7 @@
             (ionError)="errorImage($event)"></ion-img>
           </ion-avatar>
           <ion-label><span class="lableHeading">{{meetingData?.events?.event_title}}</span>
-            <p class="meetingFontSize12">{{meetingData?.events?.event_description}}</p>
+            <p class="meetingFontSize12">{{meetingData?.meeting_detail}}</p>
           </ion-label>
           <ion-button slot="end" fill="clear" class="viewStatus moreButton" (click)="showOptions(meetingData)">
             <ion-icon slot="icon-only" src="../../../assets/icon/ellipsis-horizontal-outline.svg"></ion-icon>
@@ -56,8 +56,8 @@
             </ion-col>
             <ion-col size="3" class="ion-text-center verticalCenter">
               <ion-badge
-                [color]='meetingData?.status == "1" ? "success" : meetingData?.status == "2" ? "danger" : "warning"'>
-                {{meetingData?.status == "1" ? "Accepted" : meetingData?.status == "2" ? "Declined" : "Pending"}}
+                [color]='meetingData?.meeting_status == "1" ? "success" : meetingData?.meeting_status == "2" ? "danger" : "warning"'>
+                {{meetingData?.meeting_status == "1" ? "Accepted" : meetingData?.meeting_status == "2" ? "Declined" : "Pending"}}
               </ion-badge>
             </ion-col>
             <ion-col size="5" class="ion-text-right">
@@ -85,7 +85,7 @@
                 (ionError)="errorImage($event)"></ion-img>
             </ion-avatar>
             <ion-label><span class="lableHeading">{{meetingData?.events?.event_title}}</span>
-              <p class="meetingFontSize12">{{meetingData?.events?.event_description}}</p>
+              <p class="meetingFontSize12">{{meetingData?.meeting_detail}}</p>
             </ion-label>
             <ion-button slot="end" fill="clear" class="viewStatus moreButton" (click)="showOptions(meetingData)">
               <ion-icon slot="icon-only" src="../../../assets/icon/ellipsis-horizontal-outline.svg"></ion-icon>
@@ -117,8 +117,8 @@
               </ion-col>
               <ion-col size="3" class="ion-text-center verticalCenter">
                 <ion-badge
-                  [color]='meetingData?.status == "1" ? "success" : meetingData?.status == "2" ? "danger" : "warning"'>
-                  {{meetingData?.status == "1" ? "Accepted" : meetingData?.status == "2" ? "Declined" : "Pending"}}
+                  [color]='meetingData?.meeting_status == "1" ? "success" : meetingData?.meeting_status == "2" ? "danger" : "warning"'>
+                  {{meetingData?.meeting_status == "1" ? "Accepted" : meetingData?.meeting_status == "2" ? "Declined" : "Pending"}}
                 </ion-badge>
               </ion-col>
               <ion-col size="5" class="ion-text-right">

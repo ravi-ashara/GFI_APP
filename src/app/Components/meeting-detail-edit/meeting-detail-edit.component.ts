@@ -14,21 +14,30 @@ export class MeetingDetailEditComponent {
   meetingDetails: string = '';
   constructor(private commonService: ApiCallService, private networkService: NetworkService, private popover: PopoverController, public navParams: NavParams) {
     this.getMeetingData = this.navParams.get('meetingVal');
-    console.log(this.getMeetingData);
-    this.meetingDetails = '';
+    this.meetingDetails = this.getMeetingData.meeting_detail;
   }
 
-  updateMeetingDetails(val: any, meetingDetail: any) {
+  closePopup(val: any) {
+    this.popover.dismiss(val);
+  }
+
+  updateMeetingDetails() {
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
       try {
         const passData: any = {
-          request_id: val.request_id,
-          meeting_detail: meetingDetail,
-          request_sender: val.request_sender
+          request_id: this.getMeetingData.request_id,
+          meeting_detail: this.meetingDetails,
+          request_sender: this.getMeetingData.request_sender
         }
         this.commonService.showLoader();
         this.commonService.hitAPICall('post', 'event/edit-meeting', passData).subscribe((response: any) => {
           this.commonService.hideLoader();
+          if (response.status == "success") {
+            this.closePopup('EditDetails');
+            this.commonService.showToastWithDuration(response.msg, 'top', 3000);
+          } else {
+            this.commonService.showToastWithDuration("Error form server side", 'top', 3000);
+          }
         }, error => {
           this.commonService.serverSideError();
         });

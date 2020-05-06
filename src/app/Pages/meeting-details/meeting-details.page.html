@@ -29,6 +29,11 @@
           <ion-icon slot="start" name="time" mode="md" class="iconFontSize"></ion-icon> {{modalData?.start_time}}
         </ion-label>
       </ion-col>
+      <ion-col size="12">
+        <ion-label class="labelFontSize">
+          <ion-icon slot="start" name="pin" mode="md" class="iconFontSize"></ion-icon> {{modalData?.events?.event_location}}
+        </ion-label>
+      </ion-col>
     </ion-row>
     <ion-row class="ion-margin-top">
       <ion-col size="12" class="showParticipantsLength">
@@ -42,7 +47,7 @@
             <ion-img [src]="userData?.image_url" (ionError)="errorImage($event)"></ion-img>
           </ion-avatar>
           <ion-label>{{userData?.u_first_name}} {{userData?.u_last_name}} <span
-              *ngIf="userData?.meeing_creator == '1'">(Organiser)</span></ion-label>
+              *ngIf="userData?.meeing_creator == '1'">(Organizer)</span></ion-label>
 
           <div *ngIf="userData?.u_id == loginUserID && userData?.meeing_creator == '0';else otherUserData;">
             <ion-button size="small" fill="outline" shape="round" class="setSmallPadding"

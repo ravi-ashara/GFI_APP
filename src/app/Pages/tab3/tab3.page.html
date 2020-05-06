@@ -57,7 +57,7 @@
             <ion-col size="3" class="ion-text-center verticalCenter">
               <ion-badge
                 [color]='meetingData?.meeting_status == "1" ? "success" : meetingData?.meeting_status == "2" ? "danger" : "warning"'>
-                {{meetingData?.meeting_status == "1" ? "Accepted" : meetingData?.meeting_status == "2" ? "Declined" : "Pending"}}
+                {{meetingData?.meeting_status == "1" ? "Confirmed" : meetingData?.meeting_status == "2" ? "Cancelled" : "Pending"}}
               </ion-badge>
             </ion-col>
             <ion-col size="5" class="ion-text-right">
@@ -118,7 +118,7 @@
               <ion-col size="3" class="ion-text-center verticalCenter">
                 <ion-badge
                   [color]='meetingData?.meeting_status == "1" ? "success" : meetingData?.meeting_status == "2" ? "danger" : "warning"'>
-                  {{meetingData?.meeting_status == "1" ? "Accepted" : meetingData?.meeting_status == "2" ? "Declined" : "Pending"}}
+                  {{meetingData?.meeting_status == "1" ? "Confirmed" : meetingData?.meeting_status == "2" ? "Cancelled" : "Pending"}}
                 </ion-badge>
               </ion-col>
               <ion-col size="5" class="ion-text-right">

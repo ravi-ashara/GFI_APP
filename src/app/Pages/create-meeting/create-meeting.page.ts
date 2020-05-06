@@ -48,14 +48,14 @@ export class CreateMeetingPage {
   }
 
   addParticipants(val: any) {
-    let val_1 = val.target.textContent.trimStart();
-    let val_2 = val_1.split(" ");
-    for (let i = 0; i < val_2.length; i++) {
-      if (i % 2 == 0) {
-        this.selectedParticipants.push(val_2[i]);
+    setTimeout(() => {
+      let val_1 = val.target.shadowRoot.textContent.trim();
+      let val_2 = val_1.split(",");
+      for (let i = 0; i < val_2.length; i++) {
+        this.selectedParticipants.push(val_2[i].trimStart());
       }
-    }
-    this.selectedParticipants.toString();
+      this.selectedParticipants.toString();
+    }, 1000);
   }
 
   eventListByCompany() {
@@ -98,7 +98,7 @@ export class CreateMeetingPage {
           this.userListByEvent = response;
           const indx = this.eventListByCompanyData.events.findIndex(e => e.event_id == val.target.value);
           this.selectedEventData = this.eventListByCompanyData.events[indx];
-          this.setMinDate = moment(this.selectedEventData.event_start_datetime).format('YYYY-MM-DD');
+          this.setMinDate = moment().isSameOrBefore(this.selectedEventData.event_start_datetime, "D") == false ? moment().format('YYYY-MM-DD') : moment(this.selectedEventData.event_start_datetime).format('YYYY-MM-DD');
           this.setMaxDate = moment(this.selectedEventData.event_end_datetime).format('YYYY-MM-DD');
         }, error => {
           this.commonService.serverSideError();

@@ -48,6 +48,11 @@ export class HomePage {
             this.attendeesList = response.data ? response.data : [];
           }
         }, error => {
+          localStorage.isLogin = false;
+          localStorage.removeItem('token');
+          localStorage.removeItem('loginUserData');
+          localStorage.removeItem('userId');
+          this.navCtrl.navigateRoot(['/login']);
           this.commonService.serverSideError();
         });
       } catch (error) {

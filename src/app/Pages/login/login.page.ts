@@ -63,9 +63,11 @@ export class LoginPage {
             localStorage.userId = response.data.u_id;
           }
         }, (error) => {
+          console.log(error);
           this.commonService.serverSideError();
         });
       } catch (error) {
+        console.log(error);
         this.commonService.serverSideError();
       }
     } else {

@@ -48,6 +48,7 @@ export class CreateMeetingPage {
   }
 
   addParticipants(val: any) {
+    this.selectedParticipants = [];
     setTimeout(() => {
       let val_1 = val.target.shadowRoot.textContent.trim();
       let val_2 = val_1.split(",");
@@ -55,7 +56,7 @@ export class CreateMeetingPage {
         this.selectedParticipants.push(val_2[i].trimStart());
       }
       this.selectedParticipants.toString();
-    }, 1000);
+    }, 500);
   }
 
   eventListByCompany() {

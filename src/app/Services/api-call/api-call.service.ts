@@ -55,8 +55,8 @@ export class ApiCallService {
       return this.http.get(environment.baseURL + val_url);
     } else if (val_method === 'post') {
       return this.http.post(environment.baseURL + val_url, val_data, {
-        headers: { 'Authorization': 'Bearer ' + localStorage.token}
-      });
+        headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Content-Type', 'Authorization': 'Bearer ' + localStorage.token }
+      }); 
     } else if (val_method === 'delete') {
       return this.http.delete(environment.baseURL + val_url);
     }

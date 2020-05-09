@@ -125,7 +125,7 @@ export class Tab3Page {
           cssClass: val.users[currentUserIndex].request_status == "0" ? '' : 'disabledActionButton',
           handler: () => {
             if (val.users[currentUserIndex].request_status == "0") {
-              this.acceptDeclineMeeting(val.users[currentUserIndex], 1);
+              this.acceptDeclineMeeting(val.users[currentUserIndex], '1');
             }
           }
         }, {
@@ -133,7 +133,7 @@ export class Tab3Page {
           cssClass: val.users[currentUserIndex].request_status == "0" ? '' : 'disabledActionButton',
           handler: () => {
             if (val.users[currentUserIndex].request_status == "0") {
-              this.acceptDeclineMeeting(val.users[currentUserIndex], 2);
+              this.acceptDeclineMeeting(val.users[currentUserIndex], '2');
             }
           }
         }, {

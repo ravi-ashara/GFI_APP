@@ -1,5 +1,6 @@
-import { ApiCallService } from './../../Services/api-call/api-call.service';
 import { Component } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
+import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
 
 @Component({
@@ -10,7 +11,17 @@ import { NetworkService, ConnectionStatus } from '../../Services/network/network
 export class SettingsPage {
 
   constructor(public commonService: ApiCallService,
-    private networkService: NetworkService) { }
+    private networkService: NetworkService,
+    private router: Router) { }
+
+  changePassword() {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        pageName: 'setPassword',
+      }
+    };
+    this.router.navigate(['set-password'], navigationExtras);
+  }
 
   logout() {
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {

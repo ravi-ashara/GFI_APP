@@ -19,7 +19,7 @@ export class LoginPage {
     private networkService: NetworkService) {
     this.loginForm = this.formBuilder.group({
       u_email: ['', Validators.email],
-      u_password: ['', [Validators.required, Validators.minLength(3)]],
+      u_password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 

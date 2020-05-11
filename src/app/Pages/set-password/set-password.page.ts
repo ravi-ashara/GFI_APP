@@ -30,15 +30,16 @@ export class SetPasswordPage {
 
     this.setPasswordForm = this.formBuilder.group({
       u_oldpassword: this.showOldPassword ? ['', [Validators.required, Validators.minLength(6)]] : '',
-      u_newpassword: ['', [Validators.required, Validators.minLength(6)]],
-      u_confirmpassword: ['', [Validators.required]]
+      new_password: ['', [Validators.required, Validators.minLength(6)]],
+      u_confirmpassword: ['', [Validators.required]],
+      email: localStorage.forgotEmail
     }, {
       validators: this.password.bind(this)
     });
   }
 
   password(formGroup: FormGroup) {
-    const { value: password } = formGroup.get('u_newpassword');
+    const { value: password } = formGroup.get('new_password');
     const { value: confirmPassword } = formGroup.get('u_confirmpassword');
     return password === confirmPassword ? null : { passwordNotMatch: true };
   }
@@ -47,14 +48,16 @@ export class SetPasswordPage {
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
       try {
         const passData: any = {
-          val_otp: this.otp
+          email: localStorage.forgotEmail,
+          otp: this.otp
         }
         this.commonService.showLoader();
         this.commonService.hitAPICall('post', 'check-otp', passData).subscribe((response: any) => {
           this.commonService.hideLoader();
-          console.log(response);
-          if (response.status == 'true') {
+          if (response.status == 'success') {
             this.showOTP = !this.showOTP;
+          } else {
+            this.commonService.showToastWithDuration(response.msg, 'top', 3000);
           }
         }, error => {
           this.commonService.serverSideError();
@@ -78,15 +81,17 @@ export class SetPasswordPage {
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
       try {
         this.commonService.showLoader();
-        this.commonService.hitAPICall('post', 'changePassword', val.value).subscribe((response: any) => {
+        this.commonService.hitAPICall('post', 'change-forgot-password', val.value).subscribe((response: any) => {
           this.commonService.hideLoader();
-          console.log(response);
-          if (response.status == 'true') {
+          if (response.status == 'success') {
+            this.commonService.showToastWithDuration(response.msg, 'top', 3000);
             if (this.showOldPassword) {
               this.backToPage();
             } else {
               this.navCtrl.navigateRoot(['login']);
             }
+          } else {
+            this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
           }
         }, error => {
           this.commonService.serverSideError();
@@ -97,5 +102,9 @@ export class SetPasswordPage {
     } else {
       this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
     }
+  }
+
+  ionViewWillLeave() {
+    localStorage.removeItem('forgotEmail');
   }
 }

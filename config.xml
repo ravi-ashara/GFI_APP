@@ -61,6 +61,12 @@
         </feature>
         <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
         <preference name="WKWebViewOnly" value="true" />
+        <config-file parent="NSPhotoLibraryUsageDescription" target="*-Info.plist">
+            <string>$(PRODUCT_NAME) would like to access your photo</string>
+        </config-file>
+        <config-file parent="NSCameraUsageDescription" target="*-Info.plist">
+            <string>$(PRODUCT_NAME) would like to access your camera</string>
+        </config-file>
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
         <icon height="114" src="resources/ios/icon/icon@2x.png" width="114" />
         <icon height="29" src="resources/ios/icon/icon-small.png" width="29" />

@@ -16,7 +16,7 @@ export class ForgotPasswordPage {
     private networkService: NetworkService,
     private router: Router) {
     this.forgotPasswordForm = this.formBuilder.group({
-      u_email: ['', Validators.email],
+      email: ['', Validators.email],
     });
   }
 
@@ -24,16 +24,19 @@ export class ForgotPasswordPage {
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
       try {
         this.commonService.showLoader();
-        this.commonService.hitAPICall('post', 'forgotPassword', val.value).subscribe((response: any) => {
+        this.commonService.hitAPICall('post', 'forgot-password', val.value).subscribe((response: any) => {
           this.commonService.hideLoader();
-          console.log(response);
-          if (response.status == 'true') {
+          if (response.status == 'success') {
+            this.commonService.showToastWithDuration(response.msg, 'top', 3000);
+            localStorage.forgotEmail = val.value.email
             const navigationExtras: NavigationExtras = {
               state: {
                 pageName: 'forgotPassword',
               }
             };
             this.router.navigate(['set-password'], navigationExtras);
+          } else {
+            this.commonService.showAlert('', response.errors.email[0], 'Ok', () => { });
           }
         }, error => {
           this.commonService.serverSideError();

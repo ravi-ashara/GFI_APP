@@ -285,21 +285,38 @@ export class ApiCallService {
    * @param callBack callback function
    */
   openCamera(val: any, callBack: any) {
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: val == "CAMERA" ? this.camera.PictureSourceType.CAMERA : this.camera.PictureSourceType.PHOTOLIBRARY,
-      correctOrientation: true,
-    };
-    this.camera.getPicture(options).then((imageData: any) => {
-      this.cropImage(imageData, (returnVal: any) => {
-        callBack(returnVal);
+    if(this.platform.is('ios')){
+      const options: CameraOptions = {
+        quality: 60,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        sourceType: val == "CAMERA" ? this.camera.PictureSourceType.CAMERA : this.camera.PictureSourceType.PHOTOLIBRARY,
+        correctOrientation: true,
+        allowEdit:true
+      };
+      this.camera.getPicture(options).then((imageData: any) => {
+        callBack(imageData);
+      },(err) => {
+        callBack('Error');
       });
-    }, (err) => {
-      callBack('Error');
-    });
+    }else{
+      const options: CameraOptions = {
+        quality: 100,
+        destinationType: this.camera.DestinationType.FILE_URI,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        sourceType: val == "CAMERA" ? this.camera.PictureSourceType.CAMERA : this.camera.PictureSourceType.PHOTOLIBRARY,
+        correctOrientation: true,
+      };
+      this.camera.getPicture(options).then((imageData: any) => {
+        this.cropImage(imageData, (returnVal: any) => {
+          callBack(returnVal);
+        });
+      }, (err) => {
+        callBack('Error');
+      });
+    }
   }
 
   /**

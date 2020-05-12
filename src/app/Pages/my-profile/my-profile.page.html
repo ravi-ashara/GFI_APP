@@ -133,7 +133,7 @@
 
     <div class="ion-padding-horizontal" *ngIf="segmentSelectedValue == 'Organization'">
       <form [formGroup]="organizationForm">
-        <div *ngIf="setStep === 'step1'" class="animated" [ngClass]="buttonName=='next' ? 'slideInRight':'slideInLeft'">
+        <div *ngIf="setStep === 'step1'" >
           <ion-row class="ion-padding-top">
             <ul class="wizard wizard-steps-3">
               <li>
@@ -242,8 +242,7 @@
           </ion-row>
         </div>
 
-        <div *ngIf="setStep === 'step2'" class="setp2 animated"
-          [ngClass]="buttonName=='next' ? 'slideInRight':'slideInLeft'">
+        <div *ngIf="setStep === 'step2'" class="setp2">
           <ion-row class="ion-padding-top">
             <ul class="wizard wizard-steps-3">
               <li>
@@ -356,7 +355,7 @@
           </ion-row>
         </div>
 
-        <div *ngIf="setStep === 'step3'" class="animated" [ngClass]="buttonName=='next' ? 'slideInRight':'slideInLeft'">
+        <div *ngIf="setStep === 'step3'">
           <ion-row class="ion-padding-top">
             <ul class="wizard wizard-steps-3">
               <li>

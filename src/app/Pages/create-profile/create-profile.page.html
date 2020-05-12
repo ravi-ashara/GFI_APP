@@ -4,8 +4,7 @@
         <ion-text color="light">Create Profile</ion-text>
       </strong></h4>
   </ion-col>
-  <ion-card *ngIf="setStep === 'organization'" color="light" class="animated"
-    [ngClass]="buttonName=='next' ? 'slideInRight':'slideInLeft'">
+  <ion-card *ngIf="setStep === 'organization'" color="light">
     <ion-col size="12" class="ion-text-center">
       <h4><strong>
           <ion-text color="primary">Your Organization </ion-text>
@@ -30,8 +29,7 @@
       </ion-col>
     </ion-row>
   </ion-card>
-  <ion-card *ngIf="setStep === 'step1'" color="light" class="animated"
-    [ngClass]="buttonName=='next' ? 'slideInRight':'slideInLeft'">
+  <ion-card *ngIf="setStep === 'step1'" color="light" >
     <ion-row class="ion-padding-top">
       <ul class="wizard wizard-steps-3">
         <li>
@@ -146,8 +144,7 @@
     </ion-row>
   </ion-card>
 
-  <ion-card *ngIf="setStep === 'step2'" color="light" class="setp2 animated"
-    [ngClass]="buttonName=='next' ? 'slideInRight':'slideInLeft'">
+  <ion-card *ngIf="setStep === 'step2'" color="light" class="setp2">
     <ion-row class="ion-padding-top">
       <ul class="wizard wizard-steps-3">
         <li>
@@ -264,8 +261,7 @@
     </ion-row>
   </ion-card>
 
-  <ion-card *ngIf="setStep === 'step3'" color="light" class="animated"
-    [ngClass]="buttonName=='next' ? 'slideInRight':'slideInLeft'">
+  <ion-card *ngIf="setStep === 'step3'" color="light" >
     <ion-row class="ion-padding-top">
       <ul class="wizard wizard-steps-3">
         <li>

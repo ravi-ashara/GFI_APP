@@ -1,4 +1,3 @@
-import { CreateMeetingPage } from './../create-meeting/create-meeting.page';
 import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
 // import * as moment from 'moment';
@@ -58,7 +57,6 @@ export class Tab3Page {
       this.getDataBySegmentSelected = Object.entries(this.fullEventsData.upcomming);
     } else {
       this.getDataBySegmentSelected = Object.entries(this.fullEventsData.past);
-      console.log(this.getDataBySegmentSelected);
     }
   }
 
@@ -100,7 +98,8 @@ export class Tab3Page {
             this.modalCtrl.create({
               component: MeetingDetailsPage,
               componentProps: {
-                value: val
+                value: val,
+                pageName:'MySchedule'
               }
             }).then((modal: any) => {
               modal.present();
@@ -142,7 +141,8 @@ export class Tab3Page {
             this.modalCtrl.create({
               component: MeetingDetailsPage,
               componentProps: {
-                value: val
+                value: val,
+                pageName:'MySchedule'
               }
             }).then((modal: any) => {
               modal.present();

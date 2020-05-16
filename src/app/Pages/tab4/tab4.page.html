@@ -1,11 +1,11 @@
 <app-common-header name="Companies"></app-common-header>
 
 <ion-content class="customBackground companiesPage">
-  <div *ngIf="companyData?.length != 0; else showErorMessage;" >
+  <div *ngIf="companyData?.length != 0; else showErorMessage;">
     <ion-card color="light" class="companyCard" *ngFor="let cmpnyData of companyData">
       <ion-card-header class="ion-no-padding companycardHeader">
         <ion-row>
-          <ion-col size="4">
+          <ion-col size="4" (click)="openDetails(cmpnyData)">
             <ion-img class="setLogo"
               [src]="cmpnyData?.logo_url ? cmpnyData?.logo_url : 'assets/images/company-placeholder.jpg'"
               (ionError)="errorImage($event)" [alt]="cmpnyData?.company_name"></ion-img>
@@ -19,7 +19,7 @@
       </ion-card-header>
       <hr>
       <ion-card-content class="ion-no-padding ion-padding-horizontal ion-padding-bottom companycardContent">
-        <p class="ion-no-margin companyTitle">
+        <p class="ion-no-margin companyTitle" (click)="openDetails(cmpnyData)">
           <ion-text color="primary">{{cmpnyData?.company_name}}</ion-text>
         </p>
         <p class="companyDescription">{{cmpnyData?.company_description}}</p>
@@ -50,5 +50,5 @@
       </ion-row>
     </ion-card>
   </ng-template>
-  
+
 </ion-content>

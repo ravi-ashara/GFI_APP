@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
+import { ModalController } from '@ionic/angular';
+import { SponsorCompanyDetailsPage } from '../sponsor-company-details/sponsor-company-details.page';
 
 @Component({
   selector: 'app-tab4',
@@ -12,7 +14,8 @@ export class Tab4Page {
   companyData: any = [];
 
   constructor(public commonService: ApiCallService,
-    private networkService: NetworkService) { }
+    private networkService: NetworkService,
+    private modalCtrl: ModalController) { }
 
   ionViewWillEnter() {
     this.showCompanies();
@@ -48,5 +51,19 @@ export class Tab4Page {
 
   errorImage(val: any) {
     return val.target.src = "assets/images/company-placeholder.jpg";
+  }
+
+  openDetails(val: any) {
+    console.log(val);
+
+    this.modalCtrl.create({
+      component: SponsorCompanyDetailsPage,
+      componentProps: {
+        value: val,
+        pageName: 'Company'
+      }
+    }).then((modal: any) => {
+      modal.present();
+    });
   }
 }

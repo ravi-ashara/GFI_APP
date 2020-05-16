@@ -12,7 +12,7 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-searchbar showCancelButton="always" spellcheck="true" animated placeholder="Search companies" *ngIf="showSearch"
+  <ion-searchbar showCancelButton="always" spellcheck="true" animated placeholder="Search user" *ngIf="showSearch"
     (ionCancel)="searchCompany()" mode="ios" [(ngModel)]="searchVal"></ion-searchbar>
 </ion-header>
 
@@ -20,11 +20,6 @@
   <div class="banner">
     <img src="../../../assets/images/logoPage_allAttendees.png" alt="Banner" />
   </div>
-  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="createMeeting()" color="secondary">
-      <ion-icon src="assets/icon/create-outline.svg"></ion-icon>
-    </ion-fab-button>
-  </ion-fab> -->
   <ion-card class="ion-text-center" *ngIf="attendeesList?.length <= 0; else showattendeesList">
     <h4>
       <ion-text color="light">No data found</ion-text>

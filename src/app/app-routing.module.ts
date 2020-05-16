@@ -91,6 +91,10 @@ const routes: Routes = [
   },  {
     path: 'set-password',
     loadChildren: () => import('./Pages/set-password/set-password.module').then( m => m.SetPasswordPageModule)
+  },
+  {
+    path: 'sponsor-company-details',
+    loadChildren: () => import('./Pages/sponsor-company-details/sponsor-company-details.module').then( m => m.SponsorCompanyDetailsPageModule)
   }
 
 ];

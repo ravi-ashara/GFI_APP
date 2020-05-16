@@ -1,0 +1,42 @@
+<ion-header mode="ios" class="customHeader">
+  <ion-toolbar color="secondary" class="smallPadding" mode="ios">
+    <ion-title>{{pageName}} Details</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close" mode="md"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="customBackground sponsor_company_DetailsPage">
+  <ion-card color="light" *ngIf="pageName == 'Sponsor'">
+    <ion-row>
+      <ion-col size="12" class="ion-text-center">
+        <h4>{{modalData?.company_name}}</h4>
+      </ion-col>
+      <ion-col size="12">
+        <ion-img [src]="modalData?.logo_path ? modalData?.logo_path : 'assets/images/company-placeholder.jpg'"
+          (ionError)="errorImage($event)" [alt]="modalData?.company_name"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+  <ion-card color="light" *ngIf="pageName == 'Company'">
+    <ion-row>
+      <ion-col size="12">
+        <ion-img [src]="modalData?.logo_url ? modalData?.logo_url : 'assets/images/company-placeholder.jpg'"
+          (ionError)="errorImage($event)" [alt]="modalData?.company_name"></ion-img>
+      </ion-col>
+      <ion-col size="12">
+        <h5>{{modalData?.company_name}}</h5>
+        <h6 class="ion-no-margin">{{modalData?.company_description}}</h6>
+        <p>
+          Address: {{modalData?.address}}
+        </p>
+        <p>
+          Mobile Number: {{modalData?.mobile}}
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>

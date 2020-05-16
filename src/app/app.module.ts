@@ -21,6 +21,7 @@ import { CommonHeaderComponent } from './Components/common-header/common-header.
 import { MeetingDetailEditComponent } from './Components/meeting-detail-edit/meeting-detail-edit.component';
 import { CreateMeetingPageModule } from './Pages/create-meeting/create-meeting.module';
 import { MeetingDetailsPageModule } from './Pages/meeting-details/meeting-details.module';
+import { SponsorCompanyDetailsPageModule } from './Pages/sponsor-company-details/sponsor-company-details.module';
 
 /** Plugin */
 import { Push } from '@ionic-native/push/ngx';
@@ -50,7 +51,8 @@ import { Camera } from '@ionic-native/camera/ngx';
     CreateMeetingPageModule,
     PipesModule,
     NgCalendarModule,
-    MeetingDetailsPageModule
+    MeetingDetailsPageModule,
+    SponsorCompanyDetailsPageModule
   ],
   providers: [
     StatusBar,

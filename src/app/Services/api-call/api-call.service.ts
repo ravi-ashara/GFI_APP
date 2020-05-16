@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Platform, AlertController, ToastController, LoadingController, NavController, Events } from '@ionic/angular';
+import { Platform, AlertController, ToastController, LoadingController, NavController, Events, ModalController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { Push, PushOptions, PushObject } from '@ionic-native/push/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
+import { MeetingDetailsPage } from '../../Pages/meeting-details/meeting-details.page';
 
 @Injectable({
   providedIn: 'root'
@@ -23,12 +24,13 @@ export class ApiCallService {
     public camera: Camera,
     public event: Events,
     private base64: Base64,
-    private crop: Crop) { }
+    private crop: Crop,
+    public modalCtrl: ModalController) { }
 
   commonUpdateUserDataEve() {
     this.event.publish('UpdateUserData');
   }
-  
+
   showLoader() {
     this.loadingController.create({
       message: 'Please wait...',
@@ -56,7 +58,7 @@ export class ApiCallService {
     } else if (val_method === 'post') {
       return this.http.post(environment.baseURL + val_url, val_data, {
         headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Content-Type', 'Authorization': 'Bearer ' + localStorage.token }
-      }); 
+      });
     } else if (val_method === 'delete') {
       return this.http.delete(environment.baseURL + val_url);
     }
@@ -222,7 +224,11 @@ export class ApiCallService {
         this.showConfirm(data.title, data.message, ['Cancel', 'See'], (res: any) => {
           if (res == 'Yes') {
             if (localStorage.token != undefined) {
-              this.navCtrl.navigateRoot(['/notification']);
+              if (data.additionalData.page_name == "meeting_notification") {
+                this.showMeetingDetailsPopup(data.additionalData.request_id);
+              } else {
+                this.navCtrl.navigateRoot(['/notification']);
+              }
             } else {
               this.navCtrl.navigateRoot(['/login']);
             }
@@ -230,7 +236,11 @@ export class ApiCallService {
         });
       } else {
         if (localStorage.token != undefined) {
-          this.navCtrl.navigateRoot(['/notification']);
+          if (data.additionalData.page_name == "meeting_notification") {
+            this.showMeetingDetailsPopup(data.additionalData.request_id);
+          } else {
+            this.navCtrl.navigateRoot(['/notification']);
+          }
         } else {
           this.navCtrl.navigateRoot(['/login']);
         }
@@ -239,6 +249,22 @@ export class ApiCallService {
 
     pushObject.on('error').subscribe(error => {
       console.error('Error with Push plugin' + JSON.stringify(error));
+    });
+  }
+
+  /**
+   * 
+   * @param val request_id
+   */
+  showMeetingDetailsPopup(val: any) {
+    this.modalCtrl.create({
+      component: MeetingDetailsPage,
+      componentProps: {
+        value: val,
+        pageName: 'MySchedule_Notification'
+      }
+    }).then((modal: any) => {
+      modal.present();
     });
   }
 
@@ -267,6 +293,7 @@ export class ApiCallService {
           localStorage.removeItem('token');
           localStorage.removeItem('loginUserData');
           localStorage.removeItem('userId');
+          localStorage.registerPushNotification = false;
           this.navCtrl.navigateRoot(['/login']);
         }
       }, error => {
@@ -285,7 +312,7 @@ export class ApiCallService {
    * @param callBack callback function
    */
   openCamera(val: any, callBack: any) {
-    if(this.platform.is('ios')){
+    if (this.platform.is('ios')) {
       const options: CameraOptions = {
         quality: 60,
         destinationType: this.camera.DestinationType.DATA_URL,
@@ -293,14 +320,14 @@ export class ApiCallService {
         mediaType: this.camera.MediaType.PICTURE,
         sourceType: val == "CAMERA" ? this.camera.PictureSourceType.CAMERA : this.camera.PictureSourceType.PHOTOLIBRARY,
         correctOrientation: true,
-        allowEdit:true
+        allowEdit: true
       };
       this.camera.getPicture(options).then((imageData: any) => {
         callBack(imageData);
-      },(err) => {
+      }, (err) => {
         callBack('Error');
       });
-    }else{
+    } else {
       const options: CameraOptions = {
         quality: 100,
         destinationType: this.camera.DestinationType.FILE_URI,

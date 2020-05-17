@@ -224,7 +224,7 @@ export class ApiCallService {
         this.showConfirm(data.title, data.message, ['Cancel', 'See'], (res: any) => {
           if (res == 'Yes') {
             if (localStorage.token != undefined) {
-              if (data.additionalData.page_name == "meeting_notification") {
+              if (data.additionalData.pageName == "meeting_notification") {
                 this.showMeetingDetailsPopup(data.additionalData.request_id);
               } else {
                 this.navCtrl.navigateRoot(['/notification']);
@@ -236,7 +236,7 @@ export class ApiCallService {
         });
       } else {
         if (localStorage.token != undefined) {
-          if (data.additionalData.page_name == "meeting_notification") {
+          if (data.additionalData.pageName == "meeting_notification") {
             this.showMeetingDetailsPopup(data.additionalData.request_id);
           } else {
             this.navCtrl.navigateRoot(['/notification']);

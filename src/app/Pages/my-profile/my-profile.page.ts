@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-my-profile',
@@ -20,7 +21,8 @@ export class MyProfilePage {
 
   constructor(public commonService: ApiCallService,
     public formBuilder: FormBuilder,
-    public networkService: NetworkService) {
+    public networkService: NetworkService,
+    public navCtrl: NavController) {
     this.userData = this.commonService.getUserLoginData();
     this.registerForm = this.formBuilder.group({
       u_first_name: ['', Validators.required],
@@ -29,7 +31,7 @@ export class MyProfilePage {
       u_gender: ['', Validators.required],
       u_about_us: '',
       u_personal_website: '',
-      u_social_link: '',
+      u_social_link: [],
       u_email: ['', Validators.email],
       profile_pic: '',
       u_id: ''
@@ -44,8 +46,8 @@ export class MyProfilePage {
 
       company_representative: ['', Validators.required],
       title: ['', Validators.required],
-      logo: this.userData ? this.userData.organization.logo_url : 'assets/images/icon_add_photo_on_two_step.png',
-      pager_file: this.userData ? this.userData.organization.pager_file : 'assets/images/icon_add_photo_on_two_step.png',
+      logo: [this.userData ? this.userData.organization.logo_url : 'assets/images/icon_add_photo_on_two_step.png'],
+      pager_file: [this.userData ? this.userData.organization.pager_file : 'assets/images/icon_add_photo_on_two_step.png'],
       company_description: ['', Validators.required],
       website: ['', Validators.required],
       employee_range: '',
@@ -77,6 +79,10 @@ export class MyProfilePage {
   }
 
   submitRegisterForm(val: any) {
+    if (val.value.profile_pic == "" || val.value.profile_pic.includes('/profile_pic/')) {
+      delete val.value.profile_pic;
+    }
+
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
       try {
         this.commonService.showLoader();
@@ -85,8 +91,10 @@ export class MyProfilePage {
           if (response.status == "failed") {
             this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
           } else {
+            this.commonService.showToastWithDuration('Profile updated successfully', 'top', 3500);
             this.commonService.commonUpdateUserDataEve();
             this.toggleEditProfile();
+            this.navCtrl.navigateRoot(['home']);
           }
         }, error => {
           this.commonService.serverSideError();
@@ -105,8 +113,13 @@ export class MyProfilePage {
   }
 
   registerProfile(val: any) {
-    // this.toggleEditProfile();
-    console.log(val.value);
+    if (val.value.logo == undefined || val.value.logo == null || val.value.logo == "" || val.value.logo.includes('/logo/')) {
+      delete val.value.logo;
+    }
+
+    if (val.value.pager_file == undefined || val.value.pager_file == null || val.value.pager_file == "" || val.value.pager_file.includes('/pager/')) {
+      delete val.value.pager_file;
+    }
 
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
       try {
@@ -121,8 +134,13 @@ export class MyProfilePage {
               }
             }
           } else {
-            localStorage.loginUserData = JSON.stringify(response.data);
+            this.commonService.showToastWithDuration(response.msg, 'top', 3500);
+            let getData: any = JSON.parse(localStorage.loginUserData);
+            getData.organization = response.data;
+            localStorage.loginUserData = JSON.stringify(getData);
             this.commonService.commonUpdateUserDataEve();
+            this.toggleEditProfile();
+            this.navCtrl.navigateRoot(['home']);
           }
         }, error => {
           this.commonService.serverSideError();
@@ -139,15 +157,11 @@ export class MyProfilePage {
     this.commonService.openCamera('PHOTOLIBRARY', (imageData: any) => {
       if (imageData !== "Error") {
         if (val == "Add company logo") {
-          console.log(imageData);
           this.organizationForm.get('logo').setValue(imageData);
         }
         else if (val == "Add one pager") {
-          console.log(imageData);
           this.organizationForm.get('pager_file').setValue(imageData);
         } else {
-          console.log(imageData);
-          // this.registerForm.controls["profile_pic"].setValue(imageData);
           this.registerForm.get('profile_pic').setValue(imageData);
         }
       }

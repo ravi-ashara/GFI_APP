@@ -133,7 +133,7 @@
 
     <div class="ion-padding-horizontal" *ngIf="segmentSelectedValue == 'Organization'">
       <form [formGroup]="organizationForm">
-        <div *ngIf="setStep === 'step1'" >
+        <div *ngIf="setStep === 'step1'">
           <ion-row class="ion-padding-top">
             <ul class="wizard wizard-steps-3">
               <li>
@@ -287,7 +287,7 @@
               <ion-img class="setImageSize"
                 [src]="userData?.organization?.logo_url ? userData?.organization?.logo_url : 'assets/images/icon_add_photo_on_two_step.png'"
                 (click)="getPhotos('Add company logo')" (ionError)="errorImage($event)"></ion-img>
-
+              <input type="hidden" name="logo" formControlName="logo" />
               <p>Add company logo</p>
             </ion-col>
             <ion-col size="6" class="ion-text-center">
@@ -295,6 +295,7 @@
               <ion-img class="setImageSize"
                 [src]="userData?.organization?.pager_url ? userData?.organization?.pager_url : 'assets/images/icon_add_photo_on_two_step.png'"
                 (click)="getPhotos('Add one pager')" (ionError)="errorImage($event)"></ion-img>
+              <input type="hidden" name="pager_file" formControlName="pager_file" />
               <p>Add one pager</p>
             </ion-col>
 

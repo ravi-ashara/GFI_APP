@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
-// import * as moment from 'moment';
+import * as moment from 'moment';
 import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
 import { ActionSheetController, ModalController, PopoverController } from '@ionic/angular';
 import { MeetingDetailsPage } from '../meeting-details/meeting-details.page';
@@ -99,7 +99,7 @@ export class Tab3Page {
               component: MeetingDetailsPage,
               componentProps: {
                 value: val,
-                pageName:'MySchedule'
+                pageName: 'MySchedule'
               }
             }).then((modal: any) => {
               modal.present();
@@ -121,7 +121,7 @@ export class Tab3Page {
         mode: 'ios',
         buttons: [{
           text: 'Accept',
-          cssClass: val.users[currentUserIndex].request_status == "0" ? '' : 'disabledActionButton',
+          cssClass: moment(val.meeting_date).isBefore(new Date()) == true ? 'disabledActionButton' : val.users[currentUserIndex].request_status == "0" ? '' : 'disabledActionButton',
           handler: () => {
             if (val.users[currentUserIndex].request_status == "0") {
               this.acceptDeclineMeeting(val.users[currentUserIndex], '1');
@@ -129,7 +129,7 @@ export class Tab3Page {
           }
         }, {
           text: 'Decline',
-          cssClass: val.users[currentUserIndex].request_status == "0" ? '' : 'disabledActionButton',
+          cssClass: moment(val.meeting_date).isBefore(new Date()) == true ? 'disabledActionButton' : val.users[currentUserIndex].request_status == "0" ? '' : 'disabledActionButton',
           handler: () => {
             if (val.users[currentUserIndex].request_status == "0") {
               this.acceptDeclineMeeting(val.users[currentUserIndex], '2');
@@ -142,7 +142,7 @@ export class Tab3Page {
               component: MeetingDetailsPage,
               componentProps: {
                 value: val,
-                pageName:'MySchedule'
+                pageName: 'MySchedule'
               }
             }).then((modal: any) => {
               modal.present();

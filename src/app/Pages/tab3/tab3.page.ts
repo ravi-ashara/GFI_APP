@@ -217,4 +217,11 @@ export class Tab3Page {
       this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
     }
   }
+
+  doRefresh(val: any) {
+    this.showSchedule();
+    setTimeout(() => {
+      val.target.complete();
+    }, 2000);
+  }
 }

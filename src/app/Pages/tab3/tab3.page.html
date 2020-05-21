@@ -1,6 +1,9 @@
 <app-common-header name="My Schedule"></app-common-header>
 
 <ion-content class="customBackground mySchedulePage">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-segment mode="md" color="light" class="borderTopBottom" [(ngModel)]="segmentSelectedValue"
     [value]="segmentSelectedValue" (ionChange)="changeSegment()">
     <ion-segment-button value="Today" mode="md">

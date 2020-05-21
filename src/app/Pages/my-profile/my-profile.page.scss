@@ -5,9 +5,10 @@
     
     .setProfileImageSize {
         width: 100px;
-        height: auto;
+        height: 100px;
         display: inline-block;
         margin: 0 auto;
+        border-radius: 50%;
     }
 
     .profile_photo {

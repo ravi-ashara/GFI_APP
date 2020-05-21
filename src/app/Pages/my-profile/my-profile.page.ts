@@ -92,6 +92,10 @@ export class MyProfilePage {
             this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
           } else {
             this.commonService.showToastWithDuration('Profile updated successfully', 'top', 3500);
+            let getData: any = JSON.parse(localStorage.loginUserData);
+            let allRules: any = { ...getData, ...response.data };
+            getData = allRules;
+            localStorage.loginUserData = JSON.stringify(getData);
             this.commonService.commonUpdateUserDataEve();
             this.toggleEditProfile();
             this.navCtrl.navigateRoot(['home']);
@@ -157,11 +161,14 @@ export class MyProfilePage {
     this.commonService.openCamera('PHOTOLIBRARY', (imageData: any) => {
       if (imageData !== "Error") {
         if (val == "Add company logo") {
+          this.userData.organization.logo_url = "data:image/*;charset=utf-8;base64," + imageData;
           this.organizationForm.get('logo').setValue(imageData);
         }
         else if (val == "Add one pager") {
+          this.userData.organization.pager_url = "data:image/*;charset=utf-8;base64," + imageData;
           this.organizationForm.get('pager_file').setValue(imageData);
         } else {
+          this.userData.image_url = "data:image/*;charset=utf-8;base64," + imageData;
           this.registerForm.get('profile_pic').setValue(imageData);
         }
       }

@@ -1,8 +1,11 @@
-
 <app-common-header name="Message List"></app-common-header>
 <ion-content class="customBackground messageListPage">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-card color="light">
-    <ion-item class="ion-no-padding itemList" lines="none" color="light" detail="false" (click)="gotoChatList('../../../assets/images/sg1.jpg','Shawn','')">
+    <ion-item class="ion-no-padding itemList" lines="none" color="light" detail="false"
+      (click)="gotoChatList('../../../assets/images/sg1.jpg','Shawn','')">
       <ion-avatar slot="start">
         <img src="../../../assets/images/sg1.jpg">
       </ion-avatar>

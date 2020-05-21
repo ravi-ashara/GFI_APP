@@ -32,4 +32,10 @@ export class MessageListPage {
       this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
     }
   }
+
+  doRefresh(val: any) {
+    setTimeout(() => {
+      val.target.complete();
+    }, 2000);
+  }
 }

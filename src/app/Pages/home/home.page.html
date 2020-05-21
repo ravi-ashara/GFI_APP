@@ -17,6 +17,10 @@
 </ion-header>
 
 <ion-content class="customBackground homePage">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <div class="banner">
     <img src="../../../assets/images/logoPage_allAttendees.png" alt="Banner" />
   </div>
@@ -29,7 +33,8 @@
     <ion-card color="light" class="companyCard" *ngFor="let data of attendeesList | search:'u_first_name': searchVal">
       <ion-item color="light" lines="none" class="setBorderbottom">
         <ion-avatar slot="start">
-          <ion-img [src]="data?.organization?.logo_url ? data?.organization?.logo_url : '../../../assets/images/profile_photo_icon.png'"
+          <ion-img
+            [src]="data?.organization?.logo_url ? data?.organization?.logo_url : '../../../assets/images/profile_photo_icon.png'"
             [alt]="data?.u_first_name" class="customIcon" (ionError)="errorImage($event)"></ion-img>
         </ion-avatar>
         <ion-label>{{data?.u_first_name}} {{data?.u_last_name}}

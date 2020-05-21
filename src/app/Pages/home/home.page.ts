@@ -106,4 +106,11 @@ export class HomePage {
   errorImage(val: any) {
     return val.target.src = "assets/images/profile_photo_icon.png";
   }
+
+  doRefresh(val: any) {
+    this.getattendeesList();
+    setTimeout(() => {
+      val.target.complete();
+    },2000);
+  }
 }

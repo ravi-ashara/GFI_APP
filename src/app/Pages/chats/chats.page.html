@@ -13,6 +13,9 @@
 </ion-header>
 
 <ion-content class="customBackground chatPage main">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="chat-box" id="chat-parent">
     <div class="message-area" id="chat-container">
       <div class="message" *ngFor="let message of conversation" [ngClass]="getClasses(message?.type)">

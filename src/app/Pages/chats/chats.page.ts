@@ -152,4 +152,10 @@ export class ChatsPage {
       outgoing: messageType === 'outgoing',
     };
   }
+
+  doRefresh(val: any) {
+    setTimeout(() => {
+      val.target.complete();
+    }, 2000);
+  }
 }

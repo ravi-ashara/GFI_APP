@@ -1,6 +1,9 @@
 <app-common-header name="Companies"></app-common-header>
 
 <ion-content class="customBackground companiesPage">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div *ngIf="companyData?.length != 0; else showErorMessage;">
     <ion-card color="light" class="companyCard" *ngFor="let cmpnyData of companyData">
       <ion-card-header class="ion-no-padding companycardHeader">

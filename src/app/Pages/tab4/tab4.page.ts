@@ -66,4 +66,10 @@ export class Tab4Page {
       modal.present();
     });
   }
+  doRefresh(val: any) {
+    this.showCompanies();
+    setTimeout(() => {
+      val.target.complete();
+    }, 2000);
+  }
 }

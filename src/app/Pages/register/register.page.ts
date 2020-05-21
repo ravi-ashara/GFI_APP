@@ -65,7 +65,10 @@ export class RegisterPage {
   openImage() {
     this.commonService.openCamera('PHOTOLIBRARY', (imageData: any) => {
       if (imageData != 'Error') {
-        this.userImage = imageData;
+        this.userImage = "data:image/*;charset=utf-8;base64," + imageData;
+        this.registerForm.get('profile_pic').setValue(imageData);
+      } else {
+        this.commonService.showToastWithDuration('Error in upload image', 'top', 3000);
       }
     });
   }

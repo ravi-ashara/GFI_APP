@@ -58,4 +58,10 @@ export class NotificationPage {
     //   this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });
     // }
   }
+
+  doRefresh(val: any) {
+    setTimeout(() => {
+      val.target.complete();
+    }, 2000);
+  }
 }

@@ -1,6 +1,9 @@
 <app-common-header name="Notification"></app-common-header>
 
 <ion-content class="notificationPage customBackground">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-card class="notificationList">
     <ion-item-sliding>
       <ion-item-options side="end">

@@ -15,6 +15,11 @@ export class CreateProfilePage {
   buttonName: string = '';
   organizationList: any = [];
   selectOrganization: any;
+  imagesPreview: any = {
+    logo: '',
+    pager_file: ''
+  }
+
   setp1Data: any = {
     user_type: '',
     company_name: '',
@@ -149,9 +154,11 @@ export class CreateProfilePage {
       if (imageData !== "Error") {
         if (val == "Add company logo") {
           this.setp2Data.logo = imageData
+          this.imagesPreview.logo = "data:image/*;charset=utf-8;base64," + imageData;
         }
         else {
           this.setp2Data.pager_file = imageData
+          this.imagesPreview.pager_file = "data:image/*;charset=utf-8;base64," + imageData;
         }
       }
     });

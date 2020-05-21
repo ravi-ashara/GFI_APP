@@ -64,4 +64,11 @@ export class SponsorPage {
   errorImage(val: any) {
     return val.target.src = "assets/images/company-placeholder.jpg";
   }
+
+  doRefresh(val: any) {
+    this.showSponsors();
+    setTimeout(() => {
+      val.target.complete();
+    },2000);
+  }
 }

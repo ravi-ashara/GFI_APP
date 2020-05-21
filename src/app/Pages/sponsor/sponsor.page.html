@@ -1,7 +1,9 @@
 <app-common-header name="Sponsor"></app-common-header>
 
 <ion-content class="customBackground">
-
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-segment [(ngModel)]="currentSponsorIndex" scrollable [value]="currentSponsorIndex" mode="md" color="light">
     <ion-segment-button [value]="i" *ngFor="let sponsor of totalSponsor?.data;let i = index" mode="md" color="light"
       (click)="selectedTab(i)">
@@ -13,8 +15,8 @@
     <div *ngIf="totalSponsor?.data?.length !== 0; else showErrorMesage">
       <div *ngIf="sposorDataValue?.sponsors?.length !== 0; else showErrorMesage">
         <ion-row>
-          <ion-col size="6" class="ion-align-self-center ion-text-center ion-padding" *ngFor="let data of sposorDataValue?.sponsors"
-            (click)="openDetails(data)">
+          <ion-col size="6" class="ion-align-self-center ion-text-center ion-padding"
+            *ngFor="let data of sposorDataValue?.sponsors" (click)="openDetails(data)">
             <ion-img [src]="data?.logo_path ? data?.logo_path : 'assets/images/company-placeholder.jpg'"
               [alt]="data?.company_name" (ionError)="errorImage($event)"></ion-img>
           </ion-col>

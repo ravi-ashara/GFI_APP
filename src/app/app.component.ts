@@ -24,6 +24,21 @@ export class AppComponent {
       icon: 'person'
     },
     {
+      title: 'Sponsors',
+      url: '/sponsor',
+      src: '../assets/icon/ic_sponsors.svg'
+    },
+    {
+      title: 'Contact Organizer',
+      url: '/contact-organizer',
+      src: '../assets/icon/ic_contact_organizer.svg'
+    },
+    // {
+    //   title: 'Conference Guide',
+    //   url: '/conference-guide',
+    //   src: '../assets/icon/ic_conference_guide.svg'
+    // },
+    {
       title: 'Setting',
       url: '/settings',
       icon: 'settings'

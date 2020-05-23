@@ -19,7 +19,8 @@
       <ion-list class="ion-no-padding">
         <ion-menu-toggle mode="ios" menu="first" autoHide="false" *ngFor="let p of appPages">
           <ion-item lines="none" (click)="navigatePage(p)" color="primary">
-            <ion-icon slot="start" [name]="p?.icon"></ion-icon>
+            <ion-icon slot="start" [name]="p?.icon" *ngIf="p?.icon"></ion-icon>
+            <ion-icon slot="start" [src]="p?.src" *ngIf="p?.src" color="light"></ion-icon>
             <ion-label>
               {{p?.title}}
               <ion-badge color="danger" class="setMiddle" *ngIf="p?.title == 'Notification'">11</ion-badge>

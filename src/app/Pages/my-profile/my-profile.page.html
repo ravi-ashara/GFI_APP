@@ -4,9 +4,9 @@
   <ion-card color="light" *ngIf="!showEditProfileForm">
     <ion-row>
       <ion-col size="6" class="ion-text-center">
-        <ion-img class="setProfileImageSize"
-          [src]="userData?.image_url ? userData?.image_url : 'assets/images/profile_photo_icon.png'"
-          (ionError)="errorImage($event)"></ion-img>
+          <ion-img class="setProfileImageSize"
+            [src]="userData?.image_url ? userData?.image_url : 'assets/images/profile_photo_icon.png'"
+            (ionError)="errorImage($event)"></ion-img>
       </ion-col>
       <ion-col size="6">
         <h4>{{userData?.u_first_name}} {{userData?.u_last_name}}</h4>
@@ -31,9 +31,9 @@
       <ion-col size="12">
         <form [formGroup]="registerForm">
           <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-            <ion-img class="setProfileImageSize"
-              [src]="userData?.image_url ? userData?.image_url : 'assets/images/profile_photo_icon.png'"
-              (click)="getPhotos('')" (ionError)="errorImage($event)"></ion-img>
+              <ion-img class="setProfileImageSize"
+                [src]="userData?.image_url ? userData?.image_url : 'assets/images/profile_photo_icon.png'"
+                (click)="getPhotos('')" (ionError)="errorImage($event)"></ion-img>
           </ion-item>
 
           <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">

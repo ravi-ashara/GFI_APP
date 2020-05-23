@@ -33,8 +33,9 @@ export class RegisterPage {
   }
 
   submitForm(val: any) {
+  console.log(val.value);
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
-      val.value.profile_pic = this.userImage;
+      // val.value.profile_pic = this.userImage;
       try {
         this.commonService.showLoader();
         this.commonService.hitAPICall('post', 'registration', val.value).subscribe((response: any) => {

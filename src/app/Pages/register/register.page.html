@@ -9,8 +9,9 @@
       <ion-col size="12">
         <form [formGroup]="registerForm">
           <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-            <img class="propicImg" [src]="userImage ? userImage: '../../../assets/images/profile_photo_icon.png'"
-              (click)="openImage()" />
+              <ion-img class="propicImg"
+              [src]="userImage ? userImage: 'assets/images/profile_photo_icon.png'"
+              (click)="openImage()"></ion-img>
           </ion-item>
           <p class="ion-no-margin ion-text-center profile_photo">PROFILE PHOTO</p>
           <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">

@@ -19,10 +19,11 @@ export class HomePage {
     public commonService: ApiCallService,
     public navCtrl: NavController,
     public router: Router,
-    private networkService: NetworkService) { }
+    private networkService: NetworkService) {
+      this.getattendeesList();
+    }
 
   ionViewWillEnter() {
-    this.getattendeesList();
     if (localStorage.registerPushNotification != 'true') {
       this.commonService.addDeviceToken();
     }

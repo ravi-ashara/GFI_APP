@@ -34,7 +34,7 @@
       <ion-item color="light" lines="none" class="setBorderbottom">
         <ion-avatar slot="start">
           <ion-img
-            [src]="data?.organization?.logo_url ? data?.organization?.logo_url : '../../../assets/images/profile_photo_icon.png'"
+            [src]="data?.image_url ? data?.image_url : '../../../assets/images/profile_photo_icon.png'"
             [alt]="data?.u_first_name" class="customIcon" (ionError)="errorImage($event)"></ion-img>
         </ion-avatar>
         <ion-label>{{data?.u_first_name}} {{data?.u_last_name}}
@@ -78,9 +78,9 @@
       <ion-label class="setFontSize">Companies</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab5" (click)="navigationTab('/tabs/tab5')">
+    <!-- <ion-tab-button tab="tab5" (click)="navigationTab('/tabs/tab5')">
       <ion-img src="assets/images/more_icon.png" class="setImagesSize"></ion-img>
       <ion-label class="setFontSize">More</ion-label>
-    </ion-tab-button>
+    </ion-tab-button> -->
   </ion-tab-bar>
 </ion-footer>

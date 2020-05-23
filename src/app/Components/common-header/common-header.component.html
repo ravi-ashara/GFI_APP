@@ -6,11 +6,11 @@
     <ion-title>{{name}}</ion-title>
     <ion-buttons slot="end">
       <ion-button fill="clear" (click)="gotoHome()"
-        *ngIf="name != 'Sponsor' && name != 'Contact Organizer' && name != 'Conference Book' && name != 'About App' && name != 'Acknowledgement' && name != 'Term Of Service' && name != 'Privacy Policy' && name != 'Event Privacy Policy'">
+        *ngIf="name != 'About App' && name != 'Acknowledgement' && name != 'Term Of Service' && name != 'Privacy Policy' && name != 'Event Privacy Policy'">
         <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
       </ion-button>
       <ion-button fill="clear" (click)="gotoMore()"
-        *ngIf="name == 'Sponsor' || name == 'Contact Organizer' || name == 'Conference Book' || name == 'About App' || name == 'Acknowledgement' || name == 'Term Of Service' || name == 'Privacy Policy' || name == 'Event Privacy Policy'">
+        *ngIf="name == 'About App' || name == 'Acknowledgement' || name == 'Term Of Service' || name == 'Privacy Policy' || name == 'Event Privacy Policy'">
         <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
       </ion-button>
     </ion-buttons>

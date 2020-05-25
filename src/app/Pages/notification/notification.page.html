@@ -4,14 +4,14 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-card class="notificationList">
+  <ion-card class="notificationList" *ngFor="let item of notificationData">
     <ion-item-sliding>
       <ion-item-options side="end">
-        <ion-item-option (click)="deleteNotification('')">
+        <ion-item-option (click)="deleteNotification(item)">
           <ion-icon name="close" slot="top" size="large"></ion-icon>
           Delete
         </ion-item-option>
-        <ion-item-option (click)="replyNotification()">
+        <ion-item-option (click)="replyNotification(item)">
           <ion-icon slot="top" src="assets/icon/arrow-undo-sharp.svg" size="large"></ion-icon>
           Reply
         </ion-item-option>
@@ -20,32 +20,15 @@
         <ion-avatar slot="start">
           <img src="../../../assets/images/profile_photo_icon.png">
         </ion-avatar>
-        <ion-label>David Lee<span class="setSmallSizeFont"> Sent you a message</span>
-          <p>4 min ago</p>
+        <ion-label>{{item?.value}}
+          <p>{{item?.date}}</p>
         </ion-label>
       </ion-item>
     </ion-item-sliding>
   </ion-card>
-  <ion-card class="notificationList">
-    <ion-item-sliding>
-      <ion-item-options side="end">
-        <ion-item-option (click)="deleteNotification('')">
-          <ion-icon name="close" slot="top" size="large"></ion-icon>
-          Delete
-        </ion-item-option>
-        <ion-item-option (click)="replyNotification()">
-          <ion-icon slot="top" src="assets/icon/arrow-undo-sharp.svg" size="large"></ion-icon>
-          Reply
-        </ion-item-option>
-      </ion-item-options>
-      <ion-item lines="none">
-        <ion-avatar slot="start">
-          <img src="../../../assets/images/profile_photo_icon.png">
-        </ion-avatar>
-        <ion-label>David Lee<span class="setSmallSizeFont"> Sent you a message</span>
-          <p>4 min ago</p>
-        </ion-label>
-      </ion-item>
-    </ion-item-sliding>
+  <ion-card class="notificationList" *ngIf="notificationData?.length == 0">
+    <ion-item lines="none">
+      <ion-label class="ion-text-center"> No data found.</ion-label>
+    </ion-item>
   </ion-card>
 </ion-content>

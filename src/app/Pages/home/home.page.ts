@@ -20,10 +20,11 @@ export class HomePage {
     public navCtrl: NavController,
     public router: Router,
     private networkService: NetworkService) {
-      this.getattendeesList();
-    }
+    this.getattendeesList();
+  }
 
   ionViewWillEnter() {
+    this.commonService.notificationCount();
     if (localStorage.registerPushNotification != 'true') {
       this.commonService.addDeviceToken();
     }
@@ -112,6 +113,6 @@ export class HomePage {
     this.getattendeesList();
     setTimeout(() => {
       val.target.complete();
-    },2000);
+    }, 2000);
   }
 }

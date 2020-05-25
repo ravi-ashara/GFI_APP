@@ -67,6 +67,7 @@ export class MyProfilePage {
   }
 
   ionViewWillEnter() {
+    this.commonService.notificationCount();
     this.organizationForm.patchValue(this.userData.organization);
     this.registerForm.patchValue(this.userData);
   }

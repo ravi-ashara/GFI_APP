@@ -400,4 +400,30 @@ export class ApiCallService {
     this.hideLoader();
     this.showAlert('', 'Error form server side', 'Ok', () => { });
   }
+
+  notificationCount() {
+    const passData = {
+      user_id: localStorage.userId
+    }
+    this.hitAPICall('post', 'push-notification/count', passData).subscribe((response: any) => {
+      if (response.status == "success") {
+        localStorage.notificationCount = response.data.push_cnt;
+        this.commonUpdateUserDataEve();
+      } else {
+        localStorage.notificationCount = 0;
+      }
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  readNotification(val: any) {
+    this.hitAPICall('post', 'push-notification/read-status', val).subscribe((response: any) => {
+      if (response.status == "success") {
+        this.notificationCount();
+      }
+    }, error => {
+      console.log(error);
+    });
+  }
 }

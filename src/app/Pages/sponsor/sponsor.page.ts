@@ -19,6 +19,7 @@ export class SponsorPage {
     private modalCtrl: ModalController) { }
 
   ionViewWillEnter() {
+    this.commonService.notificationCount();
     this.showSponsors();
   }
 
@@ -69,6 +70,6 @@ export class SponsorPage {
     this.showSponsors();
     setTimeout(() => {
       val.target.complete();
-    },2000);
+    }, 2000);
   }
 }

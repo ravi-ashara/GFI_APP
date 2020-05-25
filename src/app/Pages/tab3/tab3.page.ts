@@ -22,6 +22,7 @@ export class Tab3Page {
     private popoverController: PopoverController) { }
 
   ionViewWillEnter() {
+    this.commonService.notificationCount();
     this.showSchedule();
   }
 

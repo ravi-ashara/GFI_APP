@@ -16,6 +16,7 @@ export class MeetingDetailsPage {
     private navParam: NavParams,
     public commonService: ApiCallService,
     private networkService: NetworkService) {
+    this.commonService.notificationCount();
     this.loginUserID = localStorage.userId;
     this.pageName = this.navParam.get('pageName');
     if (this.pageName == "MySchedule") {

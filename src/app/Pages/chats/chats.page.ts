@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { Router } from '@angular/router';
+import { FirebaseDBService } from '../../Services/firebase/firebase-db.service';
 
 @Component({
   selector: 'app-chats',
@@ -10,9 +11,12 @@ import { Router } from '@angular/router';
 export class ChatsPage {
   getuserData: any;
   input: any = "";
-  constructor(public apicall: ApiCallService, public router: Router) {
+  constructor(public apicall: ApiCallService,
+    public router: Router,
+    public firebase: FirebaseDBService) {
     if (this.router.getCurrentNavigation().extras.state) {
       this.getuserData = this.router.getCurrentNavigation().extras.state.itemData;
+      console.log(this.getuserData);
     }
   }
 
@@ -122,12 +126,14 @@ export class ChatsPage {
 
   send() {
     if (this.input != "") {
-      this.conversation.push({
-        text: this.input,
-        sender: true,
-        image: "assets/images/sg1.jpg",
-        type: 'outgoing',
-      });
+      let data = {
+        senderID: 'user_' + localStorage.userId,
+        receiverID: 'user_' + this.getuserData.userId,
+        messageText: this.input,
+        sendDate: Date(),
+        receiverImage: this.getuserData.img
+      };
+      this.firebase.sendMessage(data.senderID, this.firebase.setOneToOneChat(data.senderID, data.receiverID), data).then((response: any) => { });
       this.input = "";
       setTimeout(() => {
         this.scrollToBottom();

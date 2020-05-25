@@ -59,6 +59,7 @@ export class AppComponent {
       icon: 'power'
     }
   ];
+  public notificationCounterData: any = '';
   public userData: any = [];
   @ViewChild(IonRouterOutlet, { static: false }) routerOutlet: IonRouterOutlet;
   constructor(
@@ -90,13 +91,14 @@ export class AppComponent {
   }
 
   getDetails() {
+    this.notificationCounterData = localStorage.notificationCount;
     this.userData = this.commonService.getUserLoginData();
   }
 
   errorImage(val: any) {
     return val.target.src = "assets/images/profile_photo_icon.png";
   }
-  
+
   handleHardwareBackButton() {
     this.platform.backButton.subscribe((event: any) => {
       if (this.routerOutlet && this.routerOutlet.canGoBack()) {

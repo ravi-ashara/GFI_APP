@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { Router, NavigationExtras } from '@angular/router';
 import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
+import { FirebaseDBService } from '../../Services/firebase/firebase-db.service';
 
 @Component({
   selector: 'app-message-list',
@@ -9,11 +10,24 @@ import { NetworkService, ConnectionStatus } from '../../Services/network/network
   styleUrls: ['./message-list.page.scss'],
 })
 export class MessageListPage {
-
+  messageList: any = [];
   constructor(
     public commonService: ApiCallService,
     public router: Router,
-    private networkService: NetworkService) { }
+    private networkService: NetworkService,
+    public firebase: FirebaseDBService) { }
+
+  ionViewWillEnter() {
+    this.getChatsList();
+  }
+
+  getChatsList() {
+    let userID = 'user_' + localStorage.userId;
+    this.firebase.receivedUserList(userID).subscribe((response: any) => {
+      this.messageList = response.payload.doc;
+      console.log(this.messageList)
+    });
+  }
 
   gotoChatList(img: any, userName: any, userId: any) {
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
@@ -34,8 +48,9 @@ export class MessageListPage {
   }
 
   doRefresh(val: any) {
+    this.getChatsList();
     setTimeout(() => {
       val.target.complete();
-    }, 2000);
+    }, 1000);
   }
 }

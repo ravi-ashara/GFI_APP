@@ -33,6 +33,11 @@ import { NgCalendarModule } from 'ionic2-calendar';
 import { Base64 } from '@ionic-native/base64/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
+import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireDatabaseModule } from "@angular/fire/database";
+import { FirebaseDBService } from './Services/firebase/firebase-db.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +57,10 @@ import { Camera } from '@ionic-native/camera/ngx';
     PipesModule,
     NgCalendarModule,
     MeetingDetailsPageModule,
-    SponsorCompanyDetailsPageModule
+    SponsorCompanyDetailsPageModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireDatabaseModule,
   ],
   providers: [
     StatusBar,
@@ -60,6 +68,7 @@ import { Camera } from '@ionic-native/camera/ngx';
     ApiCallService,
     AuthService,
     NetworkService,
+    FirebaseDBService,
     Network,
     Push,
     Camera,

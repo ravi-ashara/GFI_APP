@@ -50,12 +50,8 @@ export class CreateMeetingPage {
   addParticipants(val: any) {
     this.selectedParticipants = [];
     setTimeout(() => {
-      let val_1 = val.target.shadowRoot.textContent.trim();
-      let val_2 = val_1.split(",");
-      for (let i = 0; i < val_2.length; i++) {
-        this.selectedParticipants.push(val_2[i].trimStart());
-      }
-      this.selectedParticipants.toString();
+      let val_1 = val.detail.value.map((item: any) => item.u_first_name + ' ' + item.u_last_name);
+      this.selectedParticipants = val_1.toString();
     }, 500);
   }
 
@@ -119,7 +115,7 @@ export class CreateMeetingPage {
           event_id: this.selectedEventData.event_id,
           meeting_date: moment(val.target.value).format('YYYY-MM-DD'),
           request_sender: this.modalData.u_id,
-          request_receivers: this.createMeetingForm.value.request_receivers
+          request_receivers: this.createMeetingForm.value.request_receivers.map((item: any) => item.u_id)
         }
 
         this.commonService.showLoader();
@@ -151,6 +147,7 @@ export class CreateMeetingPage {
     val.start_time = splitData[0];
     val.end_time = splitData[1];
     val.ent_id = val.event_id;
+    val.request_receivers = val.request_receivers.map((item: any) => item.u_id);
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
       try {
         this.commonService.showLoader();

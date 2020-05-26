@@ -27,7 +27,7 @@
             <ion-label position="stacked" mode="ios" mode="ios">Select Participants</ion-label>
             <ion-select okText="Okay" class="setBorder" cancelText="Dismiss" mode="ios" name="request_receivers"
               multiple="true" formControlName="request_receivers" (ionChange)="addParticipants($event)">
-              <ion-select-option *ngFor="let userList of userListByEvent?.data" [value]="userList?.u_id">
+              <ion-select-option *ngFor="let userList of userListByEvent?.data" [value]="userList">
                 {{userList?.u_first_name}} {{userList?.u_last_name}}</ion-select-option>
             </ion-select>
           </ion-item>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-notification',
@@ -60,7 +61,7 @@ export class NotificationPage {
     }
   }
 
-  replyNotification() {
+  replyNotification(val: any) {
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
       // try {
       //   this.commonService.showLoader();
@@ -80,8 +81,13 @@ export class NotificationPage {
   }
 
   doRefresh(val: any) {
+    this.showNotificationList();
     setTimeout(() => {
       val.target.complete();
     }, 2000);
+  }
+
+  showNotificationTime(val: any) {
+    return moment(val).fromNow();
   }
 }

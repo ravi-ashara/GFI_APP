@@ -21,6 +21,7 @@ export class CreateMeetingPage {
   public setMinDate: any;
   public selectedEventData: any;
   public userFreeSlots: any;
+  public pageName: string = '';
   constructor(
     private modalCtrl: ModalController,
     public navParam: NavParams,
@@ -28,8 +29,9 @@ export class CreateMeetingPage {
     public commonService: ApiCallService,
     private networkService: NetworkService) {
     this.modalData = this.navParam.get('value');
+    this.pageName = this.navParam.get('pageName');
     this.loginUserDetails = JSON.parse(localStorage.loginUserData);
-
+    console.log(this.modalData);
     this.createMeetingForm = this.formBuilder.group({
       event_id: ['', Validators.required],
       request_receivers: ['', Validators.required],
@@ -59,7 +61,7 @@ export class CreateMeetingPage {
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
       try {
         const passData = {
-          organization_id: this.modalData.organization_id
+          organization_id: this.pageName == "homePage" ? this.modalData.organization_id : this.pageName == "companiesPage" ? this.modalData.id : ''
         }
 
         this.commonService.showLoader();
@@ -86,7 +88,7 @@ export class CreateMeetingPage {
       try {
         const passData = {
           event_id: val.target.value,
-          organization_id: this.modalData.organization_id
+          organization_id: this.pageName == "homePage" ? this.modalData.organization_id : this.pageName == "companiesPage" ? this.modalData.id : ''
         }
 
         this.commonService.showLoader();
@@ -114,7 +116,7 @@ export class CreateMeetingPage {
         const passData = {
           event_id: this.selectedEventData.event_id,
           meeting_date: moment(val.target.value).format('YYYY-MM-DD'),
-          request_sender: this.modalData.u_id,
+          request_sender: this.pageName == "homePage" ? this.modalData.u_id : this.pageName == "companiesPage" ? this.modalData.id : '',
           request_receivers: this.createMeetingForm.value.request_receivers.map((item: any) => item.u_id)
         }
 

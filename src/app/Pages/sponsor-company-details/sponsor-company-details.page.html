@@ -28,14 +28,52 @@
           (ionError)="errorImage($event)" [alt]="modalData?.company_name"></ion-img>
       </ion-col>
       <ion-col size="12">
-        <h5>{{modalData?.company_name}}</h5>
-        <h6 class="ion-no-margin">{{modalData?.company_description}}</h6>
+        <h4>{{modalData?.company_name}}</h4>
+        <h5 class="ion-no-margin">{{modalData?.company_description}}</h5>
         <p>
-          Address: {{modalData?.address}}
+          <strong>Email: </strong> <a href="mailto:{{modalData?.emai}}">{{modalData?.email}}</a>
         </p>
         <p>
-          Mobile Number: {{modalData?.mobile}}
+          <strong>Field:</strong> {{modalData?.field}}
         </p>
+        <p>
+          <strong>Employee range:</strong> {{modalData?.employee_range}}
+        </p>
+        <p *ngIf="modalData?.investment_stage != null">
+          <strong> Investment Stage:</strong> {{modalData?.investment_stage}}
+        </p>
+        <p>
+          <strong>Funding Stage: </strong> {{modalData?.funding_stage}}
+        </p>
+        <p>
+          <strong>Product Stage:</strong> {{modalData?.product_stage}}
+        </p>
+        <p *ngIf="modalData?.min_investment != null">
+          <strong>Minimum Investment: </strong> {{modalData?.min_investment}}
+        </p>
+        <p *ngIf="modalData?.max_investment != null">
+          <strong> Maximum Investment:</strong> {{modalData?.max_investment}}
+        </p>
+        <p>
+          <strong>Address:</strong> {{modalData?.address}}
+        </p>
+        <p>
+          <strong> Mobile Number: </strong> {{modalData?.mobile}}
+        </p>
+        <p>
+          <strong> Website:</strong> <a href="{{modalData?.website}}" target="_self">{{modalData?.website}}</a>
+        </p>
+      </ion-col>
+      <ion-col size="12">
+        <!-- <p class="ion-text-center">
+          <ion-text color="primary">Employees</ion-text>
+        </p>
+        <ion-item color="light" lines="none" class="ion-no-padding" *ngFor="let userData of modalData?.users">
+          <ion-avatar slot="start" class="setIconImage">
+            <ion-img [src]="userData?.image_url" (ionError)="errorImage($event)"></ion-img>
+          </ion-avatar>
+          <ion-label>{{userData}}</ion-label>
+        </ion-item> -->
       </ion-col>
     </ion-row>
   </ion-card>

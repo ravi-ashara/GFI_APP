@@ -46,7 +46,7 @@
         {{data?.u_about_us}}
       </ion-card-content>
       <ion-item color="light" lines="none" class="setBordertop">
-        <ion-button size="small" slot="start" *ngIf="data?.u_headline">
+        <ion-button size="small" slot="start" *ngIf="data?.u_headline != null">
           {{data?.u_headline}}
         </ion-button>
         <ion-icon slot="end" name="add-circle-outline" color="medium" (click)="createnewList(data)"></ion-icon>

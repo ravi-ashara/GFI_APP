@@ -9,11 +9,9 @@
       <ion-card-header class="ion-no-padding companycardHeader">
         <ion-row>
           <ion-col size="4" (click)="openDetails(cmpnyData)">
-            <ion-avatar slot="start">
-              <ion-img class="setLogo"
-                [src]="cmpnyData?.logo_url ? cmpnyData?.logo_url : 'assets/images/company-placeholder.jpg'"
-                (ionError)="errorImage($event)" [alt]="cmpnyData?.company_name"></ion-img>
-            </ion-avatar>
+            <ion-img class="setLogo"
+              [src]="cmpnyData?.logo_url ? cmpnyData?.logo_url : './../assets/images/company-placeholder.jpg'"
+              (ionError)="errorImage($event)" [alt]="cmpnyData?.company_name"></ion-img>
           </ion-col>
           <ion-col size="8" class="ion-text-right">
             <ion-icon src="assets/icon/facebook_icon.svg" size="large" class="ion-padding-end"></ion-icon>
@@ -27,7 +25,7 @@
         <p class="ion-no-margin companyTitle" (click)="openDetails(cmpnyData)">
           <ion-text color="primary">{{cmpnyData?.company_name}}</ion-text>
         </p>
-        <p class="companyDescription">{{cmpnyData?.company_description}}</p>
+        <p class="companyDescription" (click)="openDetails(cmpnyData)">{{cmpnyData?.company_description}}</p>
       </ion-card-content>
       <ion-item color="light" lines="none" class="setBordertop companycardFooter">
         <ion-label class="ion-no-margin">
@@ -36,9 +34,6 @@
               <ion-badge color="primary" size="small">Investor</ion-badge>
             </span>
           </ion-text>
-          <!-- <p>
-            <ion-text color="medium" class="compnayDesc">Company CEO</ion-text>
-          </p> -->
         </ion-label>
         <ion-icon slot="end" name="add-circle-outline" color="medium" (click)="createnewList(cmpnyData)"></ion-icon>
         <ion-icon slot="end" src="assets/icon/chatbox-outline.svg" color="medium" (click)="gotoChatList(cmpnyData)">

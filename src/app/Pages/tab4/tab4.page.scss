@@ -31,21 +31,17 @@
         }
 
         .companycardFooter {
-            .setTopMargin {
-                margin-top: 8px;
+            .investor {
+                vertical-align: middle;
+            }
 
-                .investor {
-                    vertical-align: middle;
-                }
+            .compnayDesc {
+                font-size: 12px;
+            }
 
-                .compnayDesc {
-                    font-size: 12px;
-                }
-
-                .nameDesc {
-                    font-size: 14px;
-                    font-weight: 600;
-                }
+            .nameDesc {
+                font-size: 14px;
+                font-weight: 600;
             }
         }
 

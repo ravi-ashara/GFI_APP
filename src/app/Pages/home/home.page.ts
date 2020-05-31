@@ -78,7 +78,8 @@ export class HomePage {
       this.modalCtrl.create({
         component: CreateMeetingPage,
         componentProps: {
-          value: val
+          value: val,
+          pageName: 'homePage'
         }
       }).then((modal: any) => {
         modal.present();

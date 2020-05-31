@@ -3,6 +3,7 @@ import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
 import { ModalController } from '@ionic/angular';
 import { SponsorCompanyDetailsPage } from '../sponsor-company-details/sponsor-company-details.page';
+import { CreateMeetingPage } from '../create-meeting/create-meeting.page';
 
 @Component({
   selector: 'app-tab4',
@@ -42,7 +43,19 @@ export class Tab4Page {
   }
 
   createnewList(val: any) {
-    console.log(val);
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
+      this.modalCtrl.create({
+        component: CreateMeetingPage,
+        componentProps: {
+          value: val,
+          pageName: 'companiesPage'
+        }
+      }).then((modal: any) => {
+        modal.present();
+      });
+    } else {
+      this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
+    }
   }
 
   gotoChatList(val: any) {
@@ -54,8 +67,6 @@ export class Tab4Page {
   }
 
   openDetails(val: any) {
-    console.log(val);
-
     this.modalCtrl.create({
       component: SponsorCompanyDetailsPage,
       componentProps: {
@@ -66,6 +77,7 @@ export class Tab4Page {
       modal.present();
     });
   }
+
   doRefresh(val: any) {
     this.showCompanies();
     setTimeout(() => {

@@ -3,6 +3,7 @@ import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { environment } from '../../../environments/environment';
+import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-contact-organizer',
   templateUrl: './contact-organizer.page.html',
@@ -13,7 +14,8 @@ export class ContactOrganizerPage {
   public contactForm: FormGroup;
   constructor(public formBuilder: FormBuilder,
     private commonService: ApiCallService,
-    private networkService: NetworkService) {
+    private networkService: NetworkService,
+    private navCtrl: NavController) {
     this.userData = this.commonService.getUserLoginData();
     this.contactForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -23,8 +25,8 @@ export class ContactOrganizerPage {
       message: ['', Validators.required],
     });
   }
-  
-  ionViewWillEnter(){
+
+  ionViewWillEnter() {
     this.contactForm.get('name').setValue(this.userData.u_first_name + ' ' + this.userData.u_last_name);
     this.contactForm.get('email').setValue(this.userData.u_email);
   }
@@ -35,6 +37,12 @@ export class ContactOrganizerPage {
         this.commonService.showLoader();
         this.commonService.http.post(environment.baseURL + 'contact-us/save', val.value).subscribe((response: any) => {
           this.commonService.hideLoader();
+          if (response.status == "success") {
+            this.commonService.showToastWithDuration(response.msg,'top',3000);
+            this.navCtrl.navigateRoot(['/home']);
+          }else{
+            this.commonService.showToastWithDuration("Error form server side",'top',3000);
+          }
         }, error => {
           this.commonService.serverSideError();
         });

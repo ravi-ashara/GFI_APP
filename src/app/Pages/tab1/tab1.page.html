@@ -1,4 +1,15 @@
 <app-common-header name="Agenda"></app-common-header>
 <ion-content class="customBackground">
-
+    <ion-card color="light">
+        <ion-row class="ion-padding" *ngIf="agendaList?.length != 0">
+            <ion-col size="12" *ngFor="let data of agendaList">
+                <iframe [src]="data?.pdf_url" width="100%" height="500px"> </iframe>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="agendaList?.length == 0">
+            <ion-col size="12" class="ion-text-center">
+                <h5>No data found.</h5>
+            </ion-col>
+        </ion-row>
+    </ion-card>
 </ion-content>

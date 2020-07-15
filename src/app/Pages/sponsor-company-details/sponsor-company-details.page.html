@@ -24,7 +24,7 @@
   <ion-card color="light" *ngIf="pageName == 'Company'">
     <ion-row>
       <ion-col size="12">
-        <ion-img [src]="modalData?.logo_url ? modalData?.logo_url : 'assets/images/company-placeholder.jpg'"
+        <ion-img class="setSmallImg" [src]="modalData?.logo_url ? modalData?.logo_url : 'assets/images/company-placeholder.jpg'"
           (ionError)="errorImage($event)" [alt]="modalData?.company_name"></ion-img>
       </ion-col>
       <ion-col size="12">

@@ -1,22 +1,7 @@
-<ion-header mode="ios" class="customHeader">
-  <ion-toolbar color="secondary smallPadding" mode="ios">
-    <ion-buttons slot="start">
-      <ion-avatar class="ion-margin-start SetImagesSize" (click)="presentPopover()">
-        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-      </ion-avatar>
-    </ion-buttons>
-    <ion-title>Setting</ion-title>
-    <ion-buttons slot="end">
-      <ion-button routerLink="/home" routerDirection="root" fill="clear">
-        <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
+<app-common-header name="Setting"></app-common-header>
 <ion-content class="settingPage customBackground">
   <ion-card color="light" class="loginCard">
-    <ion-item class="ion-no-padding ion-text-center">
+    <!-- <ion-item class="ion-no-padding ion-text-center">
       <ion-label class="setTitle">PUSH NOTIFICATION</ion-label>
     </ion-item>
 
@@ -33,29 +18,29 @@
         <ion-label>From Upcomming Sessions</ion-label>
         <ion-toggle></ion-toggle>
       </ion-item>
-    </ion-list>
+    </ion-list> -->
 
-    <ion-item class="ion-margin-top ion-no-padding ion-text-center">
+    <ion-item class="ion-no-padding ion-text-center">
       <ion-label class="setTitle">HELP & FEEDBACK</ion-label>
     </ion-item>
     <ion-list>
-      <ion-item class="ion-no-padding ion-margin-horizontal" detail="true">
+      <!-- <ion-item class="ion-no-padding ion-margin-horizontal" detail="true" (click)="changePassword()">
+        <ion-label>Change Password </ion-label>
+      </ion-item> -->
+      <ion-item class="ion-no-padding ion-margin-horizontal" detail="true" [routerLink]="['/acknowledgement']">
         <ion-label>Acknowledgement </ion-label>
       </ion-item>
-      <ion-item class="ion-no-padding ion-margin-horizontal" detail="true">
+      <ion-item class="ion-no-padding ion-margin-horizontal" detail="true" [routerLink]="['/about']">
         <ion-label>About This App </ion-label>
       </ion-item>
-      <ion-item class="ion-no-padding ion-margin-horizontal" detail="true">
+      <ion-item class="ion-no-padding ion-margin-horizontal" detail="true" [routerLink]="['/term-of-service']">
         <ion-label>Term Of Service</ion-label>
       </ion-item>
-      <ion-item class="ion-no-padding ion-margin-horizontal" detail="true">
+      <ion-item class="ion-no-padding ion-margin-horizontal" detail="true" [routerLink]="['/privacy-policy']">
         <ion-label>Privacy And Data Processing Policy</ion-label>
       </ion-item>
-      <ion-item class="ion-no-padding ion-margin-horizontal" detail="true">
+      <ion-item class="ion-no-padding ion-margin-horizontal" detail="true" [routerLink]="['/event-privacy-policy']">
         <ion-label>Event Privacy Policy</ion-label>
-      </ion-item>
-      <ion-item class="ion-no-padding ion-margin-horizontal">
-        <ion-label>Refresh App Data</ion-label>
       </ion-item>
       <ion-item class="ion-no-padding ion-margin-horizontal" lines="none" (click)="logout()">
         <ion-label>Switch Event / Logout</ion-label>

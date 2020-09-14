@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "703559770185",
+    "firebase_url": "https://goformeet-60634.firebaseio.com",
+    "project_id": "goformeet-60634",
+    "storage_bucket": "goformeet-60634.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:703559770185:android:6db4baaa5b4120388c5f98",
+        "android_client_info": {
+          "package_name": "com.goisrael.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "703559770185-c7pqnpruf2p5ckh155n0fideavmebhbg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1FAFRv1CqI1kz1Ex9uTovNNGZL-9TGX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "703559770185-c7pqnpruf2p5ckh155n0fideavmebhbg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

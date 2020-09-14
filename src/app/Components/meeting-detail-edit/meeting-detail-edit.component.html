@@ -1,0 +1,17 @@
+<ion-row class="ion-padding">
+  <ion-col size="12">
+    <ion-label position="stacked" mode="ios">Meeting Details</ion-label>
+    <ion-textarea class="setBorder" name="meeting_details" rows="6" cols="20" [(ngModel)]="meetingDetails"
+      [value]="meetingDetails"></ion-textarea>
+  </ion-col>
+  <ion-col size="6" class="ion-text-center">
+    <ion-button fill="outline" shape="round" (click)="closePopup('')">
+      Cancel
+    </ion-button>
+  </ion-col>
+  <ion-col size="6" class="ion-text-center">
+    <ion-button fill="outline" shape="round" (click)="updateMeetingDetails()">
+      Submit
+    </ion-button>
+  </ion-col>
+</ion-row>

@@ -1,0 +1,27 @@
+.signupPage {
+    .setmargin {
+        margin-top: 8px;
+    }
+
+    .profile_photo {
+        font-size: 13.5px;
+        margin-top: 5px;
+    }
+
+    .propicImg {
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+        margin: 0 auto;
+    }
+
+    .setBorder {
+        border: 1px solid var(--ion-color-primary);
+        border-radius: 10px;
+        --padding-start: 10px;
+    }
+
+    .removeSpaces {
+        --inner-padding-end: 0px;
+    }
+}

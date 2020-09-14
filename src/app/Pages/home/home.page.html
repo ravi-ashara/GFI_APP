@@ -1,9 +1,7 @@
 <ion-header mode="ios" class="customHeader">
   <ion-toolbar color="secondary" class="smallPadding" mode="ios" *ngIf="!showSearch">
     <ion-buttons slot="start">
-      <ion-avatar class="ion-margin-start SetImagesSize" (click)="presentPopover()">
-        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-      </ion-avatar>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
       <img src="assets/images/agenda_logo.png" />
@@ -12,60 +10,51 @@
       <ion-button fill="clear" (click)="searchCompany()">
         <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
-      <ion-button fill="clear">
-        <ion-icon slot="icon-only" src="assets/icon/create-outline.svg"></ion-icon>
-      </ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-searchbar showCancelButton="focus" animated placeholder="Search companies" *ngIf="showSearch" (ionCancel)="searchCompany()" mode="ios"></ion-searchbar>
+  <ion-searchbar showCancelButton="always" spellcheck="true" animated placeholder="Search user" *ngIf="showSearch"
+    (ionCancel)="searchCompany()" mode="ios" [(ngModel)]="searchVal"></ion-searchbar>
 </ion-header>
 
 <ion-content class="customBackground homePage">
-  <ion-card color="light" class="companyCard">
-    <ion-item color="light" lines="none" class="setBorderbottom">
-      <ion-avatar slot="start">
-        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-      </ion-avatar>
-      <ion-label>My Profile
-        <p>@johndoe 49</p>
-      </ion-label>
-    </ion-item>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
-    <ion-card-content class="setcardContent ion-no-padding">
-      This is content, without any paragraph or header tags,
-      within an ion-card-content element.
-    </ion-card-content>
-    <ion-item color="light" lines="none" class="setBordertop">
-      <ion-button size="small" slot="start">
-        Entrepreneur
-      </ion-button>
-      <ion-icon slot="end" name="add-circle-outline" color="medium" (click)="deleteMeetingFunc()"></ion-icon>
-      <ion-icon slot="end" src="assets/icon/chatbox-outline.svg" color="medium" routerLink="/chat/1"></ion-icon>
-    </ion-item>
+  <div class="banner">
+    <img src="../../../assets/images/logoPage_allAttendees.png" alt="Banner" />
+  </div>
+  <ion-card class="ion-text-center" *ngIf="attendeesList?.length <= 0; else showattendeesList">
+    <h4>
+      <ion-text color="light">No data found</ion-text>
+    </h4>
   </ion-card>
+  <ng-template #showattendeesList>
+    <ion-card color="light" class="companyCard" *ngFor="let data of attendeesList | search:'u_first_name': searchVal">
+      <ion-item color="light" lines="none" class="setBorderbottom">
+        <ion-avatar slot="start">
+          <ion-img
+            [src]="data?.image_url ? data?.image_url : '../../../assets/images/profile_photo_icon.png'"
+            [alt]="data?.u_first_name" class="customIcon" (ionError)="errorImage($event)"></ion-img>
+        </ion-avatar>
+        <ion-label>{{data?.u_first_name}} {{data?.u_last_name}}
+          <p *ngIf="data?.organization !== null">{{data?.organization.company_name}}</p>
+        </ion-label>
+      </ion-item>
 
-  <ion-card color="light" class="companyCard">
-    <ion-item color="light" lines="none" class="setBorderbottom">
-      <ion-avatar slot="start">
-        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-      </ion-avatar>
-      <ion-label>My Profile
-        <p>@johndoe 49</p>
-      </ion-label>
-    </ion-item>
-
-    <ion-card-content class="setcardContent ion-no-padding">
-      This is content, without any paragraph or header tags,
-      within an ion-card-content element.
-    </ion-card-content>
-    <ion-item color="light" lines="none" class="setBordertop">
-      <ion-button size="small" slot="start" color="danger">
-        Investor
-      </ion-button>
-      <ion-icon slot="end" name="add-circle-outline" color="medium" (click)="deleteMeetingFunc()"></ion-icon>
-      <ion-icon slot="end" src="assets/icon/chatbox-outline.svg" color="medium" routerLink="/chat/2"></ion-icon>
-    </ion-item>
-  </ion-card>
+      <ion-card-content class="setcardContent ion-no-padding">
+        {{data?.u_about_us}}
+      </ion-card-content>
+      <ion-item color="light" lines="none" class="setBordertop">
+        <ion-button size="small" slot="start" *ngIf="data?.u_headline != null">
+          {{data?.u_headline}}
+        </ion-button>
+        <ion-icon slot="end" name="add-circle-outline" color="medium" (click)="createnewList(data)"></ion-icon>
+        <ion-icon slot="end" src="assets/icon/chatbox-outline.svg" color="medium" (click)="gotoChatList(data)">
+        </ion-icon>
+      </ion-item>
+    </ion-card>
+  </ng-template>
 </ion-content>
 <ion-footer>
   <ion-tab-bar slot="bottom" color="primary" class="customTabs">
@@ -89,9 +78,9 @@
       <ion-label class="setFontSize">Companies</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab5" (click)="navigationTab('/tabs/tab5')">
+    <!-- <ion-tab-button tab="tab5" (click)="navigationTab('/tabs/tab5')">
       <ion-img src="assets/images/more_icon.png" class="setImagesSize"></ion-img>
       <ion-label class="setFontSize">More</ion-label>
-    </ion-tab-button>
+    </ion-tab-button> -->
   </ion-tab-bar>
 </ion-footer>

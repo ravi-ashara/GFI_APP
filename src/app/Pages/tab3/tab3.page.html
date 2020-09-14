@@ -1,60 +1,146 @@
-<ion-header mode="ios" class="customHeader">
-  <ion-toolbar color="secondary" class="smallPadding" mode="ios">
-    <ion-buttons slot="start">
-      <ion-avatar class="ion-margin-start SetImagesSize" (click)="presentPopover()">
-        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-      </ion-avatar>
-    </ion-buttons>
-    <ion-title>My Schedule</ion-title>
-    <ion-buttons slot="end">
-      <ion-button routerLink="/home" routerDirection="root" fill="clear">
-        <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-common-header name="My Schedule"></app-common-header>
 
 <ion-content class="customBackground mySchedulePage">
-  <ion-row class="ion-no-padding">
-    <ion-col size="12" class="ion-no-padding">
-      <ion-item mode="md" color="light">
-        <p class="ion-padding-end">09:30</p>
-        <ion-label>Meeting 01
-          <p>Lorem ipsum dolor sit amet</p>
-        </ion-label>
-        <ion-icon color="medium" name="create" size="large"  mode="ios" class="smallPaddingRight"></ion-icon>
-        <ion-icon color="danger" name="close" size="large"></ion-icon>
-      </ion-item>
-    </ion-col>
-    <ion-col size="12" class="ion-no-padding">
-      <ion-item mode="md">
-        <p class="ion-padding-end">10:30</p>
-        <ion-label>Meeting 01
-          <p>Lorem ipsum dolor sit amet</p>
-        </ion-label>
-        <ion-icon color="medium" name="create" size="large"  mode="ios" class="smallPaddingRight"></ion-icon>
-        <ion-icon color="danger" name="close" size="large"></ion-icon>
-      </ion-item>
-    </ion-col>
-    <ion-col size="12" class="ion-no-padding">
-      <ion-item mode="md" color="light">
-        <p class="ion-padding-end">10:30</p>
-        <ion-label>Meeting 01
-          <p>Lorem ipsum dolor sit amet</p>
-        </ion-label>
-        <ion-icon color="medium" name="create" size="large"  mode="ios" class="smallPaddingRight"></ion-icon>
-        <ion-icon color="danger" name="close" size="large"></ion-icon>
-      </ion-item>
-    </ion-col>
-    <ion-col size="12" class="ion-no-padding">
-      <ion-item mode="md">
-        <p class="ion-padding-end">10:30</p>
-        <ion-label>Meeting 01
-          <p>Lorem ipsum dolor sit amet</p>
-        </ion-label>
-        <ion-icon color="medium" name="create" size="large"  mode="ios" class="smallPaddingRight"></ion-icon>
-        <ion-icon color="danger" name="close" size="large"></ion-icon>
-      </ion-item>
-    </ion-col>
-  </ion-row>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-segment mode="md" color="light" class="borderTopBottom" [(ngModel)]="segmentSelectedValue"
+    [value]="segmentSelectedValue" (ionChange)="changeSegment()">
+    <ion-segment-button value="Today" mode="md">
+      <ion-label>Today</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Upcoming" mode="md">
+      <ion-label>Upcoming</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Past" mode="md">
+      <ion-label>Past</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <div *ngIf="segmentSelectedValue == 'Today'">
+    <div *ngIf="getDataBySegmentSelected?.length != 0; else showNodataRow;">
+      <ion-card color="light" class="scheduleMeetingList"
+        *ngFor="let meetingData of getDataBySegmentSelected">
+        <ion-item lines="none" color="light">
+          <ion-avatar slot="start">
+            <ion-img
+            [src]="meetingData?.events?.event_logo ? 'http://goformeet.com/v2/goformeet/admin/public/uploads/events/'+ meetingData?.events?.event_id + '/'+meetingData?.events?.event_logo : 'assets/images/profile_photo_icon.png'"
+            (ionError)="errorImage($event)"></ion-img>
+          </ion-avatar>
+          <ion-label><span class="lableHeading">{{meetingData?.events?.event_title}}</span>
+            <p class="meetingFontSize12">{{meetingData?.meeting_detail}}</p>
+          </ion-label>
+          <ion-button slot="end" fill="clear" class="viewStatus moreButton" (click)="showOptions(meetingData)">
+            <ion-icon slot="icon-only" src="../../../assets/icon/ellipsis-horizontal-outline.svg"></ion-icon>
+          </ion-button>
+        </ion-item>
+        <!-- <div class="ion-no-margin displayRequestUsersListImgs">
+          <div class="smallImages">
+            <img src="../../../assets/images/sg1.jpg" />
+          </div>
+          <div class="smallImages">
+            <img src="../../../assets/images/sg1.jpg" class="smallImages" />
+          </div>
+          <div class="smallImages">
+            <img src="../../../assets/images/sg1.jpg" class="smallImages" />
+          </div>
+          <div class="smallImages">
+            <img src="../../../assets/images/sg1.jpg" class="smallImages" />
+          </div>
+          <div class="smallImages">
+            <img src="../../../assets/images/sg1.jpg" class="smallImages" />
+          </div>
+          <div class="moreCount">+6 More</div>
+        </div> -->
+        <ion-card-content class="customContent">
+          <ion-row class="ion-no-padding">
+            <ion-col size="4">
+              <p class="ion-no-margin meetingFontSize10"> Meeting Time</p>
+              <p class="ion-no-margin meetingFontSize12"> <strong> {{meetingData?.start_time}}</strong></p>
+            </ion-col>
+            <ion-col size="3" class="ion-text-center verticalCenter">
+              <ion-badge
+                [color]='meetingData?.meeting_status == "1" ? "success" : meetingData?.meeting_status == "2" ? "danger" : "warning"'>
+                {{meetingData?.meeting_status == "1" ? "Confirmed" : meetingData?.meeting_status == "2" ? "Cancelled" : "Pending"}}
+              </ion-badge>
+            </ion-col>
+            <ion-col size="5" class="ion-text-right">
+              <p class="ion-no-margin meetingFontSize12">{{meetingData?.request_sender?.u_first_name}}
+                {{meetingData?.request_sender?.u_last_name}}</p>
+              <p class="ion-no-margin meetingFontSize10"> {{meetingData?.request_sender.u_headline}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+  <div *ngIf="segmentSelectedValue == 'Upcoming' || segmentSelectedValue == 'Past' ">
+    <div *ngIf="getDataBySegmentSelected?.length != 0; else showNodataRow;">
+      <div *ngFor="let meetingDate of getDataBySegmentSelected">
+        <p class="ion-text-center">
+          <ion-text color="light">{{meetingDate[0]}}</ion-text>
+        </p>
+
+        <ion-card color="light" class="scheduleMeetingList" *ngFor="let meetingData of meetingDate[1]">
+          <ion-item lines="none" color="light">
+            <ion-avatar slot="start">
+              <ion-img
+                [src]="meetingData?.events?.event_logo ? 'http://goformeet.com/v2/goformeet/admin/public/uploads/events/'+ meetingData?.events?.event_id + '/'+meetingData?.events?.event_logo : 'assets/images/profile_photo_icon.png'"
+                (ionError)="errorImage($event)"></ion-img>
+            </ion-avatar>
+            <ion-label><span class="lableHeading">{{meetingData?.events?.event_title}}</span>
+              <p class="meetingFontSize12">{{meetingData?.meeting_detail}}</p>
+            </ion-label>
+            <ion-button slot="end" fill="clear" class="viewStatus moreButton" (click)="showOptions(meetingData)">
+              <ion-icon slot="icon-only" src="../../../assets/icon/ellipsis-horizontal-outline.svg"></ion-icon>
+            </ion-button>
+          </ion-item>
+          <!-- <div class="ion-no-margin displayRequestUsersListImgs">
+            <div class="smallImages">
+              <img src="../../../assets/images/sg1.jpg" />
+            </div>
+            <div class="smallImages">
+              <img src="../../../assets/images/sg1.jpg" class="smallImages" />
+            </div>
+            <div class="smallImages">
+              <img src="../../../assets/images/sg1.jpg" class="smallImages" />
+            </div>
+            <div class="smallImages">
+              <img src="../../../assets/images/sg1.jpg" class="smallImages" />
+            </div>
+            <div class="smallImages">
+              <img src="../../../assets/images/sg1.jpg" class="smallImages" />
+            </div>
+            <div class="moreCount">+6 More</div>
+          </div> -->
+          <ion-card-content class="customContent">
+            <ion-row class="ion-no-padding">
+              <ion-col size="4">
+                <p class="ion-no-margin meetingFontSize10"> Meeting Time</p>
+                <p class="ion-no-margin meetingFontSize12"> <strong> {{meetingData?.start_time}}</strong></p>
+              </ion-col>
+              <ion-col size="3" class="ion-text-center verticalCenter">
+                <ion-badge
+                  [color]='meetingData?.meeting_status == "1" ? "success" : meetingData?.meeting_status == "2" ? "danger" : "warning"'>
+                  {{meetingData?.meeting_status == "1" ? "Confirmed" : meetingData?.meeting_status == "2" ? "Cancelled" : "Pending"}}
+                </ion-badge>
+              </ion-col>
+              <ion-col size="5" class="ion-text-right">
+                <p class="ion-no-margin meetingFontSize12"> {{meetingData?.meeting_creatorName}}</p>
+                <p class="ion-no-margin meetingFontSize10"> {{meetingData?.meeting_creatorPosition}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+  <ng-template #showNodataRow>
+    <ion-row>
+      <ion-col size="12" class="ion-text-center">
+        <h4>
+          <ion-text color="light">No data found</ion-text>
+        </h4>
+      </ion-col>
+    </ion-row>
+  </ng-template>
 </ion-content>

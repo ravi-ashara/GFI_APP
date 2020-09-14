@@ -1,7 +1,7 @@
 import { ApiCallService } from './Services/api-call/api-call.service';
 import { Component, ViewChild } from '@angular/core';
 
-import { Platform, IonRouterOutlet } from '@ionic/angular';
+import { Platform, IonRouterOutlet, NavController, Events } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
@@ -12,15 +12,70 @@ import { Router } from '@angular/router';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  public appPages: any = [
+    {
+      title: 'Home',
+      url: '/home',
+      icon: 'home'
+    },
+    {
+      title: 'My Profile',
+      url: '/my-profile',
+      icon: 'person'
+    },
+    {
+      title: 'Sponsors',
+      url: '/sponsor',
+      src: '../assets/icon/ic_sponsors.svg'
+    },
+    {
+      title: 'Contact Organizer',
+      url: '/contact-organizer',
+      src: '../assets/icon/ic_contact_organizer.svg'
+    },
+    // {
+    //   title: 'Conference Guide',
+    //   url: '/conference-guide',
+    //   src: '../assets/icon/ic_conference_guide.svg'
+    // },
+    {
+      title: 'Setting',
+      url: '/settings',
+      icon: 'settings'
+    },
+    {
+      title: 'Notification',
+      url: '/notification',
+      icon: 'notifications'
+    },
+    {
+      title: 'Messages',
+      url: '/message-list',
+      icon: 'chatbubbles'
+    },
+    {
+      title: 'Logout',
+      url: '/login',
+      icon: 'power'
+    }
+  ];
+  public notificationCounterData: any = '';
+  public userData: any = [];
   @ViewChild(IonRouterOutlet, { static: false }) routerOutlet: IonRouterOutlet;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public router: Router,
-    public alertModule: ApiCallService
+    public commonService: ApiCallService,
+    public navCtrl: NavController,
+    public event: Events
   ) {
     this.initializeApp();
+    this.event.unsubscribe('UpdateUserData');
+    this.event.subscribe('UpdateUserData', () => {
+      this.getDetails();
+    });
   }
 
   initializeApp() {
@@ -28,7 +83,20 @@ export class AppComponent {
       this.statusBar.styleLightContent();
       this.splashScreen.hide();
       this.handleHardwareBackButton();
+      this.commonService.pushNotifications();
     });
+    if (localStorage.token) {
+      this.getDetails();
+    }
+  }
+
+  getDetails() {
+    this.notificationCounterData = localStorage.notificationCount;
+    this.userData = this.commonService.getUserLoginData();
+  }
+
+  errorImage(val: any) {
+    return val.target.src = "assets/images/profile_photo_icon.png";
   }
 
   handleHardwareBackButton() {
@@ -39,7 +107,7 @@ export class AppComponent {
         navigator['app'].exitApp();
       } else {
         if (this.router.url === '/home') {
-          this.alertModule.showConfirm('Goisrael App ','Are you sure you want to exit ?', ['Cancel', 'Exit'], (res: any) => {
+          this.commonService.showConfirm('Goisrael App ', 'Are you sure you want to exit ?', ['Cancel', 'Exit'], (res: any) => {
             if (res === "Yes") {
               navigator['app'].exitApp();
             }
@@ -47,5 +115,13 @@ export class AppComponent {
         }
       }
     });
+  }
+
+  navigatePage(val: any) {
+    if (val.title == "Logout") {
+      this.commonService.afterLogout();
+    } else {
+      this.navCtrl.navigateForward([val.url]);
+    }
   }
 }

@@ -1,17 +1,77 @@
-<ion-header mode="ios" class="customHeader">
-  <ion-toolbar color="secondary" class="smallPadding" mode="ios">
-    <ion-buttons slot="start">
-      <ion-avatar class="ion-margin-start SetImagesSize" (click)="presentPopover()">
-        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-      </ion-avatar>
-    </ion-buttons>
-    <ion-title>Contact Organizer</ion-title>
-    <ion-buttons slot="end">
-      <ion-back-button text="" mode="md"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-common-header name="Contact Organizer"></app-common-header>
 
 <ion-content class="customBackground">
+    <ion-card color="light" class="contactOrganizerCard">
+        <ion-row class="ion-padding">
+            <ion-col size="12">
+                <form [formGroup]="contactForm">
+                    <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                        <ion-label position="stacked" mode="ios">NAME</ion-label>
+                        <ion-input type="text" name="name" class="setBorder" formControlName="name"
+                            placeholder="Enter NAME here" disabled="true">
+                        </ion-input>
+                    </ion-item>
 
+                    <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                        <ion-label position="stacked" mode="ios">EMAIL</ion-label>
+                        <ion-input type="email" name="email" mode="ios" class="setBorder" formControlName="email"
+                            placeholder="Enter EMAIL here" disabled="true">
+                        </ion-input>
+                    </ion-item>
+
+                    <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                        <ion-label position="stacked" mode="ios">PHONE <ion-text color="danger"> * </ion-text>
+                        </ion-label>
+                        <ion-input type="number" name="phone" class="setBorder" formControlName="phone"
+                            placeholder="Enter PHONE here">
+                        </ion-input>
+                    </ion-item>
+
+                    <div class="ion-margin-top ion-margin-left" *ngIf="!contactForm.controls.phone.valid
+                      &&(contactForm.controls.phone.dirty
+                      ||contactForm.controls.phone.touched)">
+                        <div *ngIf="contactForm.controls['phone'].errors['required']">
+                            <ion-text color="danger">PHONE is required.</ion-text>
+                        </div>
+                    </div>
+
+                    <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                        <ion-label position="stacked" mode="ios">SUBJECT <ion-text color="danger"> * </ion-text>
+                        </ion-label>
+                        <ion-input type="url" name="subject" class="setBorder" formControlName="subject"
+                            placeholder="Enter SUBJECT here">
+                        </ion-input>
+                    </ion-item>
+                    <div class="ion-margin-top ion-margin-left" *ngIf="!contactForm.controls.subject.valid
+                    &&(contactForm.controls.subject.dirty
+                    ||contactForm.controls.subject.touched)">
+                        <div *ngIf="contactForm.controls['subject'].errors['required']">
+                            <ion-text color="danger">SUBJECT is required.</ion-text>
+                        </div>
+                    </div>
+
+                    <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+                        <ion-label position="stacked" mode="ios">DESCRIPTION <ion-text color="danger"> * </ion-text>
+                        </ion-label>
+                        <ion-textarea rows="6" cols="20" class="setBorder" placeholder="Enter DESCRIPTION here"
+                            name="message" formControlName="message"></ion-textarea>
+                    </ion-item>
+
+                    <div class="ion-margin-top ion-margin-left" *ngIf="!contactForm.controls.message.valid
+                      &&(contactForm.controls.message.dirty
+                      ||contactForm.controls.message.touched)">
+                        <div *ngIf="contactForm.controls['message'].errors['required']">
+                            <ion-text color="danger">DESCRIPTION is required.</ion-text>
+                        </div>
+                    </div>
+                </form>
+            </ion-col>
+            <ion-col size="12" class="ion-padding-top">
+                <ion-button type="submit" color="primary" shape="round" expand="block" mode="ios"
+                    [disabled]="!contactForm.valid" (click)="submitForm(contactForm)">
+                    Submit
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-card>
 </ion-content>

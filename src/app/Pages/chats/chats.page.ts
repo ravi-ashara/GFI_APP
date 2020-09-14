@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
+import { Router } from '@angular/router';
+import { FirebaseDBService } from '../../Services/firebase/firebase-db.service';
 
 @Component({
   selector: 'app-chats',
@@ -7,20 +9,21 @@ import { ApiCallService } from '../../Services/api-call/api-call.service';
   styleUrls: ['./chats.page.scss'],
 })
 export class ChatsPage {
-
-  constructor(public apicall: ApiCallService) {
+  getuserData: any;
+  input: any = "";
+  constructor(public apicall: ApiCallService,
+    public router: Router,
+    public firebase: FirebaseDBService) {
+    if (this.router.getCurrentNavigation().extras.state) {
+      this.getuserData = this.router.getCurrentNavigation().extras.state.itemData;
+      console.log(this.getuserData);
+    }
   }
 
   ionViewWillEnter() {
     setTimeout(() => {
       this.scrollToBottom();
-    }, 500);
-  }
-
-  presentPopover() {
-    this.apicall.showPopover().then((val: any) => {
-      console.log(val);
-    });
+    }, 200);
   }
 
   conversation = [
@@ -119,25 +122,26 @@ export class ChatsPage {
       type: 'incoming'
     }
   ];
-  input = "";
+
 
   send() {
     if (this.input != "") {
-      this.conversation.push({
-        text: this.input,
-        sender: true,
-        image: "assets/images/sg1.jpg",
-        type: 'outgoing',
-      });
+      let data = {
+        senderID: 'user_' + localStorage.userId,
+        receiverID: 'user_' + this.getuserData.userId,
+        messageText: this.input,
+        sendDate: Date(),
+        receiverImage: this.getuserData.img
+      };
+      this.firebase.sendMessage(data.senderID, this.firebase.setOneToOneChat(data.senderID, data.receiverID), data).then((response: any) => { });
       this.input = "";
       setTimeout(() => {
         this.scrollToBottom();
-      }, 100);
+      }, 300);
     }
   }
 
   scrollToBottom() {
-    console.log('sd');
     let content = document.getElementById("chat-container");
     let parent = document.getElementById("chat-parent");
     let scrollOptions = {
@@ -153,5 +157,11 @@ export class ChatsPage {
       incoming: messageType === 'incoming',
       outgoing: messageType === 'outgoing',
     };
+  }
+
+  doRefresh(val: any) {
+    setTimeout(() => {
+      val.target.complete();
+    }, 2000);
   }
 }

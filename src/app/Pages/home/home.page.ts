@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
-import { NavController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
+import { NavigationExtras, Router } from '@angular/router';
+import { CreateMeetingPage } from '../create-meeting/create-meeting.page';
+import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
 
 @Component({
   selector: 'app-home',
@@ -9,25 +12,108 @@ import { NavController } from '@ionic/angular';
 })
 export class HomePage {
   showSearch: boolean = false;
-  constructor(public apicall: ApiCallService, public navCtrl: NavController) { }
+  attendeesList: any = [];
+  searchVal: any = "";
+  constructor(
+    private modalCtrl: ModalController,
+    public commonService: ApiCallService,
+    public navCtrl: NavController,
+    public router: Router,
+    private networkService: NetworkService) {
+    this.getattendeesList();
+  }
+
+  ionViewWillEnter() {
+    this.commonService.notificationCount();
+    if (localStorage.registerPushNotification != 'true') {
+      this.commonService.addDeviceToken();
+    }
+  }
+
+  getattendeesList() {
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
+      try {
+        const passData = {
+          user_id: localStorage.userId
+        }
+        this.commonService.showLoader();
+        this.commonService.hitAPICall('post', 'user/attendees-list', passData).subscribe((response: any) => {
+          this.commonService.hideLoader();
+          if (response.status == "error") {
+            this.commonService.showAlert('Error', response.message, 'Ok', () => { });
+            localStorage.isLogin = false;
+            localStorage.removeItem('token');
+            localStorage.removeItem('loginUserData');
+            localStorage.removeItem('userId');
+            this.navCtrl.navigateRoot(['/login']);
+          } else {
+            this.attendeesList = response.data ? response.data : [];
+          }
+        }, error => {
+          localStorage.isLogin = false;
+          localStorage.removeItem('token');
+          localStorage.removeItem('loginUserData');
+          localStorage.removeItem('userId');
+          this.navCtrl.navigateRoot(['/login']);
+          this.commonService.serverSideError();
+        });
+      } catch (error) {
+        this.commonService.serverSideError();
+      }
+    } else {
+      this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
+    }
+  }
 
   searchCompany() {
     this.showSearch = !this.showSearch;
-  }
-
-  presentPopover() {
-    this.apicall.showPopover().then((val: any) => {
-      console.log(val);
-    });
   }
 
   navigationTab(val: string) {
     this.navCtrl.navigateForward([val]);
   }
 
-  deleteMeetingFunc() {
-    this.apicall.deleteMeeting('', (callBack: any) => {
-      console.log(callBack);
-    })
+  createnewList(val: any) {
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
+      this.modalCtrl.create({
+        component: CreateMeetingPage,
+        componentProps: {
+          value: val,
+          pageName: 'homePage'
+        }
+      }).then((modal: any) => {
+        modal.present();
+      });
+    } else {
+      this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
+    }
+  }
+
+  gotoChatList(val: any) {
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
+      const navigationExtras: NavigationExtras = {
+        state: {
+          itemData: {
+            img: '../../../assets/images/sg1.jpg',
+            userName: 'Jeff',
+            userId: '1'
+          },
+        }
+      };
+      this.router.navigate(['chat'], navigationExtras);
+    } else {
+      this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
+    }
+  }
+
+  errorImage(val: any) {
+    return val.target.src = "assets/images/profile_photo_icon.png";
+  }
+
+  doRefresh(val: any) {
+    this.getattendeesList();
+    setTimeout(() => {
+      val.target.complete();
+    }, 2000);
   }
 }

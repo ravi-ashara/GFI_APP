@@ -1,0 +1,11 @@
+.createMeetingPage {
+    .setBorder {
+        border: 1px solid var(--ion-color-primary);
+        border-radius: 10px;
+        --padding-start: 10px;
+    }
+
+    .removeSpaces {
+        --inner-padding-end: 0px;
+    }
+}

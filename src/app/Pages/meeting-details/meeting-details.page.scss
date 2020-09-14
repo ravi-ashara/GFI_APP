@@ -1,0 +1,40 @@
+.meetingDetailsPage {
+    .meetingTitle {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .meetingDetails {
+        font-size: 16px;
+    }
+
+    .iconFontSize {
+        font-size: 20px;
+        vertical-align: sub;
+    }
+
+    .labelFontSize {
+        font-size: 16px;
+    }
+
+    .setBorderBottom {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 8px;
+    }
+
+    .showParticipantsLength {
+        font-weight: 600;
+        color: #696868;
+    }
+
+    .setIconImage {
+        width: 26px;
+        height: 25px;
+    }
+
+    .setSmallPadding {
+        --padding-start: 10px;
+        --padding-end: 10px;
+    }
+}

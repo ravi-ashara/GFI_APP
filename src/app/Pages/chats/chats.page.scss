@@ -283,7 +283,13 @@ ion-content {
     padding-bottom: 0;
 }
 
-
+.customHeader {
+    .SetImagesSize {
+        width: 40px;
+        height: 40px;
+        border: 2px solid var(--ion-color-light);
+    }
+}
 
 
 

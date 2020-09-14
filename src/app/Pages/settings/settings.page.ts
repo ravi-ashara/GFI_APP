@@ -1,5 +1,7 @@
-import { ApiCallService } from './../../Services/api-call/api-call.service';
 import { Component } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
+import { ApiCallService } from '../../Services/api-call/api-call.service';
+import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
 
 @Component({
   selector: 'app-settings',
@@ -8,15 +10,25 @@ import { Component } from '@angular/core';
 })
 export class SettingsPage {
 
-  constructor(public apicall: ApiCallService) { }
+  constructor(public commonService: ApiCallService,
+    private networkService: NetworkService,
+    private router: Router) { }
 
-  presentPopover() {
-    this.apicall.showPopover().then((val: any) => {
-      console.log(val);
-    });
+  changePassword() {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        pageName: 'setPassword',
+      }
+    };
+    this.router.navigate(['set-password'], navigationExtras);
   }
 
   logout() {
-    this.apicall.callLogout();
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
+      this.commonService.afterLogout();
+    }
+    else {
+      this.commonService.showToastWithDuration('You are Offline', 'top', 3000);
+    }
   }
 }

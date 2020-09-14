@@ -1,57 +1,58 @@
-<ion-content class="loginPage">
-    <ion-card color="light" class="loginCard">
-      <ion-row class="ion-padding">
-        <ion-col size="12" class="ion-text-center">
-          <h4><strong>Sing In</strong></h4>
-        </ion-col>
-        <ion-col size="12">
-          <form [formGroup]="loginForm">
-              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-                <ion-label position="stacked" mode="ios">Your E-mail</ion-label>
-                <ion-input type="email" name="email" mode="ios" class="setBorder" formControlName="email">
-                </ion-input>
-              </ion-item>
-              <div
-                *ngIf="!loginForm.controls['email'].valid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">
-                <div class="ion-margin-left" *ngIf="loginForm.controls['email'].hasError('email')">
-                  <ion-text color="danger">Enter valid email</ion-text>
-                </div>
-              </div>
-              <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
-                <ion-label position="stacked" mode="ios">Password</ion-label>
-                <ion-input type="password" name="password" mode="ios" class="setBorder" formControlName="password">
-                </ion-input>
-              </ion-item>
-              <div
-                *ngIf="!loginForm.controls['password'].valid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
-                <div class="ion-margin-left" *ngIf="loginForm.controls['password'].hasError('required')">
-                  <ion-text color="danger">Password is required</ion-text>
-                </div>
-                <div class="ion-margin-left" *ngIf="loginForm.controls['password'].hasError('minlength')">
-                  <ion-text color="danger">Enter password at least 6 character</ion-text>
-                </div>
-              </div>
-          </form>
-        </ion-col>
-        <ion-col size="6" class="ion-text-left">
-          <ion-text><input type="checkbox" name="staySingIng" #checkstaySingIng /> Stay signed in</ion-text>
-        </ion-col>
-        <ion-col size="6" class="ion-text-right">
-          <ion-text>Forgot your password?</ion-text>
-        </ion-col>
-        <ion-col size="12" class="ion-padding-top">
-          <ion-button type="submit" color="primary" shape="round" expand="block" mode="ios" [disabled]="!loginForm.valid"
-            (click)="submitForm(loginForm)">
-            Sign In
-          </ion-button>
-        </ion-col>
-  
-        <ion-col size="12" class="ion-padding-top ion-padding-bottom ion-text-center">
-          OR
-        </ion-col>
-        <ion-col size="8" offset="2">
-          <ion-button color="medium" shape="round" expand="block" mode="ios" routerLink="/create-profile-intro"> Sign Up </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-card>
-  </ion-content>
+<ion-content class="loginPage customBackground">
+  <ion-card color="light" class="loginCard">
+    <ion-row class="ion-padding">
+      <ion-col size="12" class="ion-text-center">
+        <img src="assets/images/logo.png" alt="logo" class="setLogo" />
+      </ion-col>
+      <ion-col size="12">
+        <form [formGroup]="loginForm">
+          <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+            <ion-label position="stacked" mode="ios">EMAIL</ion-label>
+            <ion-input type="email" name="u_email" mode="ios" class="setBorder" formControlName="u_email">
+            </ion-input>
+          </ion-item>
+          <div
+            *ngIf="!loginForm.controls['u_email'].valid && (loginForm.controls['u_email'].dirty || loginForm.controls['u_email'].touched)">
+            <div class="ion-margin-left" *ngIf="loginForm.controls['u_email'].hasError('email')">
+              <ion-text color="danger">Enter valid EMAIL</ion-text>
+            </div>
+          </div>
+          <ion-item color="light" lines="none" class="ion-no-padding removeSpaces" mode="ios">
+            <ion-label position="stacked" mode="ios">PASSWORD</ion-label>
+            <ion-input type="password" name="u_password" mode="ios" class="setBorder" formControlName="u_password">
+            </ion-input>
+          </ion-item>
+          <div
+            *ngIf="!loginForm.controls['u_password'].valid && (loginForm.controls['u_password'].dirty || loginForm.controls['u_password'].touched)">
+            <div class="ion-margin-left" *ngIf="loginForm.controls['u_password'].hasError('required')">
+              <ion-text color="danger">PASSWORD is required</ion-text>
+            </div>
+            <div class="ion-margin-left" *ngIf="loginForm.controls['u_password'].hasError('minlength')">
+              <ion-text color="danger">Enter PASSWORD at least 6 character</ion-text>
+            </div>
+          </div>
+        </form>
+      </ion-col>
+      <ion-col size="6" class="ion-text-left">
+        <ion-text><input type="checkbox" name="staySingIng" #checkstaySingIng /> Stay signed in</ion-text>
+      </ion-col>
+      <ion-col size="6" class="ion-text-right" routerLink="/forgot-password">
+        <ion-text>Forgot your password?</ion-text>
+      </ion-col>
+      <ion-col size="12" class="ion-padding-top">
+        <ion-button type="submit" color="primary" shape="round" expand="block" mode="ios" [disabled]="!loginForm.valid"
+          (click)="submitForm(loginForm)">
+          Sign In
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="12" class="ion-text-center">
+        OR
+      </ion-col>
+      <ion-col size="8" offset="2">
+        <ion-button color="medium" shape="round" expand="block" mode="ios" routerLink="/register"> Sign Up
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>

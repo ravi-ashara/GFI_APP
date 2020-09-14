@@ -1,5 +1,4 @@
 .createProfilePage {
-    --background: url(../../../assets/images/background_login.png) 0 0/100% 100% no-repeat;
     $color-default: #bdc3c7;
     $step-size: 30px;
     $steps: 20;
@@ -71,13 +70,21 @@
     }
 
     .radioCol {
+
         .list-md,
         .list-ios {
             background: transparent;
         }
 
+        .company_Investor {
+            width: 40%;
+        }
+
+        .company_Israeli {
+            width: 60%;
+        }
+
         .inlineRadiogroup {
-            width: 50%;
             display: inline-block;
 
             .setFontsize {
@@ -91,15 +98,15 @@
     }
 
     .setBorder {
-        border: 1px solid #1d5b8f;
+        border: 1px solid var(--ion-color-primary);
         border-radius: 10px;
         --padding-start: 10px;
     }
-    
-    .setp2{
-        .setImageSize{
-            width: 50%;
-    display: inline-block;
+
+    .setp2 {
+        .setImageSize {
+            width: 30%;
+            display: inline-block;
         }
     }
 }

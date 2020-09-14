@@ -1,19 +1,15 @@
-<ion-header mode="ios" class="customHeader">
-  <ion-toolbar color="secondary" class="smallPadding" mode="ios">
-    <ion-buttons slot="start">
-      <ion-avatar class="ion-margin-start SetImagesSize" (click)="presentPopover()">
-        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-      </ion-avatar>
-    </ion-buttons>
-    <ion-title>Agenda</ion-title>
-    <ion-buttons slot="end">
-      <ion-button routerLink="/home" routerDirection="root" fill="clear">
-        <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
+<app-common-header name="Agenda"></app-common-header>
 <ion-content class="customBackground">
-
+    <ion-card color="light">
+        <ion-row class="ion-padding" *ngIf="agendaList?.length != 0">
+            <ion-col size="12" *ngFor="let data of agendaList">
+                <iframe [src]="data?.pdf_url" width="100%" height="500px"> </iframe>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="agendaList?.length == 0">
+            <ion-col size="12" class="ion-text-center">
+                <h5>No data found.</h5>
+            </ion-col>
+        </ion-row>
+    </ion-card>
 </ion-content>

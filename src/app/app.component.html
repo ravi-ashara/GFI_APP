@@ -1,3 +1,41 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu type="overlay" side="start" menuId="first" contentId="main" mode="ios" class="ionicMenu">
+    <ion-header mode="ios">
+      <ion-toolbar mode="ios" color="primary">
+        <ion-row>
+          <ion-col size="2">
+            <ion-avatar class="ion-margin-start SetImagesSize">
+              <ion-img [src]="userData?.image_url ? userData?.image_url : 'assets/images/profile_photo_white.png'"
+                (ionError)="errorImage($event)"></ion-img>
+            </ion-avatar>
+          </ion-col>
+          <ion-col size="10" class="ion-text-center">
+            <p>{{userData?.u_first_name}} {{userData?.u_last_name}}</p>
+            <!-- <p class="ion-no-margin">{{userData?.u_email}} </p> -->
+          </ion-col>
+        </ion-row>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list class="ion-no-padding">
+        <ion-menu-toggle mode="ios" menu="first" autoHide="false" *ngFor="let p of appPages">
+          <ion-item lines="none" (click)="navigatePage(p)" color="primary">
+            <ion-icon slot="start" [name]="p?.icon" *ngIf="p?.icon"></ion-icon>
+            <ion-icon slot="start" [src]="p?.src" *ngIf="p?.src" color="light"></ion-icon>
+            <ion-label>
+              {{p?.title}}
+              <ion-badge color="danger" class="setMiddle" *ngIf="p?.title == 'Notification'">
+                {{notificationCounterData? notificationCounterData : 0}}
+              </ion-badge>
+              <ion-badge color="danger" class="setMiddle" *ngIf="p?.title == 'Messages'">20</ion-badge>
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+    <ion-footer class="ion-padding-vertical ion-text-center" color="primary">
+      Version 1.0.0
+    </ion-footer>
+  </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>

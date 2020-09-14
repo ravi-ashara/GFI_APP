@@ -1,17 +1,22 @@
 .loginPage {
-  --background: url(../../../assets/images/background_login.png) 0 0/100% 100% no-repeat;
-
   .loginCard {
     top: 15%;
+
+    .setLogo {
+      width: 50%;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .setBorder {
+      border: 1px solid var(--ion-color-primary);
+      border-radius: 10px;
+      --padding-start: 10px;
+    }
+
+    .removeSpaces {
+      --inner-padding-end: 0px;
+    }
   }
 
-  .setBorder {
-    border: 1px solid #1d5b8f;
-    border-radius: 10px;
-    --padding-start: 10px;
-  }
-
-  .removeSpaces {
-    --inner-padding-end: 0px;
-  }
 }

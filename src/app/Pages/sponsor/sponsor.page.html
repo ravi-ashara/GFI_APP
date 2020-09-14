@@ -1,64 +1,36 @@
-<ion-header mode="ios" class="customHeader">
-  <ion-toolbar color="secondary" class="smallPadding" mode="ios">
-    <ion-buttons slot="start">
-      <ion-avatar class="ion-margin-start SetImagesSize" (click)="presentPopover()">
-        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-      </ion-avatar>
-    </ion-buttons>
-    <ion-title>Sponsor</ion-title>
-    <ion-buttons slot="end">
-      <ion-back-button text="" mode="md"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-common-header name="Sponsor"></app-common-header>
 
 <ion-content class="customBackground">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-segment [(ngModel)]="currentSponsorIndex" scrollable [value]="currentSponsorIndex" mode="md" color="light">
+    <ion-segment-button [value]="i" *ngFor="let sponsor of totalSponsor?.data;let i = index" mode="md" color="light"
+      (click)="selectedTab(i)">
+      <ion-label>{{sponsor?.c_name}}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
   <ion-card color="light" mode="md">
-    <div class="ion-text-center">
-      Gold Sponsors
+    <div *ngIf="totalSponsor?.data?.length !== 0; else showErrorMesage">
+      <div *ngIf="sposorDataValue?.sponsors?.length !== 0; else showErrorMesage">
+        <ion-row>
+          <ion-col size="6" class="ion-align-self-center ion-text-center ion-padding"
+            *ngFor="let data of sposorDataValue?.sponsors" (click)="openDetails(data)">
+            <ion-img [src]="data?.logo_path ? data?.logo_path : 'assets/images/company-placeholder.jpg'"
+              [alt]="data?.company_name" (ionError)="errorImage($event)"></ion-img>
+          </ion-col>
+        </ion-row>
+      </div>
     </div>
-  </ion-card>
-  <ion-card color="light" mode="md">
-    <div class="ion-text-center">
-      Silver Sponsors
-    </div>
-  </ion-card>
-  <ion-card color="light" mode="md">
-    <div class="ion-text-center">
-      Bronze Sponsors
-    </div>
-    <ion-row>
-      <ion-col size="6" class="ion-align-self-center">
-        <img src="http://148.66.142.108:8081/media/images/2019/09/09/Supplyme_without_background.png" />
-      </ion-col>
-      <ion-col size="6" class="ion-align-self-center">
-        <img src="http://148.66.142.108:8081/media/images/2019/09/10/Bemkomi_GSX5Jlo.png" />
-      </ion-col>
-    </ion-row>
-  </ion-card>
-  <ion-card color="light" mode="md">
-    <div class="ion-text-center">
-      Bronze Sponsors
-    </div>
-  </ion-card>
-  <ion-card color="light" mode="md">
-    <div class="ion-text-center">
-      Financial Supporters
-    </div>
-  </ion-card>
-  <ion-card color="light" mode="md">
-    <div class="ion-text-center">
-      Governmental Supporters
-    </div>
-  </ion-card>
-  <ion-card color="light" mode="md">
-    <div class="ion-text-center">
-      Cooperations
-    </div>
-  </ion-card>
-  <ion-card color="light" mode="md">
-    <div class="ion-text-center">
-      Media Coverage
-    </div>
+    <ng-template #showErrorMesage>
+      <ion-row>
+        <ion-col size="12" class="ion-align-self-center ion-text-center">
+          <h4 class="ion-no-margin">
+            No sponsors found.
+          </h4>
+        </ion-col>
+      </ion-row>
+    </ng-template>
   </ion-card>
 </ion-content>

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
-import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-my-profile',
@@ -21,8 +20,7 @@ export class MyProfilePage {
 
   constructor(public commonService: ApiCallService,
     public formBuilder: FormBuilder,
-    public networkService: NetworkService,
-    public navCtrl: NavController) {
+    public networkService: NetworkService) {
     this.userData = this.commonService.getUserLoginData();
     this.registerForm = this.formBuilder.group({
       u_first_name: ['', Validators.required],
@@ -99,7 +97,7 @@ export class MyProfilePage {
             localStorage.loginUserData = JSON.stringify(getData);
             this.commonService.commonUpdateUserDataEve();
             this.toggleEditProfile();
-            this.navCtrl.navigateRoot(['home']);
+            this.commonService.navigate_Root('home');
           }
         }, error => {
           this.commonService.serverSideError();
@@ -145,7 +143,7 @@ export class MyProfilePage {
             localStorage.loginUserData = JSON.stringify(getData);
             this.commonService.commonUpdateUserDataEve();
             this.toggleEditProfile();
-            this.navCtrl.navigateRoot(['home']);
+            this.commonService.navigate_Root('home');
           }
         }, error => {
           this.commonService.serverSideError();

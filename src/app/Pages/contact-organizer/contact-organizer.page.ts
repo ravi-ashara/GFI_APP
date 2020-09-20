@@ -3,7 +3,6 @@ import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { environment } from '../../../environments/environment';
-import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-contact-organizer',
   templateUrl: './contact-organizer.page.html',
@@ -14,8 +13,7 @@ export class ContactOrganizerPage {
   public contactForm: FormGroup;
   constructor(public formBuilder: FormBuilder,
     private commonService: ApiCallService,
-    private networkService: NetworkService,
-    private navCtrl: NavController) {
+    private networkService: NetworkService) {
     this.userData = this.commonService.getUserLoginData();
     this.contactForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -39,7 +37,7 @@ export class ContactOrganizerPage {
           this.commonService.hideLoader();
           if (response.status == "success") {
             this.commonService.showToastWithDuration(response.msg,'top',3000);
-            this.navCtrl.navigateRoot(['/home']);
+            this.commonService.navigate_Root('home');
           }else{
             this.commonService.showToastWithDuration("Error form server side",'top',3000);
           }

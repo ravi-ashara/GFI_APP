@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
-import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-common-header',
@@ -9,17 +8,17 @@ import { NavController } from '@ionic/angular';
 })
 export class CommonHeaderComponent {
   @Input() name: string;
-  constructor(public navCtrl: NavController) { }
+  constructor(public commonService: ApiCallService) { }
 
   gotoHome() {
-    this.navCtrl.navigateRoot(['home']);
+    this.commonService.navigate_Root('home');
   }
 
   gotoMore() {
     if (this.name == "About App" || this.name == "Acknowledgement" || this.name == "Term Of Service" || this.name == "Privacy Policy" || this.name == "Event Privacy Policy") {
-      this.navCtrl.navigateBack(['/settings']);
+      this.commonService.navigate_Back('settings');
       return false;
     }
-    this.navCtrl.navigateBack(['/tabs/tab5']);
+    this.commonService.navigate_Back('/tabs/tab5');
   }
 }

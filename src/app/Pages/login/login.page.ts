@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NavController } from '@ionic/angular';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { NavigationExtras, Router } from '@angular/router';
 import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
@@ -13,7 +12,6 @@ export class LoginPage {
   @ViewChild('checkstaySingIng', { static: false }) checkstaySingIng;
   public loginForm: FormGroup;
   constructor(public formBuilder: FormBuilder,
-    private navCtrl: NavController,
     public commonService: ApiCallService,
     private router: Router,
     private networkService: NetworkService) {
@@ -54,7 +52,7 @@ export class LoginPage {
               };
               this.router.navigate(['create-profile'], navigationExtras);
             } else {
-              this.navCtrl.navigateRoot(['/home']);
+              this.commonService.navigate_Root('home');
               localStorage.loginUserData = JSON.stringify(response.data);
               this.commonService.commonUpdateUserDataEve();
             }

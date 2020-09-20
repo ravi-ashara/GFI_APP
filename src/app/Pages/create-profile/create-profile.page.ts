@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { Router } from '@angular/router';
 import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
@@ -52,7 +51,6 @@ export class CreateProfilePage {
   }
 
   constructor(
-    private navCtrl: NavController,
     public commonService: ApiCallService,
     public router: Router,
     private networkService: NetworkService) {
@@ -98,7 +96,7 @@ export class CreateProfilePage {
           if (response.status === "success") {
             this.organizationList = response.data;
             localStorage.loginUserData = JSON.stringify(response.data);
-            this.navCtrl.navigateRoot(['/home']);
+            this.commonService.navigate_Root('home')
             this.commonService.commonUpdateUserDataEve();
           } else {
             this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });

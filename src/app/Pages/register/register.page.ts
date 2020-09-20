@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
-import { NavController } from '@ionic/angular';
 import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
 
 @Component({
@@ -15,7 +14,6 @@ export class RegisterPage {
   constructor(
     public formBuilder: FormBuilder,
     public commonService: ApiCallService,
-    public navCtrl: NavController,
     private networkService: NetworkService
   ) {
     this.registerForm = this.formBuilder.group({
@@ -33,7 +31,7 @@ export class RegisterPage {
   }
 
   submitForm(val: any) {
-  console.log(val.value);
+    console.log(val.value);
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
       // val.value.profile_pic = this.userImage;
       try {
@@ -49,7 +47,7 @@ export class RegisterPage {
             }
           } else {
             this.commonService.showAlert('', response.msg, 'Ok', () => {
-              this.navCtrl.navigateRoot(['/login']);
+              this.commonService.navigate_Root('login');
             });
           }
         }, (error) => {

@@ -426,4 +426,20 @@ export class ApiCallService {
       console.log(error);
     });
   }
+
+  navigate_Forward(urlLink: string) {
+    this.navCtrl.navigateForward(urlLink);
+  }
+
+  navigate_Root(urlLink: string) {
+    this.navCtrl.navigateRoot(urlLink);
+  }
+
+  navigate_Back(urlLink: string) {
+    this.navCtrl.navigateBack(urlLink);
+  }
+
+  goToBack() {
+
+  }
 }

@@ -23,33 +23,6 @@
       </div>
     </div>
   </div>
-
-  <!-- <ion-card color="light" id="chat-parent" class="bg-image">
-    <div id="chat-container">
-      <ion-row *ngFor="let conv of conversation; let i = index;" class="full ion-no-padding">
-        <ion-col class="no-padding chat-row" [ngClass]="{ 'reverse': conv?.sender}">
-          <div class="avatar-parent">
-            <div class="avatar-border"></div>
-            <img [src]="conv?.image" class="avatar">
-          </div>
-          <div [ngClass]="{ 'name-row-parent-right': conv?.sender,'name-row-parent-left': !conv?.sender}">
-            <div class="no-padding" [ngClass]="{ 'name-row-right': conv?.sender,'name-row-left': !conv?.sender}">
-              {{conv.sender ? 'Martha': 'Shawn'}}
-              <div [ngClass]="{ 'timer-right': conv?.sender,'timer-left': !conv?.sender}">{{i+5}} mins ago
-              </div>
-              <div [ngClass]="{ 'reverse-arc-right': conv?.sender,'reverse-arc-left': !conv?.sender}">
-                <div [ngClass]="{ 'reverse-arc-color-right': conv?.sender,'reverse-arc-color-left': !conv?.sender}">
-                </div>
-              </div>
-            </div>
-            <div classs="no-padding" [ngClass]="{ 'message-row-right': conv?.sender,'message-row-left': !conv?.sender}">
-              <span class="text ion-no-margin">{{conv?.text}}</span>
-            </div>
-          </div>
-        </ion-col>
-      </ion-row>
-    </div>
-  </ion-card> -->
 </ion-content>
 <ion-footer translucent>
   <ion-row class="input-position">

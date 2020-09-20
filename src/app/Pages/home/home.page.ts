@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
-import { NavController, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { NavigationExtras, Router } from '@angular/router';
 import { CreateMeetingPage } from '../create-meeting/create-meeting.page';
 import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
@@ -17,7 +17,6 @@ export class HomePage {
   constructor(
     private modalCtrl: ModalController,
     public commonService: ApiCallService,
-    public navCtrl: NavController,
     public router: Router,
     private networkService: NetworkService) {
     this.getattendeesList();
@@ -45,7 +44,7 @@ export class HomePage {
             localStorage.removeItem('token');
             localStorage.removeItem('loginUserData');
             localStorage.removeItem('userId');
-            this.navCtrl.navigateRoot(['/login']);
+            this.commonService.navigate_Root('login');
           } else {
             this.attendeesList = response.data ? response.data : [];
           }
@@ -54,7 +53,7 @@ export class HomePage {
           localStorage.removeItem('token');
           localStorage.removeItem('loginUserData');
           localStorage.removeItem('userId');
-          this.navCtrl.navigateRoot(['/login']);
+          this.commonService.navigate_Root('login');
           this.commonService.serverSideError();
         });
       } catch (error) {
@@ -70,7 +69,7 @@ export class HomePage {
   }
 
   navigationTab(val: string) {
-    this.navCtrl.navigateForward([val]);
+    this.commonService.navigate_Forward(val);
   }
 
   createnewList(val: any) {

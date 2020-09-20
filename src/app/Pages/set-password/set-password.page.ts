@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ApiCallService } from '../../Services/api-call/api-call.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { NetworkService, ConnectionStatus } from '../../Services/network/network.service';
 import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-set-password',
@@ -19,8 +18,7 @@ export class SetPasswordPage {
   constructor(public formBuilder: FormBuilder,
     public commonService: ApiCallService,
     private networkService: NetworkService,
-    public router: Router,
-    private navCtrl: NavController) {
+    public router: Router) {
     if (this.router.getCurrentNavigation().extras.state) {
       if (this.router.getCurrentNavigation().extras.state.pageName) {
         this.showOTP = this.router.getCurrentNavigation().extras.state.pageName === "forgotPassword" ? true : false;
@@ -71,7 +69,7 @@ export class SetPasswordPage {
   }
 
   backToPage() {
-    this.navCtrl.navigateBack(['settings']);
+    this.commonService.navigate_Back('settings');
   }
 
   submitForm(val: any) {
@@ -88,7 +86,7 @@ export class SetPasswordPage {
             if (this.showOldPassword) {
               this.backToPage();
             } else {
-              this.navCtrl.navigateRoot(['login']);
+              this.commonService.navigate_Root('login');
             }
           } else {
             this.commonService.showAlert('', 'Error form server side', 'Ok', () => { });

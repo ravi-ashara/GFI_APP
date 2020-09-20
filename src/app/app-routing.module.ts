@@ -27,11 +27,13 @@ const routes: Routes = [
   },
   {
     path: 'settings',
-    loadChildren: () => import('./Pages/settings/settings.module').then(m => m.SettingsPageModule)
+    loadChildren: () => import('./Pages/settings/settings.module').then(m => m.SettingsPageModule),
+    canActivate: [AuthService]
   },
   {
     path: 'notification',
-    loadChildren: () => import('./Pages/notification/notification.module').then(m => m.NotificationPageModule)
+    loadChildren: () => import('./Pages/notification/notification.module').then(m => m.NotificationPageModule),
+    canActivate: [AuthService]
   },
   {
     path: 'create-profile',
@@ -39,23 +41,28 @@ const routes: Routes = [
   },
   {
     path: 'message-list',
-    loadChildren: () => import('./Pages/message-list/message-list.module').then(m => m.MessageListPageModule)
+    loadChildren: () => import('./Pages/message-list/message-list.module').then(m => m.MessageListPageModule),
+    canActivate: [AuthService]
   },
   {
     path: 'chat',
-    loadChildren: () => import('./Pages/chats/chats.module').then(m => m.ChatsPageModule)
+    loadChildren: () => import('./Pages/chats/chats.module').then(m => m.ChatsPageModule),
+    canActivate: [AuthService]
   },
   {
     path: 'sponsor',
-    loadChildren: () => import('./Pages/sponsor/sponsor.module').then(m => m.SponsorPageModule)
+    loadChildren: () => import('./Pages/sponsor/sponsor.module').then(m => m.SponsorPageModule),
+    canActivate: [AuthService]
   },
   {
     path: 'contact-organizer',
-    loadChildren: () => import('./Pages/contact-organizer/contact-organizer.module').then(m => m.ContactOrganizerPageModule)
+    loadChildren: () => import('./Pages/contact-organizer/contact-organizer.module').then(m => m.ContactOrganizerPageModule),
+    canActivate: [AuthService]
   },
   {
     path: 'conference-guide',
-    loadChildren: () => import('./Pages/conference-book/conference-book.module').then(m => m.ConferenceBookPageModule)
+    loadChildren: () => import('./Pages/conference-book/conference-book.module').then(m => m.ConferenceBookPageModule),
+    canActivate: [AuthService]
   },
   {
     path: 'my-profile',
@@ -71,7 +78,8 @@ const routes: Routes = [
   },
   {
     path: 'acknowledgement',
-    loadChildren: () => import('./Pages/acknowledgement/acknowledgement.module').then(m => m.AcknowledgementPageModule)
+    loadChildren: () => import('./Pages/acknowledgement/acknowledgement.module').then(m => m.AcknowledgementPageModule),
+    canActivate: [AuthService]
   },
   {
     path: 'term-of-service',
@@ -88,13 +96,15 @@ const routes: Routes = [
   {
     path: 'forgot-password',
     loadChildren: () => import('./Pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordPageModule)
-  },  {
+  },
+  {
     path: 'set-password',
     loadChildren: () => import('./Pages/set-password/set-password.module').then( m => m.SetPasswordPageModule)
   },
   {
     path: 'sponsor-company-details',
-    loadChildren: () => import('./Pages/sponsor-company-details/sponsor-company-details.module').then( m => m.SponsorCompanyDetailsPageModule)
+    loadChildren: () => import('./Pages/sponsor-company-details/sponsor-company-details.module').then( m => m.SponsorCompanyDetailsPageModule),
+    canActivate: [AuthService]
   }
 
 ];

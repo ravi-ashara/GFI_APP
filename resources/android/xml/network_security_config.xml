@@ -3,5 +3,6 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain>localhost</domain>
         <domain>goformeet.com</domain>
+		<domain>phoenixtechinfo.com</domain>
     </domain-config>
 </network-security-config>

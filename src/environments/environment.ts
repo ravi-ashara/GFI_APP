@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   // baseURL: 'https://goformeet.com/v2/goformeet/admin/api/', //Deployed
-  baseURL: 'https://goformeet.com/v2/goformeetstaging/admin/api/', //Development
+  baseURL: 'http://phoenixtechinfo.com/goforbackend/public/index.php/api/', //Development
   firebaseConfig: {
     apiKey: "AIzaSyBq5Ca08Ws3Ov8DUpemXR0EKdX8AeRfFA8",
     authDomain: "goformeet-60634.firebaseapp.com",

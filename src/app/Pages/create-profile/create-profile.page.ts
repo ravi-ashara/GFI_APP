@@ -133,7 +133,7 @@ export class CreateProfilePage {
             }
           } else {
             localStorage.loginUserData = JSON.stringify(response.data);
-            this.navCtrl.navigateRoot(['/home']);
+            this.commonService.navigate_Root('home');
             this.commonService.commonUpdateUserDataEve();
           }
         }, error => {

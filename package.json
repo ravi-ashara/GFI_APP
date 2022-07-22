@@ -45,7 +45,7 @@
     "core-js": "^2.5.4",
     "firebase": "^7.8.2",
     "ionic2-calendar": "0.5.9",
-    "moment": "^2.29.2",
+    "moment": "^2.29.4",
     "phonegap-plugin-multidex": "1.0.0",
     "phonegap-plugin-push": "2.3.0",
     "rxjs": "~6.5.1",
